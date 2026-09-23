@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide des Voyants d'Avertissement du Tableau de Bord</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/learn.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body>
+
+  <div class="container">
+
+    <h1 class="page-title">Guide des Voyants d'Avertissement du Tableau de Bord</h1>
+    <p class="page-intro">
+      Comprendre les voyants d'avertissement du tableau de bord de votre voiture est crucial pour une conduite sûre. Ce guide couvre tous les voyants d'avertissement courants que vous pourriez rencontrer et leur signification.
+    </p>
+
+    <div class="color-guide">
+      <h2><i class="fas fa-palette"></i> Guide des Couleurs</h2>
+      <div class="guide-grid">
+        <div class="guide-item"><span class="guide-dot guide-red"></span> Critique — Arrêter Immédiatement</div>
+        <div class="guide-item"><span class="guide-dot guide-yellow"></span> Avertissement — Vérifier Bientôt</div>
+        <div class="guide-item"><span class="guide-dot guide-green"></span> Fonctionnement Normal</div>
+        <div class="guide-item"><span class="guide-dot guide-blue"></span> Information</div>
+      </div>
+    </div>
+
+    <div class="count-bar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Filter Warning Lights">
+      </div>
+    </div>
+
+    <div class="lights-grid" id="lightsGrid">
+
+      <!-- 1 -->
+      <article class="light-card" data-severity="critical" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/1.png" alt="Voyant d'Avertissement de Température du Moteur"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Voyant d'Avertissement de Température du Moteur</h3>
+        <p class="light-desc">Le voyant indicateur signifie que la température du moteur a dépassé les limites normales. Vérifiez le niveau de liquide de refroidissement, le fonctionnement du ventilateur, le bouchon du radiateur, les fuites de liquide de refroidissement.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Arrêtez le véhicule immédiatement et vérifiez le niveau de liquide de refroidissement
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="light-card" data-severity="critical" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/2.png" alt="Voyant d'Avertissement de Charge de Batterie"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Voyant d'Avertissement de Charge de Batterie</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le système de charge de la voiture manque de puissance ou ne charge pas correctement. Il indique normalement un problème avec la batterie elle-même ou l'alternateur.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez les connexions de la batterie et l'alternateur
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="light-card" data-severity="critical" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/3.png" alt="Voyant d'Avertissement de Pression d'Huile"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Voyant d'Avertissement de Pression d'Huile</h3>
+        <p class="light-desc">Le voyant indicateur signifie une perte de pression d'huile, ce qui signifie que la lubrification est faible ou complètement perdue. Vérifiez immédiatement le niveau et la pression d'huile.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Arrêtez immédiatement et vérifiez le niveau d'huile
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="light-card" data-severity="critical" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/4.png" alt="Voyant d'Avertissement de Frein"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Voyant d'Avertissement de Frein</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsque le frein à main est activé. S'il reste allumé en continu, cela signifie que la pression hydraulique a été perdue d'un côté du système de freinage ou que le niveau de liquide dans le cylindre principal est dangereusement bas (en raison d'une fuite quelque part dans le système de freinage).</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez le niveau de liquide de frein et le système de freinage
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/5.png" alt="Température de Transmission"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Température de Transmission</h3>
+        <p class="light-desc">Le voyant indicateur signifie que la température de transmission a dépassé les limites normales. Vérifiez le niveau de liquide de transmission et le système de refroidissement.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Arrêtez et laissez la transmission refroidir
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/6.png" alt="Voyant d'Avertissement de Pression des Pneus"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Voyant d'Avertissement de Pression des Pneus</h3>
+        <p class="light-desc">Le voyant indicateur signifie que la pression est faible dans l'un de vos pneus.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez et gonflez les pneus à la pression appropriée
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="light-card" data-severity="warning" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/7.png" alt="Contrôle de Traction Désactivé"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Contrôle de Traction Désactivé</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le système TCS (contrôle de traction) du véhicule a été désactivé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Réactivez le système de contrôle de traction
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/8.png" alt="Verrouillage du Volant"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Verrouillage du Volant</h3>
+        <p class="light-desc">Le voyant indicateur signifie que votre volant est verrouillé et ne peut pas être déplacé. Pour désactiver le verrouillage de direction, insérez la clé dans le contacteur et tournez-la au moins en première position tout en tournant le volant dans n'importe quelle direction.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Insérez la clé et tournez le volant
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="light-card" data-severity="warning" data-category="État du Véhicule">
+        <div class="light-icon"><img src="lights/9.png" alt="Avertissement d'Attelage de Remorque"></div>
+        <span class="light-category">État du Véhicule</span>
+        <h3 class="light-title">Avertissement d'Attelage de Remorque</h3>
+        <p class="light-desc">Les voyants indicateurs signifient que l'attelage n'est pas verrouillé ou qu'il y a un problème avec le système d'éclairage.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez la connexion d'attelage et les feux de remorque
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="light-card" data-severity="normal" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/10.png" alt="Voyant de Contrôle de Traction"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Voyant de Contrôle de Traction</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsque le système TCS (contrôle de traction) du véhicule est activé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - aucune action nécessaire
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="light-card" data-severity="warning" data-category="État du Véhicule">
+        <div class="light-icon"><img src="lights/11.png" alt="Service Véhicule Bientôt"></div>
+        <span class="light-category">État du Véhicule</span>
+        <h3 class="light-title">Service Véhicule Bientôt</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsqu'il y a une condition de défaut dans une zone des systèmes de châssis du véhicule tels que le système de freinage anti-blocage (ABS), le système de contrôle de traction (TCS), le système de suspension électronique, ou le système de freinage hydraulique.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Planifiez un rendez-vous de service
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/12.png" alt="Alerte de Sécurité"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Alerte de Sécurité</h3>
+        <p class="light-desc">Le voyant indicateur s'allumera momentanément si l'interrupteur de contact est verrouillé et aura besoin de la clé appropriée équipée d'un transpondeur pour redémarrer. Si le voyant est visible lorsque le véhicule est en marche, cela indique généralement un dysfonctionnement du système de sécurité.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Utilisez la clé appropriée ou contactez le concessionnaire
+        </div>
+      </article>
+
+      <!-- 13 -->
+      <article class="light-card" data-severity="critical" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/13.png" alt="Airbag Latéral"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Airbag Latéral</h3>
+        <p class="light-desc">Le voyant indicateur signifie un défaut avec l'airbag latéral.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire immédiatement
+        </div>
+      </article>
+
+      <!-- 14 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/14.png" alt="Avertissement de Puissance Réduite"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Avertissement de Puissance Réduite</h3>
+        <p class="light-desc">Le voyant indicateur signifie que l'ordinateur du moteur a limité la puissance de sortie du moteur.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Conduisez prudemment et planifiez un service
+        </div>
+      </article>
+
+      <!-- 15 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/15.png" alt="Indicateur de Ceinture de Sécurité"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Indicateur de Ceinture de Sécurité</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'une ceinture de sécurité n'a pas été attachée pour un passager dans le véhicule.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Attachez toutes les ceintures de sécurité
+        </div>
+      </article>
+
+      <!-- 16 -->
+      <article class="light-card" data-severity="info" data-category="Confort et Commodité">
+        <div class="light-icon"><img src="lights/16.png" alt="Appuyez sur la Pédale d'Embrayage"></div>
+        <span class="light-category">Confort et Commodité</span>
+        <h3 class="light-title">Appuyez sur la Pédale d'Embrayage</h3>
+        <p class="light-desc">Indicateur pour pousser l'embrayage.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Appuyez sur la pédale d'embrayage pour démarrer
+        </div>
+      </article>
+
+      <!-- 17 -->
+      <article class="light-card" data-severity="critical" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/17.png" alt="Défaut de Groupe Motopropulseur"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Défaut de Groupe Motopropulseur</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsqu'un défaut de groupe motopropulseur ou de transmission intégrale a été détecté. Contactez votre mécanicien dès que possible.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le mécanicien immédiatement
+        </div>
+      </article>
+
+      <!-- 18 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/18.png" alt="Voyant d'Avertissement de Direction Assistée"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Voyant d'Avertissement de Direction Assistée</h3>
+        <p class="light-desc">Le voyant indicateur s'allume s'il y a un problème avec le système de direction assistée, et sera désactivé jusqu'à ce qu'il soit réparé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation
+        </div>
+      </article>
+
+      <!-- 19 -->
+      <article class="light-card" data-severity="info" data-category="Confort et Commodité">
+        <div class="light-icon"><img src="lights/19.png" alt="Appuyez sur la Pédale de Frein"></div>
+        <span class="light-category">Confort et Commodité</span>
+        <h3 class="light-title">Appuyez sur la Pédale de Frein</h3>
+        <p class="light-desc">Indicateur pour pousser la pédale de frein.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Appuyez sur la pédale de frein pour démarrer
+        </div>
+      </article>
+
+      <!-- 20 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/20.png" alt="Voyant de Frein de Stationnement"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Voyant de Frein de Stationnement</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le frein de stationnement est activé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Relâchez le frein de stationnement avant de conduire
+        </div>
+      </article>
+
+      <!-- 21 -->
+      <article class="light-card" data-severity="info" data-category="Confort et Commodité">
+        <div class="light-icon"><img src="lights/21.png" alt="Voyant de Suralimentation"></div>
+        <span class="light-category">Confort et Commodité</span>
+        <h3 class="light-title">Voyant de Suralimentation</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le système de suralimentation du véhicule a été manuellement désactivé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - peut être réactivé
+        </div>
+      </article>
+
+      <!-- 22 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/22.png" alt="Rappel de Changement d'Huile"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Rappel de Changement d'Huile</h3>
+        <p class="light-desc">Le voyant indicateur signifie que la durée de vie de l'huile a expiré.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Planifiez un service de changement d'huile
+        </div>
+      </article>
+
+      <!-- 23 -->
+      <article class="light-card" data-severity="warning" data-category="État du Véhicule">
+        <div class="light-icon"><img src="lights/23.png" alt="Voyant d'Avertissement Principal"></div>
+        <span class="light-category">État du Véhicule</span>
+        <h3 class="light-title">Voyant d'Avertissement Principal</h3>
+        <p class="light-desc">Le voyant indicateur est généralement accompagné d'un autre voyant d'avertissement et indique qu'un ou plusieurs systèmes d'avertissement ont été détectés.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez tous les autres voyants d'avertissement
+        </div>
+      </article>
+
+      <!-- 24 -->
+      <article class="light-card" data-severity="info" data-category="État du Véhicule">
+        <div class="light-icon"><img src="lights/24.png" alt="Voyant d'Avertissement d'Information"></div>
+        <span class="light-category">État du Véhicule</span>
+        <h3 class="light-title">Voyant d'Avertissement d'Information</h3>
+        <p class="light-desc">Le voyant indicateur s'allumera lorsqu'un nouveau message est stocké dans l'affichage d'information. Il sera rouge ou ambre selon la gravité du message et restera allumé jusqu'à ce que la cause du message ait été rectifiée.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez l'affichage d'information pour les détails
+        </div>
+      </article>
+
+      <!-- 25 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/25.png" alt="Voyant d'Avertissement de Route Verglacée"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Voyant d'Avertissement de Route Verglacée</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsque la température de l'air extérieur commence à atteindre les températures de gel, environ 35°F ou 3°C.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Conduisez prudemment sur les routes verglacées
+        </div>
+      </article>
+
+      <!-- 26 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/26.png" alt="Bouchon d'Essence/Carburant"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Bouchon d'Essence/Carburant</h3>
+        <p class="light-desc">Le voyant indicateur s'allume si le bouchon d'essence/carburant n'est pas correctement serré.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Serrez correctement le bouchon de carburant
+        </div>
+      </article>
+
+      <!-- 27 -->
+      <article class="light-card" data-severity="warning" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/27.png" alt="Défaut ESP/Dysfonctionnement du Contrôle de Traction"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Défaut ESP/Dysfonctionnement du Contrôle de Traction</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'il y a un problème avec le contrôle de traction du véhicule.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation
+        </div>
+      </article>
+
+      <!-- 28 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/28.png" alt="Frein de Stationnement Électrique"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Frein de Stationnement Électrique</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsque le frein de stationnement électrique a un dysfonctionnement.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation
+        </div>
+      </article>
+
+      <!-- 29 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/29.png" alt="Avertissement de Distance"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Avertissement de Distance</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'un véhicule devant est trop proche ou s'approche trop rapidement, ou qu'un obstacle stationnaire existe dans la direction de déplacement.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Augmentez la distance de suivi
+        </div>
+      </article>
+
+      <!-- 30 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/30.png" alt="Filtre à Air Bouché"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Filtre à Air Bouché</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsqu'il y a un flux d'air réduit vers le moteur. Faites remplacer ou inspecter le filtre à air.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Remplacez ou nettoyez le filtre à air
+        </div>
+      </article>
+
+      <!-- 31 -->
+      <article class="light-card" data-severity="normal" data-category="Confort et Commodité">
+        <div class="light-icon"><img src="lights/31.png" alt="Verrouillage de Sécurité Enfant"></div>
+        <span class="light-category">Confort et Commodité</span>
+        <h3 class="light-title">Verrouillage de Sécurité Enfant</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le verrouillage de sécurité enfant est actif.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - peut être désactivé
+        </div>
+      </article>
+
+      <!-- 32 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/32.png" alt="Vérifier le Moteur ou Voyant d'Indication de Défaut (MIL)"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Vérifier le Moteur ou Voyant d'Indication de Défaut (MIL)</h3>
+        <p class="light-desc">Le voyant indicateur s'allume chaque fois que le moteur est allumé pour vérifier l'ampoule. Si le voyant reste allumé, les systèmes de diagnostic de la voiture ont détecté un dysfonctionnement qui doit être examiné.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Faites diagnostiquer le moteur par un mécanicien
+        </div>
+      </article>
+
+      <!-- 33 -->
+      <article class="light-card" data-severity="critical" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/33.png" alt="Avertissement de Convertisseur Catalytique"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Avertissement de Convertisseur Catalytique</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le convertisseur catalytique surchauffe ou ne fonctionne pas comme prévu.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire immédiatement
+        </div>
+      </article>
+
+      <!-- 34 -->
+      <article class="light-card" data-severity="critical" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/34.png" alt="Liquide de Frein"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Liquide de Frein</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le niveau de liquide de frein est bas.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez le niveau de liquide de frein et ajoutez si nécessaire
+        </div>
+      </article>
+
+      <!-- 35 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/35.png" alt="Avertissement de Plaquettes de Frein"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Avertissement de Plaquettes de Frein</h3>
+        <p class="light-desc">Le voyant indicateur signifie que les plaquettes de frein sont usées.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Remplacez les plaquettes de frein
+        </div>
+      </article>
+
+      <!-- 36 -->
+      <article class="light-card" data-severity="warning" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/36.png" alt="Avertissement de Feux de Frein"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Avertissement de Feux de Frein</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'une ampoule de feu de frein extérieur est défectueuse. Vérifiez le fonctionnement de toutes les ampoules de feux de frein extérieurs.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Remplacez l'ampoule de feu de frein défectueuse
+        </div>
+      </article>
+
+      <!-- 37 -->
+      <article class="light-card" data-severity="critical" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/37.png" alt="Avertissement de Boîte de Vitesses Automatique"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Avertissement de Boîte de Vitesses Automatique</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'il y a un dysfonctionnement de boîte de vitesses/transmission.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation de transmission
+        </div>
+      </article>
+
+      <!-- 38 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/38.png" alt="Système de Freinage Anti-blocage (ABS)"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Système de Freinage Anti-blocage (ABS)</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'il peut y avoir un dysfonctionnement dans le système ABS.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation ABS
+        </div>
+      </article>
+
+      <!-- 39 -->
+      <article class="light-card" data-severity="warning" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/39.png" alt="Transmission Intégrale (AWD/4WD)"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Transmission Intégrale (AWD/4WD)</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsqu'il y a un dysfonctionnement avec le système 4WD.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation du système 4WD
+        </div>
+      </article>
+
+      <!-- 40 -->
+      <article class="light-card" data-severity="critical" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/40.png" alt="Indicateur d'Airbag"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Indicateur d'Airbag</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsque l'airbag avant est désactivé. Si cette lampe s'allume ou clignote, il y a un défaut dans le système d'airbag ou de ceinture de sécurité.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation du système d'airbag
+        </div>
+      </article>
+
+      <!-- 41 -->
+      <article class="light-card" data-severity="warning" data-category="Systèmes de Sécurité">
+        <div class="light-icon"><img src="lights/41.png" alt="Airbag Désactivé"></div>
+        <span class="light-category">Systèmes de Sécurité</span>
+        <h3 class="light-title">Airbag Désactivé</h3>
+        <p class="light-desc">Le voyant indicateur s'allume lorsqu'il y a un défaut dans le système d'aileron arrière.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation du système d'airbag
+        </div>
+      </article>
+
+      <!-- 42 -->
+      <article class="light-card" data-severity="warning" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/42.png" alt="Amortisseurs de Suspension Adaptative"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Amortisseurs de Suspension Adaptative</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'il y a un besoin de contacter un réparateur autorisé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le réparateur autorisé
+        </div>
+      </article>
+
+      <!-- 43 -->
+      <article class="light-card" data-severity="normal" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/43.png" alt="Voyant d'Indicateur de Verrouillage 4WD"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Voyant d'Indicateur de Verrouillage 4WD</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le mode de verrouillage 4WD du véhicule est activé.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - le verrouillage 4WD est actif
+        </div>
+      </article>
+
+      <!-- 44 -->
+      <article class="light-card" data-severity="warning" data-category="Fonctionnalités Avancées">
+        <div class="light-icon"><img src="lights/44.png" alt="Suspension Pneumatique"></div>
+        <span class="light-category">Fonctionnalités Avancées</span>
+        <h3 class="light-title">Suspension Pneumatique</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'il y a un problème avec les sacs de suspension pneumatique, probablement dû à une fuite ou un problème d'inflation.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation de suspension pneumatique
+        </div>
+      </article>
+
+      <!-- 45 -->
+      <article class="light-card" data-severity="normal" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/45.png" alt="Voyant d'Indicateur de Feux de Croisement"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Voyant d'Indicateur de Feux de Croisement</h3>
+        <p class="light-desc">Le voyant indicateur signifie que les feux de croisement du véhicule sont allumés.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - les feux de croisement sont allumés
+        </div>
+      </article>
+
+      <!-- 46 -->
+      <article class="light-card" data-severity="warning" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/46.png" alt="Ampoule Éteinte"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Ampoule Éteinte</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'il y a un feu extérieur sur le véhicule qui ne fonctionne pas correctement.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Remplacez l'ampoule de feu extérieur défectueuse
+        </div>
+      </article>
+
+      <!-- 47 -->
+      <article class="light-card" data-severity="normal" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/47.png" alt="Indicateur de Feux de Route"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Indicateur de Feux de Route</h3>
+        <p class="light-desc">Le voyant indicateur signifie que les feux de route de votre voiture sont allumés, ou si la fonction de flash de feux de route est utilisée.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - les feux de route sont allumés
+        </div>
+      </article>
+
+      <!-- 48 -->
+      <article class="light-card" data-severity="warning" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/48.png" alt="Contrôle de Portée des Phares"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Contrôle de Portée des Phares</h3>
+        <p class="light-desc">Le voyant indicateur s'allume s'il y a un problème détecté avec le système de contrôle de portée des phares.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation du système de phares
+        </div>
+      </article>
+
+      <!-- 49 -->
+      <article class="light-card" data-severity="normal" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/49.png" alt="Feux de Brouillard Avant"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Feux de Brouillard Avant</h3>
+        <p class="light-desc">Le voyant indicateur signifie que les feux de brouillard avant sont allumés.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - les feux de brouillard sont allumés
+        </div>
+      </article>
+
+      <!-- 50 -->
+      <article class="light-card" data-severity="warning" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/50.png" alt="Défaut de Feu Extérieur"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Défaut de Feu Extérieur</h3>
+        <p class="light-desc">Le voyant indicateur signifie qu'un feu extérieur de votre voiture ne fonctionne pas.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Vérifiez et remplacez les feux extérieurs défectueux
+        </div>
+      </article>
+
+      <!-- 51 -->
+      <article class="light-card" data-severity="normal" data-category="Éclairage">
+        <div class="light-icon"><img src="lights/51.png" alt="Feux de Route Automatiques"></div>
+        <span class="light-category">Éclairage</span>
+        <h3 class="light-title">Feux de Route Automatiques</h3>
+        <p class="light-desc">Le voyant indicateur signifie que le système de feux de route automatiques a activé les feux de route.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fonctionnement normal - les feux de route automatiques sont actifs
+        </div>
+      </article>
+
+      <!-- 52 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/52.png" alt="Réservoir AdBlue Vide"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Réservoir AdBlue Vide</h3>
+        <p class="light-desc">Le voyant indicateur signifie que vous devez remplir le réservoir avec plus de liquide d'échappement.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Remplissez le réservoir AdBlue
+        </div>
+      </article>
+
+      <!-- 53 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/53.png" alt="Dysfonctionnement AdBlue"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Dysfonctionnement AdBlue</h3>
+        <p class="light-desc">Le voyant indicateur signifie soit que le système AdBlue dysfonctionne ou que le système n'est pas rempli avec le liquide standard.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contactez le concessionnaire pour réparation du système AdBlue
+        </div>
+      </article>
+
+      <!-- 54 -->
+      <article class="light-card" data-severity="warning" data-category="Moteur et Performance">
+        <div class="light-icon"><img src="lights/54.png" alt="Avertissement de Filtre de Liquide d'Eau"></div>
+        <span class="light-category">Moteur et Performance</span>
+        <h3 class="light-title">Avertissement de Filtre de Liquide d'Eau</h3>
+        <p class="light-desc">Le voyant indicateur signifie que l'eau dans le filtre à carburant a atteint la capacité maximale. Videz l'eau du filtre.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Videz l'eau du filtre à carburant
+        </div>
+      </article>
+
+    </div>
+
+    <div class="tips">
+      <h2><i class="fas fa-circle-info"></i> Conseils Importants</h2>
+      <ul>
+        <li><i class="fas fa-circle"></i> Les voyants rouges nécessitent une attention immédiate - arrêtez de conduire si c'est sûr</li>
+        <li><i class="fas fa-circle"></i> Les voyants jaunes indiquent un problème qui nécessite une attention bientôt</li>
+        <li><i class="fas fa-circle"></i> Les voyants verts montrent un fonctionnement normal - aucune action nécessaire</li>
+        <li><i class="fas fa-circle"></i> Les voyants bleus fournissent des informations ou des fonctionnalités de confort</li>
+        <li><i class="fas fa-circle"></i> Consultez toujours le manuel de votre véhicule pour des instructions spécifiques</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".light-card");
+    const countShown = document.getElementById("countShown");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const match = text.includes(query);
+        card.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+
+      countShown.textContent = visible;
+    });
+  </script>
+
+</body>
+</html>

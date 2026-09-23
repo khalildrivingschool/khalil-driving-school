@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test d'entraînement</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Bonnes réponses :</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Test d'entraînement</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Terminer le test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+  <!-- CUSTOM CONFIRM MODAL -->
+<div class="custom-modal-overlay" id="confirmModal">
+  <div class="custom-modal">
+    <div class="custom-modal-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <h3 class="custom-modal-title">Terminer le Test</h3>
+    <p class="custom-modal-text" id="confirmMessage"></p>
+    <div class="custom-modal-actions">
+      <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Oui, Terminer</button>
+      <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+    const allQuestions = [
+{text: "En conduisant dans un tunnel pendant le jour, le conducteur doit :",
+options: ["Allumer les feux de croisement et accélérer", "Allumer les feux de croisement et ralentir", "Klaxonner"],
+correct: 1},
+
+{text: "La nuit, si vous circulez derrière un autre véhicule, vous devez :",
+options: ["Utiliser les feux de croisement", "Utiliser les feux de route", "Ne pas allumer les feux"],
+correct: 0},
+
+{text: "Si vous croisez un véhicule venant dans l'autre sens alors que vos feux de route sont allumés, vous devez :",
+options: ["Utiliser les feux de croisement immédiatement", "Eteindre tous les feux", "Basculer répétitivement entre feux de route et feux de croisement"],
+correct: 0},
+
+{text: "Lorsque vous faites le plein de votre véhicule :",
+options: ["Il n'est pas obligatoire d'arrêter le moteur", "Vous pouvez fumer une cigarette", "Il faut arrêter le moteur"],
+correct: 2},
+
+{text: "Si le feu jaune s'allume au moment de vous engager dans une intersection, vous devez :",
+options: ["Vous arrêter immédiatement", "Continuer de rouler avec prudence", "Garder les yeux sur les feux"],
+correct: 1},
+
+{text: "Si vous vous sentez fatigué et sur le point de vous endormir en conduisant, vous devez :",
+options: ["Prendre des amphétamines et poursuivre votre route", "Ne pas vous préoccuper, ça ira", "Vous arrêter à un endroit convenable au bord de la route et vous reposer"],
+correct: 2},
+
+{text: "Sur une intersection, en présence simultanée d'un agent de circulation, des feux tricolores et d'un signe fixe de route, vous devez :",
+options: ["Suivre les instructions de l'agent de circulation", "Réspecter les feux de circulation", "Réspecter le signe fixe de route"],
+correct: 0},
+
+{text: "Lorsque vous vous installez dans votre véhicule vous devez d'abord :",
+options: ["Porter la ceinture de sécurité, ajuster les miroirs, et puis le siège", "Porter la ceinture de sécurité, ajuster les siège, et puis les miroirs", "Ajuster le siège, les miroirs, puis porter la ceinture de sécurité"],
+correct: 2},
+
+{text: "Chaque jour, avant de démarrer le véhicule pour la première fois, le conducteur :",
+options: ["Doit effectuer une inspection routinière des systèmes du véhicule", "Ne doit pas effectuer une inspection routinière des systèmes du véhicule si le moteur fonctionne bien", "Doit écouter la météo"],
+correct: 0},
+
+{text: "En circulant, il est acceptable que le conducteur :",
+options: ["Lise le journal", "Utilise le téléphone", "Ecoute la radio à bas volume"],
+correct: 2},
+
+{text: "Le conducteur doit porter la ceinture de sécurité :",
+options: ["Avant de démarrer", "Au moment où un accident a lieu", "Il n'y a pas besoin de porter la ceinture de sécurité quand le véhicule est muni de coussins gonflables"],
+correct: 0},
+
+{text: "Le but de l'appui-tête est de :",
+options: ["Poser la tête pour se relaxer", "Protéger le cou en cas d'une collision à l'arrière du véhicule", "Servir de coussin durant les longs voyages"],
+correct: 1},
+
+{text: "La capacité de concentration diminue chez le conducteur :",
+options: ["Quand il est plein d'énergie", "Quand il a sommeil", "Quand il roule dans la ville"],
+correct: 1},
+
+{text: "Utiliser le téléphone portable en conduisant a des effets :",
+options: ["Positifs", "Négatifs", "Positifs et négatifs en même temps"],
+correct: 1},
+
+{text: "Le premier conseil à donner à un conducteur qui boit :",
+options: ["conduis lentement", "Ne conduis pas avant que l'effet de l'alcool n'ait disparu complètement", "Ne t'en préoccupes pas, ça ira"],
+correct: 1},
+
+{text: "Conduire sous l'influence des médicaments est :",
+options: ["Moins pénible", "Sans danger", "Dangereux"],
+correct: 2},
+
+{text: "Quand la pédale de l'accélérateur est bloquée, tu dois :",
+options: ["Tirer le frein à main", "Changer le levier vers une vitesse plus petite", "Mettre le levier au neutre, arrêter le moteur et s'arrêter au bord de la route"],
+correct: 2},
+
+{text: "Si le capot du moteur s'ouvre de lui-même lorsque que vous roulez sur la route, vous devez immédiatement :",
+options: ["Accélérer un petit peu", "Décélérer graduellement pour vous arrêter du côté de la route", "Appuyer fortement sur la pédale de frein"],
+correct: 1},
+
+{text: "Pour éviter d'être en retard quand il pleut, le conducteur doit :",
+options: ["Prendre la route un peu plus tôt que d'habitude", "Prendre la route un peu plus tard que d'habitude", "Prendre la route de bonne humeur"],
+correct: 0},
+
+{text: "Avant de prendre le véhicule, le conducteur doit :",
+options: ["Vérifier qu'il a assez de temps", "Faire le tour du véhicule", "Porter la ceinture de sécurité"],
+correct: 1},
+
+{text: "Lors d'un embouteillage, le conducteur doit vérifier ses rétroviseurs chaque :",
+options: ["45 secondes", "30 secondes", "4 à 8 secondes"],
+correct: 2},
+
+{text: "Avant de virer vers la droite, le conducteur doit jeter un coup d'oeil sur :",
+options: ["Le rétroviseur extérieur gauche uniquement", "Le rétroviseur extérieur droit uniquement", "Tous les miroirs, et surtout le rétroviseur extérieur droit et les angles morts"],
+correct: 2},
+
+{text: "Le plus grand danger que les véhicules garés sur la chaussée droite de la route posent sur les véhicules qui les croisent est caractérisé par :",
+options: ["Les piétons, et surtout les enfants, qui pourraient surgir d'entre ces véhicules à n'importe quel moment", "Les déchets qui pourraient être jetés de ces véhicules", "Le volume de leur radio"],
+correct: 0},
+
+{text: "Le danger que les véhicules garés sur la chaussée droite de la route posent sur les véhicules qui les croisent est caractérisé par :",
+options: ["Les sons émis par les systèmes antivol", "La porte du coffre qu'on peut ouvrir", "Le fait que ces véhicules pourraient à n'importe quel moment démarrer et joindre la circulation"],
+correct: 2},
+
+{text: "En tant que conducteur préventif, tu dois :",
+options: ["Insister sur la priorité de passage si elle te revient", "Céder la priorité de passage pour éviter un accident", "Ne jamais céder la priorité de passage"],
+correct: 1},
+
+{text: "Avant de freiner, vous devez regarder :",
+options: ["Dans le rétroviseur intérieur", "à droite", "à gauche"],
+correct: 0},
+
+{text: "En cas de freinage bien appuyé, le système ABS des véhicules modernes :",
+options: ["Ne doit causer ni un bruit ni une vibration de la pédale de freins", "Peut causer un bruit et une vibration de la pédale de freins", "Peut causer une vibration de la pédale de freins uniquement"],
+correct: 1},
+
+{text: "En cas de freinage bien appuyé, le système ABS dans les véhicules modernes :",
+options: ["Empêche le blocage des freins, et permet au conducteur de maintenir le contrôle de son véhicule", "Empêche le blocage des freins uniquement", "N'empêche pas le blocage des freins et ne permet pas au conducteur de maintenir le contrôle de son véhicule"],
+correct: 0},
+
+{text: "En cade de dérapage, vous devez :",
+options: ["Freiner et giringer votre véhicule dans le sens opposé au dérapage", "Retirer le pied de la pédale d'accélération sans appuyer sur la pédale de frein, et diriger le véhicule dans le sens du dérapage", "Augmenter votre vitesse"],
+correct: 1},
+
+{text: "Le conducteur doit laisser un espace de sécurité entre son véhicule et le véhicule devant lui pour :",
+options: ["Eviter la collision avec ce véhicule au cas où il s'arrête soudainement", "Profiter des vues fabuleuses qui l'entourent", "Lire le numéro inscrit sur la plaque d'immatriculation arrière"],
+correct: 0},
+
+{text: "Le véhicule devant vous se lance immédiatement lorsque le feu rouge tourne au vert, dans ce cas vous devez :",
+options: ["Vous lancer immédiatement derrière ce véhicule", "Klaxonner", "Attendre deux secondes avant de démarrer"],
+correct: 2},
+
+{text: "Lorsque vous vous approchez d'une intersection où un feu orange clignote, vous devez :",
+options: ["Céder la priorité", "Continuer à la même vitesse", "Porter la ceinture de sécurité"],
+correct: 0},
+
+{text: "Le port de la ceinture de sécurité :",
+options: ["Est obligatoire pour tous les passagers", "Est obligatoire pour les passagers devant seulement", "N'est pas nécessaire"],
+correct: 0},
+
+{text: "Si ton véhicule tombe en panne sur l'autoroute, tu dois :",
+options: ["Te dégager de l'autoroute au premier détour", "T'arrêter immédiatement là où tu es", "Continuer vers ta destination"],
+correct: 0},
+
+{text: "Le conducteur doit tenir le volant avec :",
+options: ["Une seule main", "Les deux mains", "Le bout des doigts"],
+correct: 1},
+
+{text: "En vous approchant du sommet d'une pente, vous devez vous attendre à :",
+options: ["des obstacles", "vous ne devez pas vous attendre à des obstacles", "vous devez vous attendre à une longue route droite"],
+correct: 0},
+
+{text: "En roulant dans une descente et pour contrôler votre poids lourd, vous devez notamment :",
+options: ["Utiliser les freins", "Utiliser le frein à main", "Changer le levier vers une vitesse plus petite"],
+correct: 2},
+
+{text: "Le freinage continu dans une longue descente diminue l'efficacité des freins à cause :",
+options: ["de l'augmentation de leur température", "de la pression hydraulique du système de freinage", "de la forte inclinaison de la pente"],
+correct: 0},
+
+{text: "Le contact visuel entre les conducteurs sur un croisement :",
+options: ["Aide les conducteurs à éviter la confusion routière", "Est une sorte d'avertissement", "Est interdit"],
+correct: 0},
+
+{text: "Pour éviter les accidents, le conducteur doit éviter autant que possible :",
+options: ["La marche arrière", "La décélération progressive", "De laver son véhicule sur la route"],
+correct: 0},
+
+{text: "Selon la loi, le conducteur doit céder la priorité :",
+options: ["Aux véhicules qui roulent à grande vitesse", "A l'autocar qui a allumé les feux de détresse", "Aux véhicules lents"],
+correct: 1},
+
+{text: "Selon la loi, le conducteur doit céder la priorité :",
+options: ["Au véhicule qui est déjà dans le rond point", "Au véhicule qui prend le rond point", "Au véhicule à sa droite"],
+correct: 0},
+
+{text: "La loi permet de garer le véhicule près de la chaussée sur une route à deux voies de sens opposés :",
+options: ["A droite, selon le sens de circulation du véhicule", "N'importe où, pourvu qu'il ne gêne pas la circulation", "A gauche"],
+correct: 0},
+
+{text: "Manger excessivement :",
+options: ["Permet au conducteur de mieux conduire", "Rend le conducteur passif et diminue son réflexe", "Permet au conducteur de conduire plus vite"],
+correct: 1},
+
+{text: "Le manque de sommeil :",
+options: ["Améliore le réflexe du conducteur", "Diminue le réflexe du conducteur et affaiblit sa mémoire", "Permet au conducteur de se concentrer"],
+correct: 1},
+
+{text: "Dans les longs trajets, le conducteur doit s'arrêter chaque :",
+options: ["10 heures", "8 heures", "4 heures"],
+correct: 2},
+
+{text: "Dans les longs trajets, le conducteur doit s'arrêter chaque :",
+options: ["250 kilometres", "750 kilometres", "900 kilometres"],
+correct: 0},
+
+{text: "Conduire sous l'influence de l'alcool :",
+options: ["Met en danger la vie du conducteur et celle des autres usagers de la route", "Met en danger la vie des usagers de la route seulement", "Met en danger la vie du conducteur"],
+correct: 0},
+
+{text: "Durant les longs trajets, le conducteur :",
+options: ["Doit prendre des amphétamines de façon régulière", "Continuer à rouler sans se reposer", "Ne doit jamais prendre des amphétamines pour rester éveillé"],
+correct: 2},
+
+{text: "La meilleure façon de connaître l'effet d'un médicament sur la capacité de conduire est de :",
+options: ["Poser la question à un autre conducteur", "Poser la question au médecin ou au pharmacien", "Le tester sur un autre conducteur"],
+correct: 1},
+
+{text: "Rouler sous l'influence de l'alcool et des drogues crée chez le conducteur un faux sentiment :",
+options: ["De peur", "De courage et d'audace", "De colère"],
+correct: 1},
+
+{text: "Lorsque vous êtes sur le point de dépasser un véhicule,",
+options: ["Vous devez compter sur les instructions du conducteur de ce véhicule à travers les clignoteurs", "Ne devez jamais compter sur les instructions du conducteur de ce véhicule", "Compter sur les instructions du conducteur du véhicule derrière vous"],
+correct: 1},
+
+{text: "Quels sont les avantages environnementaux de l'éco-conduite ?",
+options: ["Diminution des émissions de gaz à effet de serre (CO2)", "Augmentation des émissions de gaz à effet de serre (CO2)", "Réduction de l'embouteillage"],
+correct: 0},
+
+{text: "Quels sont les avantages de l'éco-conduite en termes de sécurité ?",
+options: ["Amélioration de la sécurité routière", "Amélioration des compétences de conduite", "Tout ce qui précède"],
+correct: 2},
+
+{text: "Quels sont les avantages sociaux de l'éco-conduite ?",
+options: ["Éviter le stress pendant la conduite", "L'augmentation du confort des conducteurs et des passagers", "Tout ce qui précède"],
+correct: 2},
+
+{text: "Quel outil devez-vous utiliser pour contrôler votre vitesse sur les autoroutes ?",
+options: ["Le régulateur de vitesse", "Freiner et accélérer à un rythme régulier", "Le freinage brusque"],
+correct: 0},
+
+{text: "Quelle est la vitesse optimale pour l'éco-conduite ?",
+options: ["80 km/h - 100 km/h", "50 km/h - 80 km/h", "40 km/h - 50 km/h"],
+correct: 1},
+
+{text: "Quel est le nombre maximal de tours par minute du moteur que vous ne devez pas dépasser en conduisant ?",
+options: ["3000 tr/min", "4000 tr/min", "2000 tr/min"],
+correct: 2},
+
+{text: "Que se passe-t-il si vous dépassez 2000 tr/min en conduisant ?",
+options: ["La consommation de carburant augmente", "La consommation de carburant diminue", "La température du moteur augmente"],
+correct: 0},
+
+{text: "Quel est le résultat des démarrages rapides et des freinages brusques ?",
+options: ["Perte de carburant", "Détérioration plus rapide des pneus et des freins", "Tout ce qui précède"],
+correct: 2},
+
+{text: "De combien la consommation de carburant est-elle réduite lorsque vous changez l'huile et les filtres régulièrement ?",
+options: ["1% à 2%", "1% à 3%", "2% à 3%"],
+correct: 0},
+
+{text: "Quel type d'huile est optimal pour l'environnement ?",
+options: ["L'huile qui conserve l'énergie et qui contient des additifs qui réduisent la friction", "L'huile qui conserve l'énergie et qui contient des additifs quine salissent pas le moteur", "L'huile végétale qui conserve l'énergie"],
+correct: 0},
+
+{text: "Comment pouvez-vous contribuer à la durabilité des pneus ?",
+options: ["Changer les pneus chaque année", "Examiner la pression des pneus au moins une fois par mois pour conserver une faible résistance au roulement", "Examiner la pression des pneus au moins une fois par an pour conserver une faible résistance au roulement"],
+correct: 1},
+
+{text: "Quel est l'avantage de nettoyer vos filtres à air régulièrement ?",
+options: ["L'amélioration de la performance du moteur de 6 à 11%", "La réduction de la pollution de l'air", "Tout ce qui précède"],
+correct: 2},
+
+{text: "Que devez-vous faire lorsque la voiture s'arrête pendant plus d'une minute ?",
+options: ["L'étendre", "La mettre au point mort", "Ne rien faire"],
+correct: 1},
+
+{text: "Comment améliorer la performance de votre moteur et réduire le niveau d'émissions ?",
+options: ["Changer l'eau du moteur régulièrement", "Utiliser du carburant propre et conforme aux normes internationales", "Acheter un nouveau moteur"],
+correct: 1},
+
+{text: "Que devez-vous toujours vérifier après le remplissage de votre réservoir de carburant ?",
+options: ["Le bouchon du réservoir de carburant est bien fermé", "Le bouchon du réservoir de carburant est ouvert", "La température du véhicule est stable"],
+correct: 0},
+
+{text: "Pourquoi est-il préférable de se garer à l'ombre ?",
+options: ["Réduction de la puissance du climatiseur au démarrage", "Diminution de la consommation de carburant", "Tout ce qui précède"],
+correct: 2},
+
+{text: "De combien l'usage fréquent de la climatisation augmente la consommation de carburant ?",
+options: ["0.1", "0.2", "0.3"],
+correct: 0},
+
+{text: "Lequel des éléments suivants réduit la consommation de carburant ?",
+options: ["Conduire durant les heures de pointe", "Voyager léger", "Conduire rapidement"],
+correct: 1},
+
+{text: "Qu'est-ce que l'éco-conduite ?",
+options: ["L'eco-conduite est l'utilisation efficace du carburant dans le transport routier grâce à des pratiques de conduite facile, intelligente et responsable qui aident à réduire la consommation de carburant et la pollution de l'air", "L'eco-conduite est l'utilisation efficace du carburant dans le transport routier grâce à des pratiques de conduite facile, intelligente et responsable qui aident à augmenter la sécurité des routes difficiles", "L'eco-conduite est l'utilisation efficace de l'eclairage dans la conduite grâce à une méthode simple et intelligente de la consommation d'eau"],
+correct: 0},
+
+{text: "Quand la voie est délimitée par une ligne continue, ou par autres séparateurs de voies, le conducteur :",
+options: ["doit conduire dans l'autre sens", "franchir ou chevaucher cette ligne", "Ne doit pas franchir ni chevaucher cette ligne ou ces séparateurs de voies"],
+correct: 2},
+
+{text: "Lorsque le flux de circulation est normal, le conducteur doit :",
+options: ["Rouler à gauche", "Franchir les lignes de séparation des voies pour dépasser les autre véhicules", "Rouler à droite"],
+correct: 2},
+
+{text: "La chaussée sert à :",
+options: ["Stationner le véhicule là où c'est permis", "Ranger de côté toute chose qui empêche la circulation sur la route", "La circulation des piétions, poussettes, personnes malades et handicapées"],
+correct: 2},
+
+{text: "Un conducteur qui veut changer drastiquement de vitesse ou de direction doit :",
+options: ["Franchir la ligne continue si cette ligne est directement à sa gauche", "Franchir la ligne discontinue sans donner un signal", "S'assurer qu'il peut le faire sans danger et donner un signal"],
+correct: 2},
+
+{text: "Le conducteur ne doit pas freiner bruquement, sauf :",
+options: ["Pour s'arrêter", "Pour essayer les freins", "Pour éviter un danger"],
+correct: 2},
+
+{text: "Le conducteur doit rouler :",
+options: ["A gauche, quand un autre conducteur est en train de le dépasser", "A gauche, quand un autre véhicule se dirige vers lui dans l'autre sens", "A droite, quand un autre véhicule se dirige vers lui dans l'autre sens"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Dépasser un autre véhicule par la gauche quand la visibilité est bonne", "Circuler à droite, quand un autre véhicule se dirige vers lui de l'autre sens", "Dépasser les convois militaires, policiers, ou autres qui sont en état de circulation"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Rouler lentement sur le côté gauche de la route", "Circuler dans la direction indiquée", "Conduire au point mort sur une descente"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["S'assurer qu'il peut effectuer le dépassement sans aucun danger pour lui ou pour autrui", "Rouler dans le sens indiqué", "Faire demi-tour au milieu de la route dans une zone peuplée"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["S'assurer qu'il peut effectuer le dépassement sans aucun danger pour lui ou pour autrui", "Rouler dans le sens indiqué", "Rouler dans un sens autre que le sens indiqué"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Rouler à droite", "S'assurer qu'il peut effectuer le dépassement sans aucun danger pour lui ou pour autrui", "Laver son véhicule sur la route"],
+correct: 2},
+
+{text: "Le conducteur :",
+options: ["ne doit pas prendre en considération l'état de la route et ni la densité du trafic sur la route", "doit accélérer quand la visibilité n'est pas bonne", "doit ralentir ou même s'arrêter quand les conditions de la circulation le nécessitent, ou quand la visibilité n'est pas bonne"],
+correct: 2},
+
+{text: "Le conducteur doit :",
+options: ["Rouler à droite", "Dépasser par la droite sur les routes à voie unique", "Dépasser par la gauche"],
+correct: 2},
+
+{text: "En cas de croisement, le conducteur doit :",
+options: ["Circuler au milieu de la route sur les routes à voie unique", "Conserver la gauche autant que possible", "Conserver la droite autant que possible"],
+correct: 2},
+
+{text: "Avant d'effectuer un dépassement, le conducteur :",
+options: ["Ne doit pas respecter les pratiques de conduite dans les zones peuplées", "Peut se lancer même si un conducteur derrière lui a initié un dépassement lui aussi", "Doit s'assurer que les conducteurs derrière lui n'ont pas initié un dépassement eux aussi"],
+correct: 2},
+
+{text: "Avant d'effectuer un dépassement, le conducteur :",
+options: ["A la priorité d'effectuer son dépassement, même si le conducteur derrière lui a initié un dépassement lui aussi", "N'est pas obligé de donner un signal au conducteur qui se trouve derrière lui", "Doit donner un signal au conducteur qu'il voudrait dépasser"],
+correct: 2},
+
+{text: "En cas de dépassement, le conducteur :",
+options: ["N'est pas obligé de rester sur la droite juste après le dépassement", "Peut circuler au milieu de la route même s'il dérange les conducteurs qui circulent dans l'autre sens", "Peut circuler sur le côté gauche de la route, à condition de ne pas déranger les conducteurs qui circulent dans l'autre sens"],
+correct: 2},
+
+{text: "Exceptionnellement, il est permis d'effectuer un dépassement par la droite :",
+options: ["Si le conducteur a donné un signal qu'il voudrait prendre la droite", "Il est interdit d'effectuer un dépassement par la droite", "sur une route à plusieurs voies (plus que deux), à condition que le conducteur s'assure que cette manoeuvre est sans risque et sans gêne pour les autres"],
+correct: 2},
+
+{text: "Il est interdit d'effectuer un dépassement :",
+options: ["Par la gauche quand la route est marquée par une ligne discontinue", "Si la route est divisée en plusieurs voies par des lignes discontinues", "Dans les virages"],
+correct: 2},
+
+{text: "Il est interdit d'effectuer un dépassement :",
+options: ["Sur les routes à voie unique", "Par la droite dans tous les cas", "Sur les ponts et dans les tunnels"],
+correct: 2},
+
+{text: "Il est interdit d'effectuer un dépassement :",
+options: ["Si le côté gauche de la route sera libre après le dépassement", "Si le véhicule que le conducteur voudrait dépasser circule du côté droit de la route", "Si plusieurs véhicules sont arrêtées en raison d'une entrave à la circulation, ou d'un signal d'arrêt"],
+correct: 2},
+
+{text: "Il est interdit d'effectuer un dépassement :",
+options: ["Si la largeur de la route est suffisante pour effectuer le dépassement facilement et sans danger", "Si les voies de la route sont séparées par des lignes discontinues", "Au sommet d'une montée, lorsque la visibilité n'est pas assez bonne, pourvu que le côté gauche de la route soit libre"],
+correct: 2},
+
+{text: "Si une voiture de police, une ambulance ou un camion de pompiers, donne un avertissement qu'il s'approche, les usagers des la route doivent :",
+options: ["S'arrêter immédiatement là où ils se trouvent pour faciliter le passage de de ce véhicule", "Accélérer pour faciliter le passage de ce véhicule", "Ralentir, ou même s'arrêter de côté pour faciliter le passage de ce véhicule"],
+correct: 2},
+
+{text: "Il est interdit d'effectuer un dépassement :",
+options: ["Sur les routes larges", "Si les voies de la route sont séparées par des lignes discontinues", "Sur les routes montagnardes, étroites, ou à forte pente"],
+correct: 2},
+
+{text: "A l'approche d'une intersection, le conducteur doit :",
+options: ["Poursuivre son chemin sans vérifier s'il y a d'autres véhicules sur la route", "Prendre sa droite", "Vérifier que la route qu'il désire croiser est libre"],
+correct: 2},
+
+{text: "Le conducteur qui s'apprête à prendre une autre route à sa droite doit :",
+options: ["Prendre modérément sa gauche sans dépasser le milieu de la route", "Rester du côté gauche de la route", "Rester du côté droit de la route"],
+correct: 1},
+
+{text: "Le conducteur qui s'apprête à prendre une autre route à sa gauche doit :",
+options: ["Rester au milieu de la route sans dévier ni à gauche ni à droite", "Prendre modérément sa droite sans dépasser le milieu de la route", "Prendre modérément sa gauche sans dépasser le milieu de la route"],
+correct: 2},
+
+{text: "Le conducteur qui s'apprête à prendre une autre route doit :",
+options: ["Prendre la droite lentement", "Tourner très rapidement pour ne pas déranger les autres", "Tourner à vitesse modérée après avoir vérifié qu'il ne dérange pas les autres ni ne les met en danger"],
+correct: 2},
+
+{text: "Il est préférable de garder une distance de sécurité :",
+options: ["A gauche et à droite du véhicule seulement", "Devant et derrière le véhicule seulement", "De tous les côtés du véhicule"],
+correct: 2},
+
+{text: "Il est important de garder une distance de sécurité, parce qu'elle :",
+options: ["Permet aux autres véhicules d'intégrer la circulation", "Empêche le conducteur de se distraire", "Donne un espace pour réagir"],
+correct: 2},
+
+{text: "Un feu vert continu sur l'intersection signifie :",
+options: ["qu'il faut s'arrêter et vérifier que la route est libre avant de continuer", "qu'il est impossible de tourner vers la droite", "qu'il est possible de franchir l'intersection si il n'y a pas d'empêchement"],
+correct: 2},
+
+{text: "Un feu jaune discontinu signifie :",
+options: ["qu'il est possible d'avancer si la route est libre", "qu'il faut s'arrêter et vérifier que la route est libre avant de continuer", "qu'il faut ralentir et avancer prudemment"],
+correct: 2},
+
+{text: "Un feu jaune sur l'intersection signifie qu' il faut :",
+options: ["Démarrer", "Ralentir et se préparer à s'arrêter", "S'arrêter"],
+correct: 1},
+
+{text: "Lorsqu'un pneu éclate sur la route, il faut :",
+options: ["Abandonner le volant", "Enlever le pieds délicatement de la pédale d'accélérateur pour permettre au véhicule de ralentir, retenir le volant des deux mains, et se dégager de la route", "Appuyer sur la pédale de frein pour ralentir, et se dégager de la route"],
+correct: 1},
+
+{text: "Si les feux du véhicule d'en face dérangent le conducteur, le conducteur doit tourner son regard vers :",
+options: ["Le milieu de la route", "Le côté gauche de la route", "Le bas et du côté droit de la route"],
+correct: 2},
+
+{text: "En cas de panne sur l'autoroute, le conducteur doit :",
+options: ["Attendre le véhicule d'assistance", "Placer le triangle de présignalisation et allumer les feux pour alerter les autres conducteurs", "Placer le Triangle de présignalisation et allumer les clignoteurs pour alerter les autres conducteurs"],
+correct: 2},
+
+{text: "Après avoir pris l'autoroute, le conducteur doit :",
+options: ["Ralentir", "Circuler à une vitesse inférieure à la vitesse indiquée", "Circuler à une vitesse proche de celle de la circulation sur cette autoroute"],
+correct: 2},
+
+{text: "Si la voie est délimitée par deux lignes adjacentes, l'une continue et l'autre discontinue :",
+options: ["Il est permis au conducteur de franchir la ligne discontinue si cette ligne est directement à sa gauche", "Il n'est pas permis au conducteur de franchir la ligne continue si cette ligne est directement à sa gauche", "Il n'est pas permis au conducteur de franchise la ligne discontinue si cette ligne est directement à sa gauche"],
+correct: 2},
+
+{text: "Si le conducteur derrière toi est pressé alors que tu es sur la voie gauche d'une autoroute, tu dois :",
+options: ["Accélérer", "Appuyer sur la pédale de frein de façon intermittante pour qu'il se dégage", "Prendre la voie de droite en ajustant la vitesse de ta voiture pour qu'elle corresponde au rythme de la circulation sur cette voie"],
+correct: 2},
+
+{text: "Quand les freins ne fonctionnent plus alors que le conducteur est sur la route, le conducteur doit :",
+options: ["Arrêter le moteur", "Se diriger immédiatement vers le garage", "Appuyer répétitivement sur la pédale de frein"],
+correct: 2},
+
+{text: "Quand il fait mauvais temps, le conducteur doit :",
+options: ["Rouler à la vitesse maximale", "Rouler en dessous de la vitesse maximale, selon les conditions de la route", "Rouler à la vitesse maximale et allumer les feux"],
+correct: 1},
+
+{text: "Le conducteur doit maintenir un espace de sécurité plus grand quand il roule :",
+options: ["Derrière d'autres véhicules", "Sur une route sèche", "Sur un route humide"],
+correct: 2},
+
+{text: "La chaussée sert à :",
+options: ["Ranger de côté toute chose qui empêche la circulation sur la route", "Stationner le véhicule là où c'est permis", "La circulation des piétions, poussettes, personnes malades et handicapées"],
+correct: 2},
+
+{text: "Les feux stop arrière servent à indiquer aux autres conducteurs que tu :",
+options: ["prends un virage", "changes de voie", "Ralentis ou tu t'arrêtes"],
+correct: 2},
+
+{text: "Sur une intersection à quatre sens, la priorité revient au véhicule qui :",
+options: ["Arrive le premier", "Tourne vers la droite", "Arrive le premier et qui est déjà entré dans l'intersection"],
+correct: 2},
+
+{text: "Le conducteur doit s'arrêter au feu :",
+options: ["Jaune continu", "Jaune clignotant", "Rouge clignotant"],
+correct: 0},
+
+{text: "Lorsque le conducteur partage la route avec un camion, il est bon de se rappeler que les camions :",
+options: ["Ont besoin d'un rayon plus petit pour tourner", "Ont besoin de moins de temps pour dépasser sur une descente", "Ont besoin d'un espace plus grand pour stationner"],
+correct: 2},
+
+{text: "En tournant à droite au feu vert, le conducteur doit :",
+options: ["Ralentir pour tourner", "Continuer sur la même voie", "Céder le passage aux piétons"],
+correct: 2},
+
+{text: "Le conducteur a le droit de refuser de se soumettre au test de dépistage d'alcool ou de drogues :",
+options: ["Dans les cas d'urgence", "S'il a moins de 21 ans", "Il n'a pas le droit de refuser le test en aucun cas"],
+correct: 2},
+
+{text: "En cas de brouillard, le conducteur doit utiliser :",
+options: ["Les feux de route", "Les feux de brouillard et/ ou les feux de croisement", "Les feux de brouillard et/ ou les feux de route"],
+correct: 1},
+
+{text: "En effectuant un dépassement sur une autoroute à voies multiples, le conducteur :",
+options: ["N'est pas obligé de donner un signal", "Doit jeter un regard sur les véhicules circulant dans l'autre sens", "Doit vérifier qu'il y a un espace suffisant sur la voie qu'il voudrait joindre"],
+correct: 2},
+
+{text: "En effectuant un virage, le conducteur doit :",
+options: ["Maintenir sa vitesse", "Accélérer", "Ralentir"],
+correct: 2},
+
+{text: "Quand les feux tricolores sont en panne, le conducteur doit :",
+options: ["Donner la priorité au conducteur qui se trouve à gauche", "S'arrêter et attendre la police routière", "Agir comme s'il était sur une intersection sans feux"],
+correct: 2},
+
+{text: "Un camion essaie de dépasser ton véhicule, tu dois :",
+options: ["Changer de voie", "Accélérer", "Maintenir ta vitesse ou ralentir"],
+correct: 2},
+
+{text: "Tu roules derrière une motocyclette, tu dois :",
+options: ["Permettre à la motocyclette de circuler sur la moitié de la voie", "Dépasser la motocyclette sur la voie même", "Permettre à la motocyclette de circuler sur toute la largeur de la voie"],
+correct: 2},
+
+{text: "Deux conducteurs venant de deux sens différents s'approchent d'une intersection :",
+options: ["Chacun passe sans céder la priorité à l'autre conducteur", "Le conducteur venant de la gauche doit céder le passage à l'autre conducteur", "Le conducteur venant de la droite doit céder le passage à l'autre conducteur"],
+correct: 1},
+
+{text: "Avant de dépasser, d'être dépassé, ou d'effectuer un virage, le conducteur doit :",
+options: ["Ralentir, activer les clignotants pour avertir les autres conducteurs, et vérifier les miroirs", "Ralentir et activer le clignotant au moment du virage", "Ralentir, activer le clignotant bien en avance pour avertir les autres usagers de la route, vérifier les miroirs et les angles morts"],
+correct: 2},
+
+{text: "Il est interdit au conducteur qui effectue un dépassement :",
+options: ["de déranger les conducteurs à sa droite", "d'utiliser la voie de droite", "d'utiliser la voie de gauche"],
+correct: 0},
+
+{text: "En l'absence d'un feu de signalisation, si un véhicule prend un virage alors qu'un piéton voudrait franchir la route, à qui revient la priorité ?",
+options: ["A celui qui a la plus grande vitesse", "Au véhicule", "Au piéton"],
+correct: 2},
+
+{text: "Le gel se forme plus rapidement sur les routes :",
+options: ["Planes", "Sinueuses", "Qui sont dans l'ombre"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Circuler dans une direction autre que la direction indiquée", "Rester éveillé et en contrôle de son véhicule", "Vérifier qu'il peut effectuer le dépassement sans aucun danger"],
+correct: 0},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Circuler sur le côté droit de la route", "Laver les véhicules sur la route", "Vérifier qu'il peut effectuer le dépassement sans aucun danger"],
+correct: 1},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Circuler dans la direction indiquée", "Effectuer un demi tour au milieu de la route", "Vérifier qu'il peut effectuer le dépassement sans aucun danger"],
+correct: 1},
+
+{text: "Logiquement, le conducteur ne dois pas :",
+options: ["Rouler au delà de la vitesse maximale de 80 km/heure", "Rouler au delà de la vitesse maximale", "Rouler au delà de la vitesse de circulation des autres véhicules sur la route"],
+correct: 2},
+
+{text: "Tu peux sortir de la route pour dépasser un autre véhicule :",
+options: ["Si le véhicule devant toi se dirige vers la gauche", "S'il y a assez de place pour ton véhicule sur la rue ou sur le passage piéton", "Ceci n'est pas permis en aucun cas"],
+correct: 2},
+
+{text: "Le conducteur peut continuer à rouler avec prudence au feu jaune :",
+options: ["S'il est derrière un véhicule prioritaire (ambulance, camion pompier)", "S'il se dirige vers la droite", "S'il est déjà entré dans l'intersection"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Circuler sur le côté droit de la route", "Reparer les véhicules sur l'autoroute sauf dans le cas d'urgence extrême", "Vérifier qu'il peut effectuer le dépassement sans aucun danger"],
+correct: 1},
+
+{text: "Le conducteur doit prendre son extrême droite :",
+options: ["Quand il roule à une vitesse inférieure à la vitesse applicable sur cette route", "Quand il veut dépasser un autre véhicule", "Quand la visibilité est bonne"],
+correct: 0},
+
+{text: "Il est interdit au conducteur qui dispose d'un permis de conduire depuis plus de trois ans de conduire avec un taux d'alcoolémie supérieur à :",
+options: ["0.3 grammes/litre", "0.4 grammes/litre", "0.5 grammes/litre"],
+correct: 2},
+
+{text: "Il est interdit au conducteur qui dispose d'un permis de conduire depuis moins de trois ans de conduire avec un taux d'alcoolémie supérieur à :",
+options: ["0 grammes/litre", "0.3 grammes/litre", "0.5 grammes/litre"],
+correct: 0},
+
+{text: "Il est interdit au conducteur qui roule sur la route de :",
+options: ["Utiliser tous les moyens de télécommunication", "Tenir le volant d'une main, et prendre un appel téléphonique de l'autre", "Conduire avec les deux mains, et répondre aux appels téléphoniques via bluetooth"],
+correct: 0},
+
+{text: "En l'absence d'un panneau de signalisation, la vitesse maximale autorisée sur l'autoroute est de :",
+options: ["80 km/heure", "100 km/heure", "120 km/heure"],
+correct: 1},
+
+{text: "En l'absence d'un panneau de signalisation, la vitesse maximale autorisée en dehors des zones peuplées est de :",
+options: ["50 km/heure", "60 km/heure", "70 km/heure"],
+correct: 2},
+
+{text: "En l'absence d'un panneau de signalisation, la vitesse maximale autorisée dans les zones peuplées est de :",
+options: ["40 km/heure", "50 km/heure", "60 km/heure"],
+correct: 1},
+
+{text: "Le conducteur peut faire marche arrière sur l'autoroute si la sortie est à :",
+options: ["10 metres", "20 metres", "La marche arrière est absolument interdite"],
+correct: 2},
+
+{text: "Sur les routes ordinaires, Le triangle de présignalisation doit être placé devant ou derrière le véhicule, selon la direction de la circulation, à ____ du véhicule :",
+options: ["20 metres", "30 metres", "40 metres"],
+correct: 1},
+
+{text: "Sur l'autoroute, Le triangle de présignalisation doit être placé devant ou derrière le véhicule, selon la direction de la circulation, à ____ du véhicule :",
+options: ["50 metres", "60 metres", "70 metres"],
+correct: 0},
+
+{text: "Les piétons sont tenus à utiliser les chaussées, les ponts et les passages piétons qui sont à une distance de :",
+options: ["130 metres", "150 metres", "170 metres"],
+correct: 1},
+
+{text: "Si le conducteur cause un accident de route, et même lorsque les dégâts sont limités aux dégâts matériels, le conducteur est tenu à :",
+options: ["Quitter les lieux et fuire toute responsabilité", "Continuer à rouler", "S'arrêter et suivre les modalités appropriées"],
+correct: 2},
+
+{text: "Si les feux de freinage ne fonctionnent pas :",
+options: ["Le véhicule peut être confisqué", "Ceci est considéré comme contravention de classe 2", "Toutes les réponses précédentes sont correctes"],
+correct: 2},
+
+{text: "La durée de vie maximale du pneu est atteinte :",
+options: ["à 4 ans depuis sa date de fabrication, ou à une épaisseur de gomme de 1.6 mm - lequel arrive en premier", "à 5 ans depuis sa date de fabrication, ou à une épaisseur de gomme de 1.6 mm - lequel arrive en premier", "à 6 ans depuis sa date de fabrication, ou à une épaisseur de gomme de 1.6 mm - lequel arrive en premier"],
+correct: 2},
+
+{text: "Au feu vert, lors d'un embouteillage, le conducteur doit :",
+options: ["Rouler lentement", "Traverser rapidement au feu vert", "S'abstenir de traverser afin de ne pas bloquer la circulation"],
+correct: 2},
+
+{text: "Une procuration pour la vente d'un véhicule est valide pour une période de :",
+options: ["Un mois", "Trois mois", "Deux mois"],
+correct: 2},
+
+{text: "Les lignes discontinues au milieu de la route :",
+options: ["Peuvent être chevauchées", "Ne doivent pas être franchises", "Peuvent être franchises"],
+correct: 2},
+
+{text: "Il est strictement interdit que les feux à l'avant d'un véhicule, soient de couleur autre que :",
+options: ["Le bleu ou le jaune", "Le blanc ou le bleu", "Le blanc ou le jaune"],
+correct: 2},
+
+{text: "Si la route est divisée en deux voies par une ligne jaune, le conducteur doit, en cas de circulation normale :",
+options: ["Circuler au milieu de la route", "Circuler à gauche", "Circuler à droite"],
+correct: 2},
+
+{text: "Quand la voie est délimitée par deux lignes jaunes adjacentes, une ligne continue, et une ligne discontinue :",
+options: ["Le conducteur peut franchir les deux lignes du côté de la ligne continue et ne peut pas les franchir du côté de la ligne discontinue", "Le conducteur ne peut pas franchir les deux lignes ni du côté de la ligne discontinue ni du côté de la ligne continue", "Le conducteur peut franchir les deux lignes du côté de la ligne discontinue et ne peut pas les franchir du côté de la ligne continue"],
+correct: 2},
+
+{text: "Le conducteur est tenu de céder la priorité aux :",
+options: ["Voitures", "Camions", "Piétons"],
+correct: 2},
+
+{text: "Sur les routes à forte pente, la priorité :",
+options: ["dépend de la route elle-même", "est donnée au véhicule qui monte", "est donnée au véhicule qui descend"],
+correct: 1},
+
+{text: "Dans les villes, il faut maintenir un espace de sécurité :",
+options: ["d'une seconde", "de deux mètres", "de deux secondes"],
+correct: 2},
+
+{text: "Dans un rond point, la priorité est toujours :",
+options: ["au véhicule qui arrive de la gauche", "au véhicule qui arrive de la droite", "au véhicule qui est déjà dans le rond point"],
+correct: 2},
+
+{text: "Il est interdit de dépasser dans un tunnel :",
+options: ["à plusieurs voies", "à deux vois", "à voie unique"],
+correct: 2},
+
+{text: "En cas de travaux publics sur la route, le conducteur doit :",
+options: ["Allumer les feux", "Accélérer", "Ralentir"],
+correct: 2},
+
+{text: "Les enfants de moins de 5 ans doivent s'asseoir :",
+options: ["Sur les genoux de leurs parents", "Sur le siège arrière", "Dans un siège auto pour enfant"],
+correct: 2},
+
+{text: "En approchant d'une intersection, la priorité est toujours au conducteur qui est :",
+options: ["Déjà dans l'intersection", "A gauche", "A droite"],
+correct: 2},
+
+{text: "En dépassant une bicyclette ou une motocyclette, le conducteur doit maintenir une distance latérale d'au moins :",
+options: ["65 Cm", "70 Cm", "75 CM"],
+correct: 2},
+
+{text: "En dépassant une voiture ou tout autre véhicule, le conducteur doit maintenir une distance latérale d'au moins :",
+options: ["45 CM", "60 CM", "50 CM"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de bloquer la circulation :",
+options: ["en stationnant lentement", "en circulant à une vitesse inférieure à la vitesse de la circulation sur la route", "en s'arrêtant soudain sans raison"],
+correct: 2},
+
+{text: "En cas de croisement sur une route à deux sens, qui doit faire la marche arrière ?",
+options: ["Plusieurs poids lourds pour une seule voiture", "Plusieurs véhicules pour une seule voiture dans le sens opposé", "Une seule voiture pour plusieurs voitures dans le sens opposé"],
+correct: 2},
+
+{text: "Qui a la priorité dans une intersection à trois voies ?",
+options: ["Le conducteur qui roule avec prudence", "Le conducteur qui vient de droite", "Le conducteur qui est sur la voie directe"],
+correct: 2},
+
+{text: "Lorsqu'il voit sur l'autoroute une plaque de signalisation qui indique un détournement de la route, ou une nouvelle direction, le conducteur doit :",
+options: ["Se ranger rapidement au milieu, selon la direction à suivre", "Se ranger rapidement vers la gauche ou vers la droite, selon la direction à suivre", "Se ranger progressivement vers la gauche ou vers la droite, selon la direction à suivre"],
+correct: 2},
+
+{text: "La ceinture de sécurité est obligatoire :",
+options: ["Sur l'arouroute, pour les passagers occupant les sièges avant et arrière, dans tous genres de véhicules", "Pour les passagers occupant les sièges avant uniquement, dans tous genres de véhicules", "Pour les passagers occupant les sièges avant et arrière, dans tous genres de véhicules et sur toutes les routes"],
+correct: 2},
+
+{text: "Si la main du gendarme est levée vers le haut (verticalement), cela signifie :",
+options: ["Ralentissez rapidement", "Attention, la circulation est bloquée", "Attention, arrêtez-vous (s'applique à tous les usagers de la route)"],
+correct: 2},
+
+{text: "Si les deux bras du gendarme sont tendus horizontalement, cela signifie :",
+options: ["Ralentissez, s'applique à tous les usagers de la route qui viennent des deux sens qui se croisent avec les bras du gendarme", "Cédez la voie, s'applique à tous les usagers de la route qui viennent des deux sens qui se croisent avec les bras du gendarme", "Arrêtez-vous, s'applique à tous les usagers de la route qui viennent des deux sens qui se croisent avec les bras du gendarme"],
+correct: 2},
+
+{text: "Tout véhicule doit être muni :",
+options: ["D'une plaque d'immatriculation arrière", "De deux plaques d'immatriculation à l'avant ou à l'arrière, portant le numéro d'enregistrement du véhicule", "D'une plaque d'immatriculation à l'avant et d'une autre à l'arrière portant le numéro d'enregistrement du véhicule"],
+correct: 2},
+
+{text: "Jusqu'à l'âge de 50 ans, le conducteur de véhicules privés doit renouveler son permis de conduire :",
+options: ["Tous les 20 ans", "Tous les 5 ans", "Tous les 10 ans"],
+correct: 2},
+
+{text: "Il est permis au conducteur d'utiliser une alarme sonore uniquement :",
+options: ["Pour dire aux autres conducteurs qu'il faut aller plus vite", "Pour éviter les embouteillages", "Pour éviter les accidents"],
+correct: 2},
+
+{text: "En cas d'absence d'un panneau qui indique de quel côté sortir de la voiture :",
+options: ["il faut sortir / monter du côté le plus convenable", "il faut sortir / monter du côté gauche du véhicule", "il faut sortir / monter du côté droit du véhicule"],
+correct: 2},
+
+{text: "Lorque le conducteur bouge sa main vers le haut et vers le bas, cela signifie :",
+options: ["que la voiture est en panne", "qu'il se dirige vers la gauche", "Ralentis et arrêtes-toi"],
+correct: 2},
+
+{text: "Lorsque le conducteur tend sa main horizontalement, cela signifie :",
+options: ["qu'il veut faire marche arrière", "qu'il ralentit", "qu'il se dirige vers la gauche"],
+correct: 2},
+
+{text: "Lorsque le conducteur lève sa main vers le haut, cela signifie :",
+options: ["qu'il s'arrête", "qu'il se dirige vers la gauche", "qu'il se dirige vers la droite"],
+correct: 2},
+
+{text: "Les véhicules qui se dirigent vers la droite peuvent franchir un feu rouge à condition :",
+options: ["que le conducteur le fasse rapidement", "Il est absolument interdit aux véhicules qui se dirigent vers la droite de franchir un feu rouge", "que le conducteur s'arrête et vérifie qu'il peut le faire sans aucun danger sur les piétons et la circulation"],
+correct: 2},
+
+{text: "Quando la voie est marquée par une ligne contine,",
+options: ["Il est permis de franchir la ligne à condition que le conducteur le fasse rapidement", "Il est permis de franchir la ligne pour passer d'une file à une autre, à condition que le conducteur franchisse prudemment", "Il est interdit de franchir la ligne pour passer d'une file à une autre"],
+correct: 2},
+
+{text: "Les sièges à l'avant sont interdits aux enfants de moins de :",
+options: ["10 ans", "12 ans", "8 ans"],
+correct: 0},
+
+{text: "Il est interdit de jeter quoi que ce soit de la voiture parce ça risque :",
+options: ["Déranger la police routière dans son travail", "D'effacer le marquage du sol", "De causer des accidents routiers, et de bloquer les drainages"],
+correct: 2},
+
+{text: "Quelle est la différence entre une ligne blanche et une ligne jaune au milieu de la route ?",
+options: ["On utilise les lignes jaunes sur les bords de la route alors qu'on utilise les lignes blanches pour délimiter les voies", "On utilise les lignes jaunes sur les routes à sens unique et les lignes blancs sur les routes à deux sens", "On utilise les lignes blanches pour délimiter les voies allant dans un même sens, et on utilise les lignes jaunes pour délimiter deux voies allant dans deux sens opposés"],
+correct: 2},
+
+{text: "Il est interdit de s'arrêter et de stationner à une distance de moins de _____ des sommets des montées, des virages, des intersections, des ronds points, et des feux.",
+options: ["50 mètres", "30 mètres", "25 mètres"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Transporter dans son véhicule des bouteilles d'alcool ayant dépassé la date d'expiration", "Transporter dans son véhicule des bouteilles d'alcool scellées par le fabricant", "Transporter dans son véhicule des bouteilles d'alcool non scellées par le fabricant"],
+correct: 2},
+
+{text: "Le conducteur doit s'arrêter ou stationner :",
+options: ["Sur les lignes blanches des passages piétons", "Après les lignes blanches des passages piétons", "Avant les lignes blanches des passages piétons"],
+correct: 2},
+
+{text: "Il est interdit au conducteur de :",
+options: ["Franchir les lignes blanches discontinues", "Circuler entre les lignes blanches", "Rouler sur les lignes blanches"],
+correct: 2}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = 1;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1} :</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">
+              ${opt}
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Votre score final : <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `Vous avez répondu à ${answered} sur ${count} questions. Voulez-vous terminer le test ?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>

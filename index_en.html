@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al-Khalil Driving School</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style_en.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+  <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+</head>
+<body>
+  <nav class="navbar">
+  <div class="navbar-inner">
+
+    <!-- 3 ITEMS -->
+    <ul class="navbar-links">
+
+      <li class="nav-item">
+        <button class="nav-toggle" type="button">
+          <i class="fas fa-info-circle"></i>
+          Information
+          <i class="fas fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-dropdown">
+          <a href="masar_en.html"><i class="fas fa-map"></i> Track</a>
+          <a href="dk_en.html"><i class="fas fa-file-alt"></i> Show Me Tell me Questions</a>
+          <a href="info_en.html"><i class="fas fa-book"></i> Exam Information</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="papers_en.html"><i class="fas fa-file-alt"></i> Documents</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="learn_en.html"><i class="fas fa-book"></i> Learning</a>
+      </li>
+
+    </ul>
+
+  </div>
+</nav>
+  <div class="container">
+
+    
+
+    <div class="header-row">
+      <div class="header-text">
+        <h1>Khalil School</h1>
+        <div class="subhead">For Driving Lessons</div>
+        <div class="location">
+          <i class="fas fa-map-pin"></i>
+          <span>
+            Ansar - Main Street - Ali Hasan Khalil Office.<br>
+            Nabatieh Nafaa.
+          </span>
+        </div>
+        <br>
+        <div class="lang-switcher">
+        <a href="index.html" class="lang-btn"><span class="fi fi-lb"></span> العربية</a>
+        <a href="index_en.html" class="lang-btn active"><span class="fi fi-gb"></span> English</a>
+        <a href="index_fr.html" class="lang-btn"><span class="fi fi-fr"></span> Français</a>
+        </div>
+      </div>
+      <img src="الخليل.jpeg" alt="Al-Khalil School" class="header-image">
+    </div>
+
+    <div class="section-title">
+      <i class="fas fa-car"></i>
+      <span>Driving Tests</span>
+    </div>
+    <div class="highlight-text">
+      These are most of the questions that appear in the driving test in Lebanon, with their possible answers.
+    </div>
+    <!-- CATEGORY CARDS -->
+    <div class="category-grid">
+
+    <a href="mock_eng_cars.html" class="category-card">
+        <img src="icon/cars.jpg" alt="cars" class="category-icon">
+        <span class="category-label">Cars</span>
+    </a>
+
+    <a href="mock_eng_general.html" class="category-card">
+        <img src="icon/anoun.png" alt="general" class="category-icon">
+        <span class="category-label">Traffic Law</span>
+    </a>
+
+    <a href="mock_eng_signs.html" class="category-card">
+        <img src="icon/signs.png" alt="traffic signs" class="category-icon">
+        <span class="category-label">Traffic Signs</span>
+    </a>
+     </a>
+    <a href="mock_en_motors.html" class="category-card">
+        <img src="icon/motorcycle.png" alt="cars" class="category-icon">
+        <span class="category-label">Motorcycles</span>
+    </a>
+    <a href="mock_en_trucks.html" class="category-card">
+        <img src="icon/trucks.png" alt="cars" class="category-icon">
+        <span class="category-label">Trucks</span>
+    </a>
+    <a href="mock_en_taxi.html" class="category-card">
+        <img src="icon/taxi.png" alt="cars" class="category-icon">
+        <span class="category-label">Public Taxi</span>
+    </a>
+
+    
+
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="contact-section">
+      <h3>Contact Us for More Information</h3>
+      <div class="phone-links">
+        <a href="tel:+9613718900" class="phone-btn">
+          <i class="fas fa-phone"></i>
+          <span>03 718 900</span>
+        </a>
+        <a href="tel:+96171718900" class="phone-btn">
+          <i class="fas fa-phone"></i>
+          <span>71 718 900</span>
+        </a>
+        <a href="tel:+96103275885" class="phone-btn">
+          <i class="fas fa-phone"></i>
+          <span>03 275 885</span>
+        </a>
+        
+      </div>
+
+    </div>
+    <div class="location-block">
+      <span class="label"><i class="fas fa-clock"></i> Working Hours</span>
+
+      <div class="hours-row">
+        <span class="hours-place">Nafaa - Nabatieh.</span>
+        <span class="hours-time">8:00 AM – 2:00 PM</span>
+      </div>
+
+      <div class="hours-row">
+        <span class="hours-place">Ansar - Ali Hasan Khalil Office.</span>
+        <span class="hours-time">4:30 PM – 8:30 PM</span>
+      </div>
+    </div>
+
+  </div>
+   <script>
+  // ============================================
+  // NAVBAR DROPDOWN TOGGLE
+  // ============================================
+  document.querySelectorAll('.nav-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const li = btn.closest('.nav-item');
+      const isOpen = li.classList.contains('open');
+
+      // Close all other open dropdowns
+      document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('open'));
+
+      // Toggle the clicked one
+      if (!isOpen) li.classList.add('open');
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('open'));
+  });
+
+  // Close dropdown on Escape key (accessibility bonus)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('open'));
+    }
+  });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Taxi Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Correct answers:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Public Taxi Test</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Finish Test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+        <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">Finish Test</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Yes, Finish</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Cancel</button>
+        </div>
+    </div>
+    </div>
+  <script>
+    const allQuestions = [
+
+      // ===== QUESTIONS 1 - 30 =====
+      {text: "Stopping to pick up or drop off passengers at intersections and roundabouts is prohibited within a distance of:",
+       options: ["40 meters from the intersection or roundabout", "10 meters from the intersection or roundabout", "25 meters from the intersection or roundabout"], correct: 2},
+
+      {text: "It is prohibited to slow down or stop to solicit passengers:",
+       options: ["Near intersections and roundabouts and on bends", "Only on bends", "Only near intersections and roundabouts"], correct: 0},
+
+      {text: "Public service drivers, when meeting other road users, must observe the rule of:",
+       options: ["Giving way", "Always having right of way", "Priority for the larger vehicle"], correct: 0},
+
+      {text: "\"Right of way\" is considered a matter specifically related to:",
+       options: ["Pedestrians' rights only", "Drivers' rights under the traffic law", "Real property rights"], correct: 2},
+
+      {text: "\"Right of priority\" is considered a matter specifically related to:",
+       options: ["Road classification by the Ministry of Public Works and Transport", "Armed forces' rights only", "Ordinary drivers' rights"], correct: 0},
+
+      {text: "\"Giving way\" is among the rules that are:",
+       options: ["Set out in international traffic conventions", "Local only without international obligation", "Optional depending on courtesy"], correct: 0},
+
+      {text: "\"Giving way\" to other drivers should occur:",
+       options: ["All of the above", "After they use hazard lights (flasher)", "After they use turn signals"], correct: 2},
+
+      {text: "Talking with passengers while driving affects:",
+       options: ["Multitasking only", "Mental focus and multitasking ability", "Mental focus only"], correct: 1},
+
+      {text: "The rule of doubled attention when stopping or approaching intersections requires:",
+       options: ["One glance in mirrors", "Asking passengers for help", "Looking at least twice in all mirrors"], correct: 2},
+
+      {text: "When extra driving risks exist due to road, lighting, or weather, the driver must:",
+       options: ["Only increase attention", "Only slow down", "Slow down and increase attention"], correct: 2},
+
+      {text: "A public service driver should maintain the vehicle:",
+       options: ["Only when breakdown occurs", "Proactively (preventive)", "Only on a fixed schedule"], correct: 1},
+
+      {text: "Cleanliness inside and outside public vehicles is:",
+       options: ["Optional, not required by law", "Mandatory under the law", "Complies with general rules for taxi vehicles"], correct: 2},
+
+      {text: "A public vehicle driver must carry:",
+       options: ["First-aid kit, cleaning supplies, and required items", "Engine cleaning kit only", "First-aid kit only"], correct: 0},
+
+      {text: "A public driver may work for hire on:",
+       options: ["Cars with public plates", "Cars with private plates", "All cars"], correct: 2},
+
+      {text: "Tire safety is related to:",
+       options: ["All of the above", "With tire quality", "With tire age"], correct: 0},
+
+      {text: "When there is cargo plus passengers, total weight must not exceed:",
+       options: ["A fixed maximum regardless of specs", "Passengers' weight only", "Gross vehicle weight per manufacturer specs without overloading handling"], correct: 2},
+
+      {text: "When loading goods of different weights in the trunk, place them:",
+       options: ["Lightest on bottom", "Any order", "Heaviest on the bottom"], correct: 2},
+
+      {text: "A tourist taxi driver with a public plate must obtain a Ministry license to define:",
+       options: ["Areas where he may work (governorate, caza, etc.)", "Passenger categories only", "All of the above"], correct: 0},
+
+      {text: "The law requires a taximeter in:",
+       options: ["Personally owned taxis only", "Office taxis only", "All taxis"], correct: 2},
+
+      {text: "The taximeter is used to calculate:",
+       options: ["Distance and time including waiting/stop time", "Distance and time excluding stops", "Distance only"], correct: 0},
+
+      {text: "On the owner or driver of a vehicle with a public plate:",
+       options: ["Civil liability only", "NSSF contributions only", "Regular NSSF payments and civil liability for driver's accidents"], correct: 2},
+
+      {text: "A public vehicle driver must work:",
+       options: ["Only in licensed areas", "Everywhere", "Licensed areas except holidays only"], correct: 0},
+
+      {text: "Affiliation of public drivers to transport unions is:",
+       options: ["Mandatory in some areas per local rules", "Mandatory everywhere", "Optional"], correct: 2},
+
+      {text: "Union work aims to:",
+       options: ["Support political parties", "Increase company profits only", "Protect professional rights and gains"], correct: 2},
+
+      {text: "Transport fares are set by:",
+       options: ["Vehicle owner", "Official authorities (e.g. Ministry of Transport) per regulations", "Unions alone"], correct: 1},
+
+      {text: "Placing a high load on the vehicle roof leads to:",
+       options: ["All of the above", "Increased risk of overturning and rolling over", "Increased fuel consumption due to additional air resistance"], correct: 0},
+
+      {text: "Public drivers' traffic records are monitored; losing all points leads to:",
+       options: ["Final cancellation of the driving license", "Temporary withdrawal of the driving license", "All of the above"], correct: 2},
+
+      {text: "Lebanese license \"points system\" total points are:",
+       options: ["10", "20", "12"], correct: 2},
+
+      {text: "If a public driver is insulted by a passenger, he should:",
+       options: ["Retaliate", "Call police immediately without calming", "Stay calm, act prudently, report if needed"], correct: 2},
+
+      {text: "Additional load must not:",
+       options: ["Exceed width only", "Exceed length only", "Exceed permitted vehicle dimensions"], correct: 2},
+
+      // ===== QUESTIONS 31 - 60 =====
+      {text: "Maximum speed in residential areas without signs is:",
+       options: ["80 km/h", "100 km/h", "50 km/h"], correct: 2},
+
+      {text: "Approaching an intersection without traffic lights, you must:",
+       options: ["Continue at normal speed", "Slow down and give way to traffic from the right", "Use high beam constantly"], correct: 1},
+
+      {text: "When a passenger asks to stop to get out, a taxi driver must stop:",
+       options: ["Only at marked spots in cities", "Anywhere outside cities", "Only where stopping is legally allowed"], correct: 2},
+
+      {text: "What is the purpose of the seat belt?",
+       options: ["Useless at low speed", "Protect occupants in a crash", "Decoration"], correct: 1},
+
+      {text: "At a red traffic light, you must:",
+       options: ["Stop before stop line and crosswalk until green", "Stop only before crosswalk", "Drive through"], correct: 0},
+
+      {text: "When should hazard lights (four-way flashers) be used?",
+       options: ["Emergency stop or breakdown obstructing traffic", "When overtaking on highway", "Day driving in city"], correct: 0},
+
+      {text: "Passengers' luggage should be loaded:",
+       options: ["On lap only", "In the trunk safely", "Anywhere in cabin"], correct: 1},
+
+      {text: "When stopping to load passengers, you must stop:",
+       options: ["In designated parking/stop areas", "On bends", "Where passenger wants"], correct: 0},
+
+      {text: "If a passenger has large luggage, you must:",
+       options: ["Put on seats", "Load without blocking doors or visibility", "Load even if doors won't close"], correct: 1},
+
+      {text: "Correct behavior when receiving fare while driving?",
+       options: ["Give change while speeding", "Count money while moving", "Collect fare after safe stop"], correct: 2},
+
+      {text: "Correct behavior in a dispute with passengers?",
+       options: ["Ignore complaints", "Be harsh", "Stay polite to reduce tension"], correct: 2},
+
+      {text: "May passengers exceed seat count?",
+       options: ["Only per licensed seating", "Standing if no seats", "Two seats for three"], correct: 0},
+
+      {text: "Stopping for passengers to board:",
+       options: ["Where passenger asks", "Where driver prefers", "In designated areas"], correct: 2},
+
+      {text: "Large luggage carried by passenger should be loaded:",
+       options: ["15 cm outside doors", "30 cm outside doors", "Without blocking doors or visibility"], correct: 2},
+
+      {text: "Fare is collected from the customer:",
+       options: ["While driving fast", "While driving counting", "After stopping or safely"], correct: 2},
+
+      {text: "Passenger with small gas cylinder:",
+       options: ["OK if closed", "Strictly prohibited", "OK if others agree"], correct: 1},
+
+      {text: "Road classification in Lebanon:",
+       options: ["Four: international, highways, main, local", "Five categories", "Three only"], correct: 0},
+
+      {text: "NSSF registration of public drivers divides into:",
+       options: ["Private/public", "Owner-driver and non-owner driver", "Lebanese/foreign"], correct: 1},
+
+      {text: "The state contributes to NSSF for:",
+       options: ["Non-owner (employee) driver", "Retired driver", "Owner-driver"], correct: 2},
+
+      {text: "Registration with NSSF occurs:",
+       options: ["Non-registered only", "On plate purchase without request", "After application and acceptance"], correct: 2},
+
+      {text: "Employed taxi driver: income tax and NSSF via:",
+       options: ["Accounting office", "Directly", "Through employer"], correct: 2},
+
+      {text: "Independent taxi driver declares and pays:",
+       options: ["Directly", "Through employer", "Only via accountant"], correct: 0},
+
+      {text: "Late NSSF payments result in:",
+       options: ["Suspension of NSSF benefits", "Late payment fine", "All of the above"], correct: 0},
+
+      {text: "Late renewal of license for NSSF beneficiaries leads to:",
+       options: ["Suspension of NSSF benefits", "All of the above", "Late payment fine"], correct: 0},
+
+      {text: "NSSF contributions for public drivers after 64 branch into:",
+       options: ["Sickness, maternity and end of service", "Sickness, maternity and family allowances", "End of service and family allowances"], correct: 1},
+
+      {text: "Public license if criminal record is clear of:",
+       options: ["Drugs only", "Drug and other prohibitive convictions", "Non-drug prohibitions only"], correct: 1},
+
+      {text: "Public driver needs \"transport license\" for:",
+       options: ["All types of cars", "Public vehicles carrying goods", "Private freight vehicles carrying goods"], correct: 2},
+
+      {text: "Public vehicles may carry airport passengers if:",
+       options: ["If the vehicle is licensed for that", "If the driver holds a \"Bus 1\" driving license", "All of the above"], correct: 0},
+
+      {text: "Goods transport license renewal:",
+       options: ["Every 5 years", "Annually", "Every 6 months"], correct: 1},
+
+      {text: "Tourist public driver must know roads:",
+       options: ["Licensed work areas", "All Lebanon", "Home area only"], correct: 0},
+
+      // ===== QUESTIONS 61 - 87 =====
+      {text: "Labor law maximum weekly working hours:",
+       options: ["35h", "60h", "48h"], correct: 2},
+
+      {text: "Driving work beyond legal hours is:",
+       options: ["Overtime at normal rate", "Overtime at increased rate", "Forbidden"], correct: 1},
+
+      {text: "Stop and give way for pedestrians crossing when:",
+       options: ["After pedestrians step onto the road from the curb", "When pedestrians approach the edge of the sidewalk", "When pedestrians step from the curb onto the road"], correct: 1},
+
+      {text: "Public taxi must display identification placard:",
+       options: ["Front passenger only", "Rear only", "Front and rear passengers"], correct: 2},
+
+      {text: "Public license renewal between ages 50–65 every:",
+       options: ["3 years", "4 years", "2 years"], correct: 0},
+
+      {text: "Public license after age 65 renewed every:",
+       options: ["3 years", "4 years", "2 years"], correct: 2},
+
+      {text: "Chemical burn (e.g. battery acid) first aid:",
+       options: ["Dry gauze", "Burn ointment", "Rinse thoroughly with running water"], correct: 2},
+
+      {text: "Passenger tries to exit mid-road; driver should:",
+       options: ["Honk angrily", "Continue to destination", "Calmly stop safely at roadside"], correct: 2},
+
+      {text: "Phone use while driving allowed only:",
+       options: ["Using a hands-free loudspeaker", "When sending text messages", "While stopped at a traffic light"], correct: 0},
+
+      {text: "Transporting elderly or passengers with special needs:",
+       options: ["Ensure seat belts", "No belts", "Children only"], correct: 0},
+
+      {text: "Max passengers in taxi per vehicle license:",
+       options: ["In addition to folding or add-on seats", "Excluding the driver", "Including the driver"], correct: 2},
+
+      {text: "May a public driver tow another car:",
+       options: ["If smaller", "Not allowed", "Same weight"], correct: 1},
+
+      {text: "May a public driver tow a bicycle:",
+       options: ["Non-residential", "Not allowed", "On inner roads"], correct: 1},
+
+      {text: "Who issues road classification decisions:",
+       options: ["Interior minister", "Minister of Public Works and Transport", "PM"], correct: 1},
+
+      {text: "Traffic light and officer present; obey:",
+       options: ["Officer's hand signals", "Traffic light", "General give-way"], correct: 0},
+
+      {text: "In roundabouts, give way to vehicle that:",
+       options: ["Fastest", "Entering", "Already inside"], correct: 2},
+
+      {text: "Prolonged parking (vehicle unmoved) punished after more than:",
+       options: ["20 days", "30 days or more", "15 days"], correct: 1},
+
+      {text: "Minor passenger not belted; responsibility lies with:",
+       options: ["Parents", "Guardian", "Vehicle driver"], correct: 2},
+
+      {text: "Advertising sticker on public vehicle placed on:",
+       options: ["Near plates", "Hood and trunk", "Both sides of vehicle"], correct: 2},
+
+      {text: "Roof \"TAXI\" sign is lit when:",
+       options: ["When vacant", "Cruising", "Night only"], correct: 0},
+
+      {text: "Taxi driver must fix ID of car and driver:",
+       options: ["On the front and rear windows facing outward", "Opposite the front and rear seats", "All of the above"], correct: 1},
+
+      {text: "May public driver drive parallel alongside another car:",
+       options: ["Non-residential", "Inner roads", "Not allowed"], correct: 2},
+
+      {text: "May public driver use private car for hire:",
+       options: ["Outside cities", "Remote towns", "Not allowed"], correct: 2},
+
+      {text: "Child door locks when carrying passengers:",
+       options: ["At all times", "When children are present, without parents' permission", "When children are present, with parents' permission"], correct: 2},
+
+      {text: "Transport of military or hunting weapons:",
+       options: ["Municipal license", "If more than two", "Security authority license"], correct: 2},
+
+      {text: "Personal chat between driver and passengers depends on:",
+       options: ["Passenger only", "Mutual willingness of both", "Driver only"], correct: 1},
+
+      {text: "Public driver must explain fare to passenger:",
+       options: ["Only if asked", "After boarding", "Before boarding"], correct: 2}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Your final score: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `You answered ${answered} of ${count} questions. Do you want to end the test?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+  
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+
+</style>
+</body>
+</html>

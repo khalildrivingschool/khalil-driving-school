@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبار الدراجات النارية</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <!-- LIVE SCORE BOX -->
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">الإجابات الصحيحة:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">اختبار الدراجات النارية</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        إنهاء الاختبار
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="العودة للأعلى">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+        <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">إنهاء الاختبار</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">نعم، إنهاء</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">إلغاء</button>
+        </div>
+    </div>
+    </div>
+  <script>
+    const allQuestions = [
+      {text: "لكي تتفادى الحادث بدراجتك النارية عند التقاطعات يجب عليك أن:",
+       options: ["تخفف سرعتك وتتخذ المسرب الصحيح", "تزيد سرعتك لتعبر بسرعة", "تمر عن يمين المركبات المتوقفة على التقاطع"], correct: 0},
+
+      {text: "حتى لا تزيد السرعة عن طريق الخطأ اثناء القيادة، عليك أن تمسك قبضة مقود الدرّاجة الناريّة بحيث يكون معصم يدك:",
+       options: ["اليمنى إلى الأعلى", "اليسرى إلى الأعلى", "اليمنى إلى الأسفل"], correct: 2},
+
+      {text: "تتأمن الحماية الحقيقة لسائق الدرّاجة الناريّة عن طريق:",
+       options: ["ارتدائه للملابس الخاصة براكبي الدراجات النارية", "قيادة على الإطار الخلفي فقط", "تأكد من وجود تأمين على الدراجة"], correct: 0},
+
+      {text: "الخوذة الواقية الخاصة براكبي الدراجات النارية تؤمن للسائق حماية:",
+       options: ["حاسة السمع من ضوضاء السير", "الرأس من الاصابات القاتلة", "العمود الفقري"], correct: 1},
+
+      {text: "من الأسباب المؤدية إلى تدهور الدرّاجة الناريّة هي وجود:",
+       options: ["زيوت وحصى على سطح الطريق", "سيارات ومشاة على الطريق", "شرطة وإشارات ضوئية على الطريق"], correct: 0},
+
+      {text: "لتجنب الإنزلاق عند استخدام فرامل الدرّاجة الناريّة، يجب أن تكون هذه الدراجة منطلقة:",
+       options: ["في منعطف", "بسرعة عالية", "باتجاه مستقيم"], correct: 2},
+
+      {text: "يحق لك كدراج أن تتجاوز المركبة التي أمامك:",
+       options: ["عن جهة يمينها", "عن جهة يسارها", "عن اي جهة كانت"], correct: 1},
+
+      {text: "ارتداء سائق الدرّاجة الناريّة للقفازات الخاصة بالدراجات النارية يؤمن له:",
+       options: ["حماية الرأس عند السقوط", "حماية اليدين من الاصابة ومن البرد", "حماية القدمين عند السقوط"], correct: 1},
+
+      {text: "مجرّد حمل الخوذة الخاصة براكبي الدراجات النارية دون ارتدائها وربطها بشكل صحيح اثناء القيادة:",
+       options: ["يعفي السائق من المسائلة القانونية", "لا يعفي السائق من المسائلة القانونية", "هو تصرف منطقي من قبل السائق"], correct: 1},
+
+      {text: "عادة ما يكون سبب الردف بالدرّاجة الناريّة اثناء السير:",
+       options: ["التواء عجلة واحدة أو إطار واحد على الأقل", "دوران العجلتان على المحور نفسه", "توزيع سيئ للحملة"], correct: 0},
+
+      {text: "عندما تتجاوز بدراجتك النارية عن يسار مركبةٍ ما أمامك، عليك الانتباه أن هذه المركبة قد:",
+       options: ["تخفف سرعتها تدريجيا", "تنعطف يسارًا فجأة", "تشغّل إشارات التحذير"], correct: 1},
+
+      {text: "إذا كانت الدرّاجة الناريّة مجهزة بنظام فراملي هيدروليكي، فيجب دوريًا:",
+       options: ["فحص مستوى زيت الفرامل", "التخفيف من استعمال الفرامل", "ضبط عيار سلك الفرامل"], correct: 0},
+
+      {text: "يُنصح سائق الدرّاجة الناريّة اثناء القيادة، ومن أجل تمكين الآخرين من رؤيته ليلاً، أن:",
+       options: ["يضع شرائط أو إشارات عاكسة للضوء", "يطفي أنواره ويضع إشارات عاكسة للضوء", "يعمل على جعل فرامله تصدر صريراً"], correct: 0},
+
+      {text: "ارتداء سائق الدرّاجة الناريّة لواقي العمود الفقري الخاص براكبي الدراجات النارية، يؤمن له حماية:",
+       options: ["الصدر والبطن، من الحر والبرد", "العمود الفقري والنخاع الشوكي، من المطر", "العمود الفقري والنخاع الشوكي، من الاصابة"], correct: 2},
+
+      {text: "أثناء القيادة الليلية، يجب على سائق الدرّاجة الناريّة ارتداء:",
+       options: ["ملابس عادية داكنة اللون", "بدلة فوسفورية خاصة", "ملابس رياضية"], correct: 1},
+
+      {text: "انتعال راكب الدرّاجة الناريّة للحذاء الخاص براكبي الدراجات النارية يؤمن له حماية:",
+       options: ["الركبة والفخذ من الماء والبرد", "الركبة والفخذ من الماء والبرد", "القدمين والقصبة من الإصابة، ومن الماء والبرد"], correct: 2},
+
+      {text: "لا يجب أن يقل الحد الأدنى لعمق النقوشات على إطار الدرّاجة الناريّة عن:",
+       options: ["5 مليمتر", "3 مليمتر", "6 مليمتر"], correct: 1},
+
+      {text: "عندما تقوم بقيادة دراجتك النارية بشكل متعرج بين المركبات فإن ذلك:",
+       options: ["يزيد من احتمال تورطك بحادث", "يقلل من احتمال تورطك بحادث", "يجعل منك سائقا وقائيا"], correct: 0},
+
+      {text: "يجب على سائق الدرّاجة الناريّة، ولكي يستطيع توجيه المقود دون صعوبة، أن:",
+       options: ["يجلس بعيدًا عن المقود", "يجلس قريبًا من المقود", "يمسك المقود بيد واحدة"], correct: 1},
+
+      {text: "تكون الفرامل ذات فاعلية قصوى عندما يستخدم سائق الدرّاجة الناريّة:",
+       options: ["الفرامل الخلفية فقط", "الفرامل الخلفية والأمامية", "قدمه بالضغط بها على الإسفلت"], correct: 1},
+
+      {text: "عندما تقود دراجتك النارية ذات عادم (اشبمان) مفرغ عمداً ويصدر صوتاً مرتفعاً جدًّا فإن ذلك:",
+       options: ["يشهد بانك ذات افكار خالقة", "يُعترب مخالفة قانونية صريحة", "مسموح قانونيا"], correct: 1},
+
+      {text: "البدلات الواقية الجلديّة الخاصة براكبي الدراجات النارية لها قدرة على مقاومة:",
+       options: ["القيادة السريعة بين المركبات", "الاحتكاك بالحصى والاسفلت", "الحريق"], correct: 1},
+
+      {text: "عدم ارتداء سائق الدرّاجة الناريّة للخوذة اثناء القيادة، أو ارتداؤه مع ربطها جزئيًا أو عدم ربطها بالمطلق:",
+       options: ["يعتبر مُخالفة قانونية", "يعتبر تصرفاً قانونياً", "يعتبر عملاً طبيعياً"], correct: 0},
+
+      {text: "ارتداء سائق الدرّاجة الناريّة للنظارات الواقية الخاصة براكبي الدراجات النارية، يؤمن له حماية:",
+       options: ["الأذنين من البرد", "العينين من الريح والرمال والأمطار والحشرات", "العينين من ذرف الدموع"], correct: 1},
+
+      {text: "عندما تقود دراجتك النارية ليلا عليك أن:",
+       options: ["تخفف سرعتك وتترك مسافة توقف أقل", "تخفف سرعتك وتترك مسافة توقف أكبر", "تزيد سرعتك وتستعمل الضوء المنخفض"], correct: 1},
+
+      {text: "هناك سببان رئيسيان لانزلاق الدرّاجة الناريّة اثناء القيادة وهما:",
+       options: ["المحرك السريع والمقود المرتفع", "سطح الطريق الزلق وردة الفعل العصبية", "السرعة البطيئة وترس السرعة المنخفض"], correct: 1},
+
+      {text: "عندما تقود دراجتك النارية بشكل مستقيم عليك الانتباه أن المركبة القادمة من الاتجاه المعاكس قد:",
+       options: ["تنعطف في مسارك فجأة", "تتوقف في مسارها فجأة", "تنعطف بعيدا عن مسارك"], correct: 0}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>سؤال ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        نتيجتك النهائية: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ SUBMIT BUTTON ============
+// ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+// ============ CUSTOM CONFIRM ============
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `لقد أجبت على ${answered} من ${count} سؤال. هل تريد إنهاء الاختبار؟`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>

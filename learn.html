@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل أضواء التحذير في لوحة السيارة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/learn.css">
+<link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <h1 class="page-title">دليل أضواء التحذير في لوحة السيارة</h1>
+    <p class="page-intro">
+      فهم أضواء التحذير في لوحة السيارة أمر ضروري للقيادة الآمنة.
+      يغطي هذا الدليل جميع أضواء التحذير الشائعة التي قد تواجهها ومعناها.
+    </p>
+
+    <!-- COLOR GUIDE -->
+    <div class="color-guide">
+      <h2><i class="fas fa-palette"></i> دليل الألوان</h2>
+      <div class="guide-grid">
+        <div class="guide-item"><span class="guide-dot guide-red"></span> حرج — توقف فوراً</div>
+        <div class="guide-item"><span class="guide-dot guide-yellow"></span> تحذير — تحقق قريباً</div>
+        <div class="guide-item"><span class="guide-dot guide-green"></span> تشغيل طبيعي</div>
+        <div class="guide-item"><span class="guide-dot guide-blue"></span> معلومات</div>
+      </div>
+    </div>
+
+    <!-- COUNT + SEARCH -->
+    <div class="count-bar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="ابحث في الأضواء...">
+      </div>
+    </div>
+
+    <!-- CARDS GRID -->
+      <div class="lights-grid" id="lightsGrid">
+
+      <!-- 1. ENGINE TEMPERATURE -->
+      <article class="light-card" data-severity="critical" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/1.png" alt="ضوء تحذير درجة حرارة المحرك"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">ضوء تحذير درجة حرارة المحرك</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن درجة حرارة المحرك تجاوزت الحدود الطبيعية. تحقق من مستوى سائل التبريد، تشغيل المروحة، غطاء المبرد، تسرب سائل التبريد.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          توقف بالسيارة فوراً وتحقق من مستوى سائل التبريد
+        </div>
+      </article>
+
+      <!-- 2. BATTERY CHARGING -->
+      <article class="light-card" data-severity="critical" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/2.png" alt="ضوء تحذير شحن البطارية"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">ضوء تحذير شحن البطارية</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن نظام شحن السيارة يعاني من نقص في الطاقة أو لا يشحن بشكل صحيح. عادة ما يشير إلى مشكلة في البطارية نفسها أو الدينامو.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من توصيلات البطارية والدينامو
+        </div>
+      </article>
+
+      <!-- 3. OIL PRESSURE -->
+      <article class="light-card" data-severity="critical" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/3.png" alt="ضوء تحذير ضغط الزيت"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">ضوء تحذير ضغط الزيت</h3>
+        <p class="light-desc">ضوء المؤشر يعني فقدان ضغط الزيت، مما يعني أن التزييت منخفض أو مفقود تماماً. تحقق فوراً من مستوى الزيت والضغط.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          توقف فوراً وتحقق من مستوى الزيت
+        </div>
+      </article>
+
+      <!-- 4. BRAKE WARNING -->
+      <article class="light-card" data-severity="critical" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/4.png" alt="ضوء تحذير الفرامل"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">ضوء تحذير الفرامل</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما تكون الفرامل اليدوية مفعلة. إذا استمر في الإضاءة، فهذا يعني أن الضغط الهيدروليكي قد فُقد في جانب واحد من نظام الفرامل أو أن مستوى السائل في الأسطوانة الرئيسية منخفض بشكل خطير.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من مستوى سائل الفرامل ونظام الفرامل
+        </div>
+      </article>
+
+      <!-- 5. TRANSMISSION TEMPERATURE -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/5.png" alt="درجة حرارة ناقل الحركة"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">درجة حرارة ناقل الحركة</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن درجة حرارة ناقل الحركة تجاوزت الحدود الطبيعية. تحقق من مستوى سائل ناقل الحركة ونظام التبريد.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          توقف ودع ناقل الحركة يبرد
+        </div>
+      </article>
+
+      <!-- 6. TIRE PRESSURE -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/6.png" alt="ضوء تحذير ضغط الإطارات"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">ضوء تحذير ضغط الإطارات</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن الضغط منخفض في إحدى إطاراتك.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من الإطارات واملأها بالضغط المناسب
+        </div>
+      </article>
+
+      <!-- 7. TCS DISABLED -->
+      <article class="light-card" data-severity="warning" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/7.png" alt="نظام التحكم في الجر معطل"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">نظام التحكم في الجر معطل</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن نظام التحكم في الجر (TCS) في السيارة قد تم إلغاء تفعيله.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          أعد تفعيل نظام التحكم في الجر
+        </div>
+      </article>
+
+      <!-- 8. STEERING LOCK -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/8.png" alt="قفل عجلة القيادة"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">قفل عجلة القيادة</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن عجلة القيادة مقفلة ولا يمكن تحريكها. لإلغاء قفل التوجيه، أدخل المفتاح في الإشعال ولفه إلى الوضع الأول على الأقل أثناء تدوير عجلة القيادة في أي اتجاه.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          أدخل المفتاح ولف عجلة القيادة
+        </div>
+      </article>
+
+      <!-- 9. TRAILER TOW -->
+      <article class="light-card" data-severity="warning" data-category="حالة السيارة">
+        <div class="light-icon"><img src="lights/9.png" alt="تحذير مقطورة السحب"></div>
+        <span class="light-category">حالة السيارة</span>
+        <h3 class="light-title">تحذير مقطورة السحب</h3>
+        <p class="light-desc">أضواء المؤشر تعني أن عقدة السحب غير مقفلة أو أن هناك مشكلة في نظام الإضاءة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من توصيل عقدة السحب وأضواء المقطورة
+        </div>
+      </article>
+
+      <!-- 10. TCS ON -->
+      <article class="light-card" data-severity="normal" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/10.png" alt="ضوء التحكم في الجر"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">ضوء التحكم في الجر</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما يكون نظام التحكم في الجر (TCS) في السيارة مفعلاً.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — لا حاجة لاتخاذ إجراء
+        </div>
+      </article>
+
+      <!-- 11. SERVICE VEHICLE SOON -->
+      <article class="light-card" data-severity="warning" data-category="حالة السيارة">
+        <div class="light-icon"><img src="lights/11.png" alt="خدمة السيارة قريباً"></div>
+        <span class="light-category">حالة السيارة</span>
+        <h3 class="light-title">خدمة السيارة قريباً</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما تكون هناك حالة خطأ في منطقة من أنظمة هيكل السيارة مثل نظام الفرامل المضاد للانغلاق (ABS)، نظام التحكم في الجر (TCS)، نظام التعليق الإلكتروني، أو نظام الفرامل الهيدروليكي.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          جدولة موعد خدمة
+        </div>
+      </article>
+
+      <!-- 12. SECURITY ALERT -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/12.png" alt="تنبيه الأمان"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">تنبيه الأمان</h3>
+        <p class="light-desc">ضوء المؤشر سيضيء مؤقتاً إذا كان مفتاح الإشعال مقفلاً وسيحتاج المفتاح المناسب المزود بالترانس بوندر لإعادة التشغيل. إذا كان الضوء مرئياً عندما تكون السيارة تعمل، فهذا يشير عادة إلى عطل في نظام الأمان.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          استخدم المفتاح المناسب أو اتصل بالوكيل
+        </div>
+      </article>
+
+      <!-- 13. SIDE AIRBAG -->
+      <article class="light-card" data-severity="critical" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/13.png" alt="وسادة هوائية جانبية"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">وسادة هوائية جانبية</h3>
+        <p class="light-desc">ضوء المؤشر يعني عطل في الوسادة الهوائية الجانبية.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل فوراً
+        </div>
+      </article>
+
+      <!-- 14. REDUCED POWER -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/14.png" alt="تحذير تقليل الطاقة"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">تحذير تقليل الطاقة</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن كمبيوتر المحرك قد قلل من إنتاج طاقة المحرك.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          قُد بحذر وجدولة خدمة
+        </div>
+      </article>
+
+      <!-- 15. SEAT BELT -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/15.png" alt="مؤشر حزام الأمان"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">مؤشر حزام الأمان</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن حزام الأمان لم يتم ربطه لراكب في السيارة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اربط جميع أحزمة الأمان
+        </div>
+      </article>
+
+      <!-- 16. PRESS CLUTCH -->
+      <article class="light-card" data-severity="info" data-category="الراحة والراحة">
+        <div class="light-icon"><img src="lights/16.png" alt="اضغط على دواسة القابض"></div>
+        <span class="light-category">الراحة والراحة</span>
+        <h3 class="light-title">اضغط على دواسة القابض</h3>
+        <p class="light-desc">مؤشر للضغط على القابض.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اضغط على دواسة القابض للبدء
+        </div>
+      </article>
+
+      <!-- 17. POWERTRAIN FAULT -->
+      <article class="light-card" data-severity="critical" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/17.png" alt="عطل مجموعة الحركة"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">عطل مجموعة الحركة</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما يتم اكتشاف عطل في مجموعة الحركة أو الدفع الرباعي. اتصل بميكانيكي في أقرب وقت ممكن.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالميكانيكي فوراً
+        </div>
+      </article>
+
+      <!-- 18. POWER STEERING -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/18.png" alt="ضوء تحذير التوجيه المعزز"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">ضوء تحذير التوجيه المعزز</h3>
+        <p class="light-desc">ضوء المؤشر يضيء إذا كانت هناك مشكلة في نظام التوجيه المعزز، وسيتم تعطيله حتى يتم إصلاحه.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل للإصلاح
+        </div>
+      </article>
+
+      <!-- 19. PRESS BRAKE -->
+      <article class="light-card" data-severity="info" data-category="الراحة والراحة">
+        <div class="light-icon"><img src="lights/19.png" alt="اضغط على دواسة الفرامل"></div>
+        <span class="light-category">الراحة والراحة</span>
+        <h3 class="light-title">اضغط على دواسة الفرامل</h3>
+        <p class="light-desc">مؤشر للضغط على دواسة الفرامل.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اضغط على دواسة الفرامل للبدء
+        </div>
+      </article>
+
+      <!-- 20. PARKING BRAKE -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/20.png" alt="ضوء فرامل الوقوف"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">ضوء فرامل الوقوف</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن فرامل الوقوف مفعلة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          ألغِ فرامل الوقوف قبل القيادة
+        </div>
+      </article>
+
+      <!-- 21. O/D OFF -->
+      <article class="light-card" data-severity="info" data-category="الراحة والراحة">
+        <div class="light-icon"><img src="lights/21.png" alt="ضوء التجاوز"></div>
+        <span class="light-category">الراحة والراحة</span>
+        <h3 class="light-title">ضوء التجاوز</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن نظام التجاوز في السيارة تم إيقافه يدوياً.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — يمكن إعادة تفعيله
+        </div>
+      </article>
+
+      <!-- 22. OIL CHANGE -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/22.png" alt="تذكير تغيير الزيت"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">تذكير تغيير الزيت</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن عمر الزيت قد انتهى.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          جدولة خدمة تغيير الزيت
+        </div>
+      </article>
+
+      <!-- 23. MASTER WARNING -->
+      <article class="light-card" data-severity="warning" data-category="حالة السيارة">
+        <div class="light-icon"><img src="lights/23.png" alt="ضوء التحذير الرئيسي"></div>
+        <span class="light-category">حالة السيارة</span>
+        <h3 class="light-title">ضوء التحذير الرئيسي</h3>
+        <p class="light-desc">ضوء المؤشر عادة ما يرافقه ضوء تحذير آخر ويشير إلى أن واحداً أو أكثر من أنظمة التحذير تم اكتشافها.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من جميع أضواء التحذير الأخرى
+        </div>
+      </article>
+
+      <!-- 24. INFO WARNING -->
+      <article class="light-card" data-severity="info" data-category="حالة السيارة">
+        <div class="light-icon"><img src="lights/24.png" alt="ضوء تحذير المعلومات"></div>
+        <span class="light-category">حالة السيارة</span>
+        <h3 class="light-title">ضوء تحذير المعلومات</h3>
+        <p class="light-desc">ضوء المؤشر سيضيء عندما يتم تخزين رسالة جديدة في شاشة المعلومات. سيكون أحمر أو كهرماني اللون حسب خطورة الرسالة وسيبقى مضاءً حتى يتم تصحيح سبب الرسالة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من شاشة المعلومات للحصول على التفاصيل
+        </div>
+      </article>
+
+      <!-- 25. ICE WARNING -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/25.png" alt="ضوء تحذير الطريق الجليدي"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">ضوء تحذير الطريق الجليدي</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما تبدأ درجة حرارة الهواء الخارجي في الوصول إلى درجات التجمد، حوالي 35°ف أو 3°م.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          قُد بحذر على الطرق الجليدية
+        </div>
+      </article>
+
+      <!-- 26. FUEL CAP -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/26.png" alt="غطاء البنزين/الوقود"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">غطاء البنزين/الوقود</h3>
+        <p class="light-desc">ضوء المؤشر يضيء إذا لم يتم شد غطاء البنزين/الوقود بشكل صحيح.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          شد غطاء الوقود بشكل صحيح
+        </div>
+      </article>
+
+      <!-- 27. ESP FAULT -->
+      <article class="light-card" data-severity="warning" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/27.png" alt="عطل ESP / عطل التحكم في الجر"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">عطل ESP / عطل التحكم في الجر</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن هناك مشكلة في التحكم في الجر في السيارة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل للإصلاح
+        </div>
+      </article>
+
+      <!-- 28. ELECTRIC PARKING BRAKE -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/28.png" alt="فرامل الوقوف الكهربائية"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">فرامل الوقوف الكهربائية</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما تكون فرامل الوقوف الكهربائية معطلة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل للإصلاح
+        </div>
+      </article>
+
+      <!-- 29. DISTANCE WARNING -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/29.png" alt="تحذير المسافة"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">تحذير المسافة</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن سيارة في الأمام قريبة جداً أو يتم الاقتراب منها بسرعة كبيرة، أو أن هناك عائقاً ثابتاً في اتجاه السفر.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          زِد المسافة التالية
+        </div>
+      </article>
+
+      <!-- 30. AIR FILTER -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/30.png" alt="فلتر الهواء المسدود"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">فلتر الهواء المسدود</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما يكون هناك انخفاض في تدفق الهواء إلى المحرك. اجعل فلتر الهواء مستبدلاً أو مفحوصاً.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          استبدل أو نظف فلتر الهواء
+        </div>
+      </article>
+
+      <!-- 31. CHILD SAFETY LOCK -->
+      <article class="light-card" data-severity="normal" data-category="الراحة والراحة">
+        <div class="light-icon"><img src="lights/31.png" alt="قفل الأمان للأطفال"></div>
+        <span class="light-category">الراحة والراحة</span>
+        <h3 class="light-title">قفل الأمان للأطفال</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن قفل الأمان للأطفال مفعل.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — يمكن إلغاء تفعيله
+        </div>
+      </article>
+
+      <!-- 32. CHECK ENGINE -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/32.png" alt="تحقق من المحرك أو ضوء مؤشر العطل (MIL)"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">تحقق من المحرك أو ضوء مؤشر العطل (MIL)</h3>
+        <p class="light-desc">ضوء المؤشر يضيء كلما تم تشغيل المحرك للتحقق من المصباح. إذا بقي الضوء مضاءً، فإن أنظمة التشخيص في السيارة اكتشفت عطلاً يحتاج إلى التحقق منه.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اجعل المحرك مُشخصاً من قبل ميكانيكي
+        </div>
+      </article>
+
+      <!-- 33. CATALYTIC CONVERTER -->
+      <article class="light-card" data-severity="critical" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/33.png" alt="تحذير المحول الحفاز"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">تحذير المحول الحفاز</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن المحول الحفاز إما يسخن بشكل مفرط أو لا يعمل كما هو مقصود.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل فوراً
+        </div>
+      </article>
+
+      <!-- 34. BRAKE FLUID -->
+      <article class="light-card" data-severity="critical" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/34.png" alt="سائل الفرامل"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">سائل الفرامل</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن مستوى سائل الفرامل منخفض.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من مستوى سائل الفرامل وأضف إذا لزم الأمر
+        </div>
+      </article>
+
+      <!-- 35. BRAKE PADS -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/35.png" alt="تحذير وسادات الفرامل"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">تحذير وسادات الفرامل</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن وسادات الفرامل مهترئة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          استبدل وسادات الفرامل
+        </div>
+      </article>
+
+      <!-- 36. BRAKE LIGHT WARNING -->
+      <article class="light-card" data-severity="warning" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/36.png" alt="تحذير أضواء الفرامل"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">تحذير أضواء الفرامل</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن مصباح ضوء فرامل خارجي معطل. تحقق من تشغيل جميع مصابيح أضواء الفرامل الخارجية.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          استبدل مصباح ضوء الفرامل المعطل
+        </div>
+      </article>
+
+      <!-- 37. AUTOMATIC GEARBOX -->
+      <article class="light-card" data-severity="critical" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/37.png" alt="تحذير صندوق التروس الأوتوماتيكي"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">تحذير صندوق التروس الأوتوماتيكي</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن هناك عطل في صندوق التروس/ناقل الحركة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح ناقل الحركة
+        </div>
+      </article>
+
+      <!-- 38. ABS -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/38.png" alt="نظام الفرامل المضاد للانغلاق (ABS)"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">نظام الفرامل المضاد للانغلاق (ABS)</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن هناك قد يكون عطل في نظام ABS.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح ABS
+        </div>
+      </article>
+
+      <!-- 39. AWD -->
+      <article class="light-card" data-severity="warning" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/39.png" alt="الدفع الرباعي (AWD/4WD)"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">الدفع الرباعي (AWD/4WD)</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما يكون هناك عطل في نظام الدفع الرباعي.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح نظام الدفع الرباعي
+        </div>
+      </article>
+
+      <!-- 40. AIRBAG INDICATOR -->
+      <article class="light-card" data-severity="critical" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/40.png" alt="مؤشر الوسادة الهوائية"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">مؤشر الوسادة الهوائية</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما تكون الوسادة الهوائية الأمامية مطفأة. إذا أضاء هذا المصباح أو ومض، فهناك عطل في نظام الوسادة الهوائية أو حزام الأمان.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح نظام الوسادة الهوائية
+        </div>
+      </article>
+
+      <!-- 41. AIRBAG OFF -->
+      <article class="light-card" data-severity="warning" data-category="أنظمة السلامة">
+        <div class="light-icon"><img src="lights/41.png" alt="الوسادة الهوائية معطلة"></div>
+        <span class="light-category">أنظمة السلامة</span>
+        <h3 class="light-title">الوسادة الهوائية معطلة</h3>
+        <p class="light-desc">ضوء المؤشر يضيء عندما يكون هناك عطل في نظام الجناح الخلفي.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح نظام الوسادة الهوائية
+        </div>
+      </article>
+
+      <!-- 42. ADAPTIVE DAMPERS -->
+      <article class="light-card" data-severity="warning" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/42.png" alt="مخمدات التعليق التكيفية"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">مخمدات التعليق التكيفية</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن هناك حاجة للاتصال بمصلح معتمد.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالمصلح المعتمد
+        </div>
+      </article>
+
+      <!-- 43. 4WD LOCK -->
+      <article class="light-card" data-severity="normal" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/43.png" alt="ضوء مؤشر قفل الدفع الرباعي (4WD)"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">ضوء مؤشر قفل الدفع الرباعي (4WD)</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن وضع قفل الدفع الرباعي في السيارة مفعل.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — قفل الدفع الرباعي مفعل
+        </div>
+      </article>
+
+      <!-- 44. AIR SUSPENSION -->
+      <article class="light-card" data-severity="warning" data-category="الميزات المتقدمة">
+        <div class="light-icon"><img src="lights/44.png" alt="التعليق الهوائي"></div>
+        <span class="light-category">الميزات المتقدمة</span>
+        <h3 class="light-title">التعليق الهوائي</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن هناك مشكلة في أكياس التعليق الهوائي، على الأرجح بسبب تسرب أو مشكلة في التضخم.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح التعليق الهوائي
+        </div>
+      </article>
+
+      <!-- 45. LOW BEAM -->
+      <article class="light-card" data-severity="normal" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/45.png" alt="ضوء مؤشر الشعاع المنخفض"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">ضوء مؤشر الشعاع المنخفض</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن الشعاع المنخفض للسيارة مضاء.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — الشعاع المنخفض مضاء
+        </div>
+      </article>
+
+      <!-- 46. LAMP OUT -->
+      <article class="light-card" data-severity="warning" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/46.png" alt="انطفاء المصباح"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">انطفاء المصباح</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن هناك ضوء خارجي على السيارة لا يعمل بشكل صحيح.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          استبدل مصباح الضوء الخارجي المعطل
+        </div>
+      </article>
+
+      <!-- 47. HIGH BEAM -->
+      <article class="light-card" data-severity="normal" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/47.png" alt="مؤشر الشعاع العالي"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">مؤشر الشعاع العالي</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن المصابيح الأمامية العالية لسيارتك مضاءة، أو إذا تم استخدام وظيفة وميض الشعاع العالي.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — الشعاع العالي مضاء
+        </div>
+      </article>
+
+      <!-- 48. HEADLIGHT RANGE CONTROL -->
+      <article class="light-card" data-severity="warning" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/48.png" alt="التحكم في مدى المصابيح الأمامية"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">التحكم في مدى المصابيح الأمامية</h3>
+        <p class="light-desc">ضوء المؤشر يضيء إذا تم اكتشاف مشكلة في نظام التحكم في مدى المصابيح الأمامية.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح نظام المصابيح الأمامية
+        </div>
+      </article>
+
+      <!-- 49. FRONT FOG LIGHTS -->
+      <article class="light-card" data-severity="normal" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/49.png" alt="أضواء الضباب الأمامية"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">أضواء الضباب الأمامية</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن أضواء الضباب الأمامية مضاءة.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — أضواء الضباب مضاءة
+        </div>
+      </article>
+
+      <!-- 50. EXTERIOR LIGHT FAULT -->
+      <article class="light-card" data-severity="warning" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/50.png" alt="عطل الضوء الخارجي"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">عطل الضوء الخارجي</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن أي ضوء خارجي على سيارتك لا يعمل.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تحقق من الأضواء الخارجية المعطلة واستبدلها
+        </div>
+      </article>
+
+      <!-- 51. AUTO HIGH BEAM -->
+      <article class="light-card" data-severity="normal" data-category="الإضاءة">
+        <div class="light-icon"><img src="lights/51.png" alt="الشعاع العالي التلقائي"></div>
+        <span class="light-category">الإضاءة</span>
+        <h3 class="light-title">الشعاع العالي التلقائي</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن نظام الشعاع العالي التلقائي قد شغل المصابيح الأمامية العالية.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          تشغيل طبيعي — الشعاع العالي التلقائي مفعل
+        </div>
+      </article>
+
+      <!-- 52. ADBLUE EMPTY -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/52.png" alt="خزان AdBlue فارغ"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">خزان AdBlue فارغ</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن عليك ملء الخزان بمزيد من سائل العادم.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          أعد ملء خزان AdBlue
+        </div>
+      </article>
+
+      <!-- 53. ADBLUE FAULT -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/53.png" alt="عطل AdBlue"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">عطل AdBlue</h3>
+        <p class="light-desc">ضوء المؤشر يعني إما أن نظام AdBlue معطل أو أن النظام غير مملوء بالسائل القياسي.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          اتصل بالوكيل لإصلاح نظام AdBlue
+        </div>
+      </article>
+
+      <!-- 54. WATER IN FUEL FILTER -->
+      <article class="light-card" data-severity="warning" data-category="المحرك والأداء">
+        <div class="light-icon"><img src="lights/54.png" alt="تحذير فلتر سائل الماء"></div>
+        <span class="light-category">المحرك والأداء</span>
+        <h3 class="light-title">تحذير فلتر سائل الماء</h3>
+        <p class="light-desc">ضوء المؤشر يعني أن الماء في فلتر الوقود وصل إلى الحد الأقصى للسعة. صرف الماء منs الفلتر.</p>
+        <div class="light-action">
+          <strong>الإجراء</strong>
+          صرف الماء من فلتر الوقود
+        </div>
+      </article>
+
+    </div>
+
+    
+
+    <!-- TIPS -->
+    <div class="tips">
+      <h2><i class="fas fa-circle-info"></i> نصائح مهمة</h2>
+      <ul>
+        <li><i class="fas fa-circle"></i> الأضواء الحمراء تتطلب اهتماماً فورياً — توقف عن القيادة إذا كان آمناً</li>
+        <li><i class="fas fa-circle"></i> الأضواء الصفراء تشير إلى مشكلة تحتاج اهتماماً قريباً</li>
+        <li><i class="fas fa-circle"></i> الأضواء الخضراء تظهر التشغيل الطبيعي — لا حاجة لاتخاذ إجراء</li>
+        <li><i class="fas fa-circle"></i> الأضواء الزرقاء توفر معلومات أو ميزات راحة</li>
+        <li><i class="fas fa-circle"></i> راجع دائماً دليل سيارتك للحصول على تعليمات محددة</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // SEARCH / FILTER
+    // ==========================================
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".light-card");
+    const countShown = document.getElementById("countShown");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const match = text.includes(query);
+        card.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+
+      countShown.textContent = visible;
+    });
+  </script>
+
+</body>
+</html>

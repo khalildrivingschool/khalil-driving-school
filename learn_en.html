@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Dashboard Warning Lights Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/learn.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <h1 class="page-title">Car Dashboard Warning Lights Guide</h1>
+    <p class="page-intro">
+      Understanding your car's dashboard warning lights is crucial for safe driving.
+      This guide covers all the common warning lights you might encounter and what they mean.
+    </p>
+
+    <!-- COLOR GUIDE -->
+    <div class="color-guide">
+      <h2><i class="fas fa-palette"></i> Color Guide</h2>
+      <div class="guide-grid">
+        <div class="guide-item"><span class="guide-dot guide-red"></span> Critical — Stop Immediately</div>
+        <div class="guide-item"><span class="guide-dot guide-yellow"></span> Warning — Check Soon</div>
+        <div class="guide-item"><span class="guide-dot guide-green"></span> Normal Operation</div>
+        <div class="guide-item"><span class="guide-dot guide-blue"></span> Information</div>
+      </div>
+    </div>
+
+    <!-- COUNT + SEARCH -->
+    <div class="count-bar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Filter Warning Lights">
+      </div>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="lights-grid" id="lightsGrid">
+
+      <!-- 1. ENGINE TEMPERATURE -->
+      <article class="light-card" data-severity="critical" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/1.png" alt="Engine Temperature Warning Light"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Engine Temperature Warning Light</h3>
+        <p class="light-desc">Indicator light means the engine temperature has exceeded normal limits. Check coolant level, fan operation, radiator cap, coolant leaks.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Stop the vehicle immediately and check coolant level
+        </div>
+      </article>
+
+      <!-- 2. BATTERY CHARGE -->
+      <article class="light-card" data-severity="critical" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/2.png" alt="Battery Charge Warning Light"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Battery Charge Warning Light</h3>
+        <p class="light-desc">Indicator light means that the car's charging system is short of power or is not charging properly. It normally indicates a problem with the battery itself or the alternator.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check battery connections and alternator
+        </div>
+      </article>
+
+      <!-- 3. OIL PRESSURE -->
+      <article class="light-card" data-severity="critical" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/3.png" alt="Oil Pressure Warning Light"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Oil Pressure Warning Light</h3>
+        <p class="light-desc">Indicator light means loss of oil pressure, meaning lubrication is low or lost completely. Immediately check the oil level and pressure.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Stop immediately and check oil level
+        </div>
+      </article>
+
+      <!-- 4. BRAKE WARNING -->
+      <article class="light-card" data-severity="critical" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/4.png" alt="Brake Warning Light"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Brake Warning Light</h3>
+        <p class="light-desc">Indicator light turns on when the handbrake is on. If it lit continuously, it means that hydraulic pressure has been lost in one side of the brake system or that the fluid level in the master cylinder is dangerously low (due to a leak somewhere in the brake system).</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check brake fluid level and brake system
+        </div>
+      </article>
+
+      <!-- 5. TRANSMISSION TEMPERATURE -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/5.png" alt="Transmission Temperature"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Transmission Temperature</h3>
+        <p class="light-desc">Indicator light means the transmission temperature has exceeded normal limits. Check transmission fluid level and cooling system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Stop and let transmission cool down
+        </div>
+      </article>
+
+      <!-- 6. TIRE PRESSURE -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/6.png" alt="Tire Pressure Warning Light"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Tire Pressure Warning Light</h3>
+        <p class="light-desc">Indicator light means the pressure is low in one of your tires.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check and inflate tires to proper pressure
+        </div>
+      </article>
+
+      <!-- 7. TCS OFF -->
+      <article class="light-card" data-severity="warning" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/7.png" alt="Traction Control Off"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">Traction Control Off</h3>
+        <p class="light-desc">Indicator light means that the vehicles TCS (traction control system) has been deactivated.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Reactivate traction control system
+        </div>
+      </article>
+
+      <!-- 8. STEERING LOCK -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/8.png" alt="Steering Wheel Lock"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Steering Wheel Lock</h3>
+        <p class="light-desc">Indicator light means your steering wheel is locked and can not be moved. To turn off the steering lock, insert the key into the ignition and turn it to at least the first position while turning the steering wheel in either direction.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Insert key and turn steering wheel
+        </div>
+      </article>
+
+      <!-- 9. TRAILER TOW -->
+      <article class="light-card" data-severity="warning" data-category="Vehicle Status">
+        <div class="light-icon"><img src="lights/9.png" alt="Trailer Tow Hitch Warning"></div>
+        <span class="light-category">Vehicle Status</span>
+        <h3 class="light-title">Trailer Tow Hitch Warning</h3>
+        <p class="light-desc">Indicator lights mean that the tow hitch is unlocked or that there's an issue with the lighting system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check tow hitch connection and trailer lights
+        </div>
+      </article>
+
+      <!-- 10. TRACTION CONTROL ON -->
+      <article class="light-card" data-severity="normal" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/10.png" alt="Traction Control Light"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">Traction Control Light</h3>
+        <p class="light-desc">Indicator light turns on when the vehicle TCS (traction control system) is activated.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - no action needed
+        </div>
+      </article>
+
+      <!-- 11. SERVICE VEHICLE SOON -->
+      <article class="light-card" data-severity="warning" data-category="Vehicle Status">
+        <div class="light-icon"><img src="lights/11.png" alt="Service Vehicle Soon"></div>
+        <span class="light-category">Vehicle Status</span>
+        <h3 class="light-title">Service Vehicle Soon</h3>
+        <p class="light-desc">Indicator light turns on when there is a fault condition in an area of the vehicle chassis systems such as—the anti-lock (ABS) brake system, the traction control (TCS) system, the electronic suspension system, or the brake hydraulic system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Schedule service appointment
+        </div>
+      </article>
+
+      <!-- 12. SECURITY ALERT -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/12.png" alt="Security Alert"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Security Alert</h3>
+        <p class="light-desc">Indicator light will turn on momentarily if the ignition switch is locked and will need the proper transponder-equipped key to restart. If the light is visible when the vehicle is on, then it typically indicates a malfunction in the security system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Use proper key or contact dealer
+        </div>
+      </article>
+
+      <!-- 13. SIDE AIRBAG -->
+      <article class="light-card" data-severity="critical" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/13.png" alt="Side Airbag"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Side Airbag</h3>
+        <p class="light-desc">Indicator light means a fault with the side airbag.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer immediately
+        </div>
+      </article>
+
+      <!-- 14. REDUCED POWER -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/14.png" alt="Reduced Power Warning"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Reduced Power Warning</h3>
+        <p class="light-desc">Indicator light means that the Engine Computer has limited engine power output.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Drive carefully and schedule service
+        </div>
+      </article>
+
+      <!-- 15. SEAT BELT -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/15.png" alt="Seat Belt Indicator"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Seat Belt Indicator</h3>
+        <p class="light-desc">Indicator light means that a seat belt has not been secured for a passenger in the vehicle.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Fasten all seat belts
+        </div>
+      </article>
+
+      <!-- 16. PRESS CLUTCH -->
+      <article class="light-card" data-severity="info" data-category="Comfort & Convenience">
+        <div class="light-icon"><img src="lights/16.png" alt="Press Clutch Pedal"></div>
+        <span class="light-category">Comfort &amp; Convenience</span>
+        <h3 class="light-title">Press Clutch Pedal</h3>
+        <p class="light-desc">Indicator to push the clutch.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Press clutch pedal to start
+        </div>
+      </article>
+
+      <!-- 17. POWERTRAIN FAULT -->
+      <article class="light-card" data-severity="critical" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/17.png" alt="Powertrain Fault"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Powertrain Fault</h3>
+        <p class="light-desc">Indicator light turns on when a powertrain or AWD fault has been detected. Contact your mechanic as soon as possible.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact mechanic immediately
+        </div>
+      </article>
+
+      <!-- 18. POWER STEERING -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/18.png" alt="Power Steering Warning Light"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Power Steering Warning Light</h3>
+        <p class="light-desc">Indicator light turns on if there is an issue with the power steering system, and will be disabled until fixed.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for repair
+        </div>
+      </article>
+
+      <!-- 19. PRESS BRAKE -->
+      <article class="light-card" data-severity="info" data-category="Comfort & Convenience">
+        <div class="light-icon"><img src="lights/19.png" alt="Press Brake Pedal"></div>
+        <span class="light-category">Comfort &amp; Convenience</span>
+        <h3 class="light-title">Press Brake Pedal</h3>
+        <p class="light-desc">Indicator to push the brake pedal.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Press brake pedal to start
+        </div>
+      </article>
+
+      <!-- 20. PARKING BRAKE -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/20.png" alt="Parking Brake Light"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Parking Brake Light</h3>
+        <p class="light-desc">Indicator light means park brake is on.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Release parking brake before driving
+        </div>
+      </article>
+
+      <!-- 21. OVERDRIVE -->
+      <article class="light-card" data-severity="info" data-category="Comfort & Convenience">
+        <div class="light-icon"><img src="lights/21.png" alt="Overdrive Light"></div>
+        <span class="light-category">Comfort &amp; Convenience</span>
+        <h3 class="light-title">Overdrive Light</h3>
+        <p class="light-desc">Indicator light means that the vehicle's overdrive system has been manually turned off.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - can be reactivated
+        </div>
+      </article>
+
+      <!-- 22. OIL CHANGE -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/22.png" alt="Oil Change Reminder"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Oil Change Reminder</h3>
+        <p class="light-desc">Indicator light means that oil life has expired.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Schedule oil change service
+        </div>
+      </article>
+
+      <!-- 23. MASTER WARNING -->
+      <article class="light-card" data-severity="warning" data-category="Vehicle Status">
+        <div class="light-icon"><img src="lights/23.png" alt="Master Warning Light"></div>
+        <span class="light-category">Vehicle Status</span>
+        <h3 class="light-title">Master Warning Light</h3>
+        <p class="light-desc">Indicator light usually accompanied by another warning light and indicates that one or more warning systems have been detected.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check all other warning lights
+        </div>
+      </article>
+
+      <!-- 24. INFO WARNING -->
+      <article class="light-card" data-severity="info" data-category="Vehicle Status">
+        <div class="light-icon"><img src="lights/24.png" alt="Information Warning Light"></div>
+        <span class="light-category">Vehicle Status</span>
+        <h3 class="light-title">Information Warning Light</h3>
+        <p class="light-desc">Indicator light will turn on when a new message is stored in the information display. It will be red or amber in color depending on the severity of the message and will remain on until the cause of the message has been rectified.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check information display for details
+        </div>
+      </article>
+
+      <!-- 25. ICY ROAD -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/25.png" alt="Icy Road Warning Light"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Icy Road Warning Light</h3>
+        <p class="light-desc">Indicator light turns on when the outside air starts to reach freezing temperatures, around 35°F or 3°C.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Drive carefully on icy roads
+        </div>
+      </article>
+
+      <!-- 26. FUEL CAP -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/26.png" alt="Gas/Fuel Cap"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Gas/Fuel Cap</h3>
+        <p class="light-desc">Indicator light turns on if the gas/fuel cap is not properly tightened.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Tighten fuel cap properly
+        </div>
+      </article>
+
+      <!-- 27. ESP FAULT -->
+      <article class="light-card" data-severity="warning" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/27.png" alt="ESP Fault / Traction Control Malfunction"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">ESP Fault / Traction Control Malfunction</h3>
+        <p class="light-desc">Indicator light means that there is a problem with the vehicle's traction control.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for repair
+        </div>
+      </article>
+
+      <!-- 28. ELECTRIC PARK BRAKE -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/28.png" alt="Electric Park Brake"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Electric Park Brake</h3>
+        <p class="light-desc">Indicator light turns on when the electric parking brake has a malfunction.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for repair
+        </div>
+      </article>
+
+      <!-- 29. DISTANCE WARNING -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/29.png" alt="Distance Warning"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Distance Warning</h3>
+        <p class="light-desc">Indicator light means that a vehicle in front is too close or is being approached too quickly, or that a stationary obstacle exists in the direction of travel.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Increase following distance
+        </div>
+      </article>
+
+      <!-- 30. AIR FILTER -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/30.png" alt="Clogged Air Filter"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Clogged Air Filter</h3>
+        <p class="light-desc">Indicator light turns on when there is reduced airflow to the engine. Have the air filter replaced or inspected.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Replace or clean air filter
+        </div>
+      </article>
+
+      <!-- 31. CHILD SAFETY LOCK -->
+      <article class="light-card" data-severity="normal" data-category="Comfort & Convenience">
+        <div class="light-icon"><img src="lights/31.png" alt="Child Safety Lock"></div>
+        <span class="light-category">Comfort &amp; Convenience</span>
+        <h3 class="light-title">Child Safety Lock</h3>
+        <p class="light-desc">Indicator light means child safety lock is active.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - can be deactivated
+        </div>
+      </article>
+
+      <!-- 32. CHECK ENGINE -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/32.png" alt="Check Engine or Malfunction Indicator Light (MIL)"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Check Engine or Malfunction Indicator Light (MIL)</h3>
+        <p class="light-desc">Indicator light turns on whenever the engine is turned on to check the bulb. If the light stays illuminated, the car's diagnostic systems have detected a malfunction that needs to be investigated.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Have engine diagnosed by mechanic
+        </div>
+      </article>
+
+      <!-- 33. CATALYTIC CONVERTER -->
+      <article class="light-card" data-severity="critical" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/33.png" alt="Catalytic Converter Warning"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Catalytic Converter Warning</h3>
+        <p class="light-desc">Indicator light means the catalytic converter is either overheating or not operating as intended.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer immediately
+        </div>
+      </article>
+
+      <!-- 34. BRAKE FLUID -->
+      <article class="light-card" data-severity="critical" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/34.png" alt="Brake Fluid"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Brake Fluid</h3>
+        <p class="light-desc">Indicator light means that the brake fluid level is low.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check brake fluid level and add if needed
+        </div>
+      </article>
+
+      <!-- 35. BRAKE PADS -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/35.png" alt="Brake Pad Warning"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Brake Pad Warning</h3>
+        <p class="light-desc">Indicator light means that the brake pads are worn.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Replace brake pads
+        </div>
+      </article>
+
+      <!-- 36. BRAKE LIGHT WARNING -->
+      <article class="light-card" data-severity="warning" data-category="Lighting">
+        <div class="light-icon"><img src="lights/36.png" alt="Brake Lights Warning"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Brake Lights Warning</h3>
+        <p class="light-desc">Indicator light means an exterior brake light bulb is defective. Check the operation of all the exterior brake light bulbs.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Replace defective brake light bulb
+        </div>
+      </article>
+
+      <!-- 37. AUTOMATIC GEARBOX -->
+      <article class="light-card" data-severity="critical" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/37.png" alt="Automatic Gearbox Warning"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Automatic Gearbox Warning</h3>
+        <p class="light-desc">Indicator light means there's a gearbox/transmission malfunction.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for transmission repair
+        </div>
+      </article>
+
+      <!-- 38. ABS -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/38.png" alt="Anti-lock Braking System (ABS)"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Anti-lock Braking System (ABS)</h3>
+        <p class="light-desc">Indicator light means there may be a malfunction in the ABS system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for ABS repair
+        </div>
+      </article>
+
+      <!-- 39. AWD -->
+      <article class="light-card" data-severity="warning" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/39.png" alt="All Wheel Drive (AWD/4WD)"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">All Wheel Drive (AWD/4WD)</h3>
+        <p class="light-desc">Indicator light turns on when there is a malfunction with the 4WD system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for 4WD system repair
+        </div>
+      </article>
+
+      <!-- 40. AIRBAG INDICATOR -->
+      <article class="light-card" data-severity="critical" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/40.png" alt="Airbag Indicator"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Airbag Indicator</h3>
+        <p class="light-desc">Indicator light turns on when the front airbag is switched off. If this lamp lights up or flashes there is a fault in the airbag or seatbelt system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for airbag system repair
+        </div>
+      </article>
+
+      <!-- 41. AIRBAG DEACTIVATED -->
+      <article class="light-card" data-severity="warning" data-category="Safety Systems">
+        <div class="light-icon"><img src="lights/41.png" alt="Airbag Deactivated"></div>
+        <span class="light-category">Safety Systems</span>
+        <h3 class="light-title">Airbag Deactivated</h3>
+        <p class="light-desc">Indicator light turns on when there is a fault in the rear spoiler system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for airbag system repair
+        </div>
+      </article>
+
+      <!-- 42. ADAPTIVE DAMPERS -->
+      <article class="light-card" data-severity="warning" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/42.png" alt="Adaptive Suspension Dampers"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">Adaptive Suspension Dampers</h3>
+        <p class="light-desc">Indicator light means there is a need to contact an authorised repairer.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact authorized repairer
+        </div>
+      </article>
+
+      <!-- 43. 4WD LOCK -->
+      <article class="light-card" data-severity="normal" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/43.png" alt="4 Wheel Drive (4WD) LOCK Indicator Light"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">4 Wheel Drive (4WD) LOCK Indicator Light</h3>
+        <p class="light-desc">Indicator light means that the vehicle's 4WD Lock mode is activated.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - 4WD lock is active
+        </div>
+      </article>
+
+      <!-- 44. AIR SUSPENSION -->
+      <article class="light-card" data-severity="warning" data-category="Advanced Features">
+        <div class="light-icon"><img src="lights/44.png" alt="Air Suspension"></div>
+        <span class="light-category">Advanced Features</span>
+        <h3 class="light-title">Air Suspension</h3>
+        <p class="light-desc">Indicator light means that there is a problem with the air suspension bags, likely due to a leak or inflation issue.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for air suspension repair
+        </div>
+      </article>
+
+      <!-- 45. LOW BEAM -->
+      <article class="light-card" data-severity="normal" data-category="Lighting">
+        <div class="light-icon"><img src="lights/45.png" alt="Low Beam Indicator Light"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Low Beam Indicator Light</h3>
+        <p class="light-desc">Indicator light means that the vehicles dipped beam is on.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - low beams are on
+        </div>
+      </article>
+
+      <!-- 46. LAMP OUT -->
+      <article class="light-card" data-severity="warning" data-category="Lighting">
+        <div class="light-icon"><img src="lights/46.png" alt="Lamp Out"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Lamp Out</h3>
+        <p class="light-desc">Indicator light means that there is an exterior light on the vehicle that is not functioning properly.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Replace defective exterior light bulb
+        </div>
+      </article>
+
+      <!-- 47. HIGH BEAM -->
+      <article class="light-card" data-severity="normal" data-category="Lighting">
+        <div class="light-icon"><img src="lights/47.png" alt="High Beam Light Indicator"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">High Beam Light Indicator</h3>
+        <p class="light-desc">Indicator light means your car's high beam headlights are on, or if the high beam flash function is used.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - high beams are on
+        </div>
+      </article>
+
+      <!-- 48. HEADLIGHT RANGE CONTROL -->
+      <article class="light-card" data-severity="warning" data-category="Lighting">
+        <div class="light-icon"><img src="lights/48.png" alt="Headlight Range Control"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Headlight Range Control</h3>
+        <p class="light-desc">Indicator light turns on if there is an issue detected with the headlight range control system.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for headlight system repair
+        </div>
+      </article>
+
+      <!-- 49. FRONT FOG LIGHTS -->
+      <article class="light-card" data-severity="normal" data-category="Lighting">
+        <div class="light-icon"><img src="lights/49.png" alt="Front Fog Lights"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Front Fog Lights</h3>
+        <p class="light-desc">Indicator light means front fog lights are turned on.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - fog lights are on
+        </div>
+      </article>
+
+      <!-- 50. EXTERIOR LIGHT FAULT -->
+      <article class="light-card" data-severity="warning" data-category="Lighting">
+        <div class="light-icon"><img src="lights/50.png" alt="Exterior Light Fault"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Exterior Light Fault</h3>
+        <p class="light-desc">Indicator light means any exterior light on your car isn't working.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Check and replace defective exterior lights
+        </div>
+      </article>
+
+      <!-- 51. AUTO HIGH BEAM -->
+      <article class="light-card" data-severity="normal" data-category="Lighting">
+        <div class="light-icon"><img src="lights/51.png" alt="Auto High Beam"></div>
+        <span class="light-category">Lighting</span>
+        <h3 class="light-title">Auto High Beam</h3>
+        <p class="light-desc">Indicator light means the Auto High Beam system has switched on high beam headlights.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Normal operation - auto high beam is active
+        </div>
+      </article>
+
+      <!-- 52. ADBLUE EMPTY -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/52.png" alt="AdBlue Tank is Empty"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">AdBlue Tank is Empty</h3>
+        <p class="light-desc">Indicator light means you have to fill the tank with more exhaust fluid.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Refill AdBlue tank
+        </div>
+      </article>
+
+      <!-- 53. ADBLUE MALFUNCTION -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/53.png" alt="AdBlue Malfunction"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">AdBlue Malfunction</h3>
+        <p class="light-desc">Indicator light means either the AdBlue system is malfunctioning or the system is not filled with the standard liquid.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Contact dealer for AdBlue system repair
+        </div>
+      </article>
+
+      <!-- 54. WATER IN FUEL FILTER -->
+      <article class="light-card" data-severity="warning" data-category="Engine & Performance">
+        <div class="light-icon"><img src="lights/54.png" alt="Water Fluid Filter Warning"></div>
+        <span class="light-category">Engine &amp; Performance</span>
+        <h3 class="light-title">Water Fluid Filter Warning</h3>
+        <p class="light-desc">Indicator light means water in fuel filter has reached maximum capacity. Drain the water from filter.</p>
+        <div class="light-action">
+          <strong>Action</strong>
+          Drain water from fuel filter
+        </div>
+      </article>
+
+    </div>
+
+    <!-- TIPS -->
+    <div class="tips">
+      <h2><i class="fas fa-circle-info"></i> Important Tips</h2>
+      <ul>
+        <li><i class="fas fa-circle"></i> Red lights require immediate attention - stop driving if safe to do so</li>
+        <li><i class="fas fa-circle"></i> Yellow lights indicate a problem that needs attention soon</li>
+        <li><i class="fas fa-circle"></i> Green lights show normal operation - no action needed</li>
+        <li><i class="fas fa-circle"></i> Blue lights provide information or comfort features</li>
+        <li><i class="fas fa-circle"></i> Always refer to your vehicle's manual for specific instructions</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // SEARCH / FILTER
+    // ==========================================
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".light-card");
+    const countShown = document.getElementById("countShown");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const match = text.includes(query);
+        card.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+
+      countShown.textContent = visible;
+    });
+  </script>
+
+</body>
+</html>

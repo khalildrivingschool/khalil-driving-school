@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Taxi Public</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Bonnes réponses :</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Test Taxi Public</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Terminer le test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+<div class="custom-modal-overlay" id="confirmModal">
+  <div class="custom-modal">
+    <div class="custom-modal-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <h3 class="custom-modal-title">Terminer le Test</h3>
+    <p class="custom-modal-text" id="confirmMessage"></p>
+    <div class="custom-modal-actions">
+      <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Oui, Terminer</button>
+      <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+  <script>
+    const allQuestions = [
+
+      // ===== QUESTIONS 1 - 30 =====
+      {text: "L'arrêt pour faire monter ou descendre des passagers aux carrefours et ronds-points est interdit dans un rayon de :",
+       options: ["10 mètres du carrefour ou du rond-point", "25 mètres du carrefour ou du rond-point", "40 mètres du carrefour ou du rond-point"], correct: 1},
+
+      {text: "Il est interdit de ralentir ou de s'arrêter pour héler des passagers :",
+       options: ["Près des carrefours et ronds-points et dans les virages", "Uniquement dans les virages", "Uniquement près des carrefours et ronds-points"], correct: 0},
+
+      {text: "Les conducteurs de transport public, face à d'autres usagers de la route, doivent respecter la règle de :",
+       options: ["Faciliter le passage", "Priorité au plus gros véhicule", "Toujours le droit de passage"], correct: 0},
+
+      {text: "Le « droit de passage » est une question qui concerne spécifiquement :",
+       options: ["Droits des piétons uniquement", "Droits immobiliers", "Droits des conducteurs prévus par le code de la route"], correct: 1},
+
+      {text: "Le « droit de priorité » est une question qui concerne spécifiquement :",
+       options: ["Droits des conducteurs ordinaires", "Droits des forces armées uniquement", "Classification des routes par le ministère des Travaux publics et des Transports"], correct: 2},
+
+      {text: "« Faciliter le passage » relève de règles :",
+       options: ["Uniquement locales", "Facultatives selon la courtoisie", "Fixées par les conventions internationales de circulation"], correct: 2},
+
+      {text: "Il convient de « faciliter le passage » aux autres conducteurs :",
+       options: ["Après clignotant", "Tout ce qui précède", "Après feux de détresse (flasher)"], correct: 0},
+
+      {text: "Parler avec les passagers pendant la conduite influe sur :",
+       options: ["Multitâche seulement", "Concentration et capacité de multitâche", "Concentration seulement"], correct: 1},
+
+      {text: "La règle du doublement de l'attention à l'arrêt et à l'approche des carrefours exige :",
+       options: ["Demander l'aide des passagers", "Regarder au moins deux fois tous les rétroviseurs", "Un seul coup d'œil"], correct: 1},
+
+      {text: "En cas de risques accrus (route, éclairage, météo), le conducteur doit :",
+       options: ["Redoubler d'attention seulement", "Ralentir et redoubler d'attention", "Ralentir seulement"], correct: 1},
+
+      {text: "Un conducteur de transport public doit entretenir son véhicule de manière :",
+       options: ["De façon proactive (préventive)", "Seulement selon calendrier", "Seulement en panne"], correct: 0},
+
+      {text: "La propreté intérieure et extérieure des véhicules publics est :",
+       options: ["Conforme aux règles générales pour les taxis", "Obligatoire par la loi", "Facultatif, non imposé par la loi"], correct: 0},
+
+      {text: "Un conducteur de véhicule public doit posséder :",
+       options: ["Trousse de secours, produits d'entretien et articles requis", "Trousse de secours seulement", "Kit nettoyage moteur seulement"], correct: 0},
+
+      {text: "Un conducteur public peut travailler moyennant rémunération sur :",
+       options: ["Véhicules à plaque privée", "Toutes les voitures", "Véhicules à plaque publique"], correct: 1},
+
+      {text: "La sécurité des pneus est liée à :",
+       options: ["À l'âge du pneu", "À la qualité du pneu", "Tout ce qui précède"], correct: 2},
+
+      {text: "Avec cargaison et passagers, le poids total ne doit pas dépasser :",
+       options: ["Poids des passagers seulement", "Maximum fixe arbitraire", "PTAC selon constructeur sans surcharger la tenue de route"], correct: 2},
+
+      {text: "Pour charger des marchandises de poids différents dans le coffre :",
+       options: ["Le plus léger en bas", "N'importe quel ordre", "Le plus lourd en bas"], correct: 2},
+
+      {text: "Un chauffeur de taxi touristique (plaque publique) doit obtenir une autorisation du ministère pour définir :",
+       options: ["Catégories de passagers seulement", "Zones d'exercice (mouhafaza, caza, etc.)", "Tout ce qui précède"], correct: 1},
+
+      {text: "La loi impose un taximètre dans :",
+       options: ["Tous les taxis", "Taxis de société seulement", "Taxis personnels seulement"], correct: 0},
+
+      {text: "Le taximètre sert à calculer :",
+       options: ["Distance et temps y compris temps d'attente", "Distance et temps sans arrêts", "Distance seulement"], correct: 0},
+
+      {text: "Pour le propriétaire ou conducteur d'un véhicule à plaque publique :",
+       options: ["Cotisations sécurité sociale seulement", "Cotisations à jour et responsabilité civile pour accidents du conducteur", "Responsabilité civile seulement"], correct: 1},
+
+      {text: "Un conducteur de véhicule public doit travailler :",
+       options: ["Zones autorisées sauf jours fériés", "Partout", "Uniquement dans les zones autorisées"], correct: 2},
+
+      {text: "L'adhésion des conducteurs publics aux syndicats de transport est :",
+       options: ["Obligatoire partout", "Facultatif", "Obligatoire dans certaines zones selon règlements locaux"], correct: 1},
+
+      {text: "L'action syndicale vise à :",
+       options: ["Augmenter profits entreprises", "Protéger droits et acquis professionnels", "Soutenir les partis"], correct: 1},
+
+      {text: "Les tarifs de transport sont fixés par :",
+       options: ["Syndicats seuls", "Propriétaire", "Autorités officielles selon règlementation"], correct: 2},
+
+      {text: "Une charge haute sur le toit entraîne :",
+       options: ["Tout ce qui précède", "Augmentation de la consommation de carburant", "Risque accru de renversement"], correct: 0},
+
+      {text: "Le dossier des conducteurs publics est suivi ; perte de tous les points mène à :",
+       options: ["Tout ce qui précède", "Annulation définitive du permis", "Retrait temporaire du permis"], correct: 0},
+
+      {text: "Le système de points du permis libanais compte un total de :",
+       options: ["10", "20", "12"], correct: 2},
+
+      {text: "Si un conducteur public est insulté par un passager, il doit :",
+       options: ["Rendre la pareille", "Rester calme, agir avec prudence, signaler si besoin", "Appeler police sans se calmer"], correct: 1},
+
+      {text: "La charge supplémentaire ne doit pas :",
+       options: ["Dépasser longueur seulement", "Dépasser dimensions autorisées", "Dépasser largeur seulement"], correct: 1},
+
+      // ===== QUESTIONS 31 - 60 =====
+      {text: "Vitesse max en zone résidentielle sans panneaux :",
+       options: ["100 km/h", "50 km/h", "80 km/h"], correct: 1},
+
+      {text: "À un carrefour sans feux, vous devez :",
+       options: ["Continuer vitesse normale", "Feux de route en permanence", "Ralentir et céder le passage à droite"], correct: 2},
+
+      {text: "Si un passager demande de descendre, le taxi doit s'arrêter :",
+       options: ["N'importe où hors ville", "Uniquement où l'arrêt est autorisé", "Zones marquées en ville seulement"], correct: 1},
+
+      {text: "À quoi sert la ceinture de sécurité ?",
+       options: ["Protéger occupants en cas d'accident", "Inutile à basse vitesse", "Décoration"], correct: 0},
+
+      {text: "Au feu rouge, vous devez :",
+       options: ["S'arrêter avant ligne d'arrêt et passage piétons jusqu'au vert", "S'arrêter juste avant passage piétons", "Passer"], correct: 0},
+
+      {text: "Quand activer les feux de détresse ?",
+       options: ["Arrêt d'urgence ou panne gênant la circulation", "Dépassement sur autoroute", "Conduite de jour en ville"], correct: 0},
+
+      {text: "Les bagages des passagers se chargent :",
+       options: ["N'importe où dans l'habitacle", "Dans le coffre en sécurité", "Sur les genoux"], correct: 1},
+
+      {text: "Pour embarquer des passagers, l'arrêt doit être :",
+       options: ["Dans les virages", "Où le passager veut", "Aires et emplacements prévus"], correct: 2},
+
+      {text: "Bagages encombrants :",
+       options: ["Sur les sièges", "Même si portières ne ferment pas", "Sans bloquer portes ni visibilité"], correct: 2},
+
+      {text: "Recevoir la course en roulant :",
+       options: ["Encaisser après arrêt en sécurité", "Compter en roulant", "Rendre la monnaie en vitesse"], correct: 0},
+
+      {text: "En cas de conflit avec des passagers :",
+       options: ["Être dur", "Ignorer", "Rester courtois pour désamorcer"], correct: 2},
+
+      {text: "Dépasser le nombre de places ?",
+       options: ["Debout si pas de place", "Deux places pour trois", "Selon places homologuées seulement"], correct: 2},
+
+      {text: "Arrêt pour embarquement :",
+       options: ["Zones prévues à cet effet", "Où le conducteur veut", "Où le passager veut"], correct: 0},
+
+      {text: "Bagages volumineux :",
+       options: ["15 cm hors portes", "Sans gêner portes ni visibilité", "30 cm hors portes"], correct: 1},
+
+      {text: "Paiement de la course :",
+       options: ["En roulant vite", "Après arrêt ou en sécurité", "En roulant en comptant"], correct: 1},
+
+      {text: "Passager avec petite bouteille de gaz :",
+       options: ["Strictement interdit", "OK si bien fermée", "OK si autres d'accord"], correct: 0},
+
+      {text: "Classification des routes au Liban :",
+       options: ["Cinq", "Quatre : internationales, autoroutes, principales, locales", "Trois seulement"], correct: 1},
+
+      {text: "Enregistrement NSSF des conducteurs publics :",
+       options: ["Conducteur-propriétaire et salarié", "Libanais/étranger", "Privé/public"], correct: 0},
+
+      {text: "L'État cotise à la CNSS pour :",
+       options: ["Propriétaire-conducteur", "Conducteur retraité", "Conducteur salarié"], correct: 0},
+
+      {text: "Inscription à la CNSS :",
+       options: ["À l'achat de plaque", "Après demande et acceptation", "Non inscrits seulement"], correct: 1},
+
+      {text: "Chauffeur salarié : déclaration fiscale et CNSS :",
+       options: ["Cabinet comptable", "Directement", "Par l'employeur"], correct: 2},
+
+      {text: "Chauffeur indépendant :",
+       options: ["Directement", "Comptable seulement", "Par employeur"], correct: 0},
+
+      {text: "Retard de cotisations CNSS :",
+       options: ["Suspension des prestations CNSS", "Amende de retard", "Tout ce qui précède"], correct: 0},
+
+      {text: "Renouvellement tardif du permis (bénéficiaires CNSS) :",
+       options: ["Tout ce qui précède", "Amende de retard", "Suspension des prestations CNSS"], correct: 2},
+
+      {text: "Cotisations après 64 ans :",
+       options: ["Maladie, maternité et fin de service", "Fin de service et allocations familiales", "Maladie, maternité et allocations familiales"], correct: 2},
+
+      {text: "Permis public si casier judiciaire sans :",
+       options: ["Stupéfiants et autres interdictions", "Stupéfiants seulement", "Autres interdictions seulement"], correct: 0},
+
+      {text: "Permis de transport pour conducteur public :",
+       options: ["Tous types de voitures", "Camions privés transportant des marchandises", "Véhicules publics transportant des marchandises"], correct: 1},
+
+      {text: "Transport aéroport Hariri autorisé si :",
+       options: ["Si le véhicule est autorisé à cet effet", "Si le conducteur détient un permis catégorie « bus 1 »", "Tout ce qui précède"], correct: 0},
+
+      {text: "Renouvellement permis transport marchandises :",
+       options: ["Annuellement", "5 ans", "6 mois"], correct: 0},
+
+      {text: "Chauffeur touristique public :",
+       options: ["Tout le Liban", "Zone résidence", "Zones autorisées"], correct: 2},
+
+      // ===== QUESTIONS 61 - 87 =====
+      {text: "Durée hebdomadaire max du travail :",
+       options: ["35h", "60h", "48h"], correct: 2},
+
+      {text: "Conduite au-delà des heures légales :",
+       options: ["Interdit", "Heures sup. taux normal", "Heures sup. majorées"], correct: 2},
+
+      {text: "Céder le passage aux piétons :",
+       options: ["Lorsque les piétons descendent du trottoir sur la chaussée", "Lorsque les piétons approchent du bord du trottoir", "Après que les piétons descendent du trottoir sur la chaussée"], correct: 1},
+
+      {text: "Plaque d'identification taxi :",
+       options: ["Arrière seulement", "Avant et arrière", "Passager avant seulement"], correct: 1},
+
+      {text: "Renouvellement permis public 50–65 ans :",
+       options: ["3 ans", "4 ans", "2 ans"], correct: 0},
+
+      {text: "Après 65 ans :",
+       options: ["3 ans", "4 ans", "2 ans"], correct: 2},
+
+      {text: "Brûlure chimique (acide batterie) :",
+       options: ["Pommade", "Rincer abondamment à l'eau courante", "Compresse sèche"], correct: 1},
+
+      {text: "Passager veut descendre au milieu de la route :",
+       options: ["Klaxonner", "Continuer", "S'arrêter prudemment sur le côté"], correct: 2},
+
+      {text: "Téléphone au volant autorisé seulement :",
+       options: ["À l'arrêt complet au feu tricolore", "En utilisant un kit mains-libres", "Lors de l'envoi de SMS"], correct: 1},
+
+      {text: "Personnes âgées ou à besoins spécifiques :",
+       options: ["Sans ceinture", "Enfants seulement", "Ceintures attachées"], correct: 2},
+
+      {text: "Nombre max de passagers taxi selon permis :",
+       options: ["Conducteur inclus", "En plus des sièges rabattables ou ajoutés", "Hors conducteur"], correct: 0},
+
+      {text: "Remorquer une voiture avec taxi :",
+       options: ["Si plus petite", "Interdit", "Même poids"], correct: 1},
+
+      {text: "Remorquer un vélo avec le taxi :",
+       options: ["Routes internes", "Interdit", "Hors zone résidentielle"], correct: 1},
+
+      {text: "Qui classe les routes :",
+       options: ["Premier ministre", "Travaux publics et Transports", "Intérieur"], correct: 1},
+
+      {text: "Feu et agent :",
+       options: ["Feu", "Règles générales", "Signaux de l'agent"], correct: 2},
+
+      {text: "Au rond-point, priorité à :",
+       options: ["Entre", "Déjà engagé", "Plus rapide"], correct: 1},
+
+      {text: "Stationnement prolongé (véhicule immobile) sanctionné après plus de :",
+       options: ["15 jours", "20 jours", "30 jours ou plus"], correct: 2},
+
+      {text: "Mineur sans ceinture : responsabilité :",
+       options: ["Tuteur", "Conducteur du véhicule", "Parents"], correct: 1},
+
+      {text: "Autocollant publicitaire véhicule public :",
+       options: ["Près des plaques", "Capot et coffre", "Deux côtés du véhicule"], correct: 2},
+
+      {text: "Enseigne TAXI sur le toit allumée quand :",
+       options: ["Nuit seulement", "Quand libre", "En circulation"], correct: 1},
+
+      {text: "Plaque identité véhicule et chauffeur :",
+       options: ["Sur les vitres avant et arrière vers l'extérieur", "Tout ce qui précède", "Face aux sièges avant et arrière"], correct: 2},
+
+      {text: "Rouler en parallèle d'une autre voiture :",
+       options: ["Interdit", "Routes internes", "Hors résidentiel"], correct: 0},
+
+      {text: "Véhicule privé pour course payante :",
+       options: ["Interdit", "Villages éloignés", "Hors villes"], correct: 0},
+
+      {text: "Verrouillage portes arrière enfants :",
+       options: ["En présence d'enfants, avec accord des parents", "En présence d'enfants, sans accord des parents", "En permanence"], correct: 0},
+
+      {text: "Armes de guerre ou de chasse :",
+       options: ["Autorisation sécurité", "Plus de deux", "Mairie"], correct: 0},
+
+      {text: "Conversation personnelle conducteur-passagers :",
+       options: ["Passager seulement", "Conducteur seulement", "Accord mutuel des deux parties"], correct: 2},
+
+      {text: "Indiquer le tarif au passager :",
+       options: ["Après embarquement", "Avant embarquement", "Si demandé"], correct: 1}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1} :</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Votre score final : <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `Vous avez répondu à ${answered} sur ${count} questions. Voulez-vous terminer le test ?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>

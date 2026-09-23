@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test d'entraînement - Panneaux</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Bonnes réponses :</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Test d'entraînement</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Terminer le test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+  <!-- CUSTOM CONFIRM MODAL -->
+  <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+      <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+      </div>
+      <h3 class="custom-modal-title">Terminer le Test</h3>
+      <p class="custom-modal-text" id="confirmMessage"></p>
+      <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Oui, Terminer</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Annuler</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const allQuestions = [
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/5.png",
+    options: ["Attention, route glissante", "Attention, casse-vitesse", "Attention, abaissement de la route"],
+    correct: 2
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/16.png",
+    options: ["Attention, virage à droite", "Attention, virage à gauche", "Rond point"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/23.png",
+    options: ["Attention, virage à droite", "Attention, virage à gauche", "Le véhicule peut tourner à gauche"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/28.png",
+    options: ["Attention, succession de virages commençant à droite", "Attention, succession de virages commençant à gauche", "Attention, route à deux voies"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/20.png",
+    options: ["Attention, succession de virages commençant à droite", "Attention, succession de virages commençant à gauche", "Attention, route à deux voies"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/93.png",
+    options: ["Attention, route étroite", "Attention, descente dangereuse", "Attention, route glissante"],
+    correct: 2
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/6.png",
+    options: ["Attention, élèves ou école", "Sens interdit", "Passage non sécurisé"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/3.png",
+    options: ["Attention, animaux sur la route", "Interdit aux animaux", "Animaux errants"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/1.png",
+    options: ["Attention, route à deux voies", "Attention, intersection sans priorité", "Circuler à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/27.png",
+    options: ["Attention, rond point", "Virage interdit", "Attention, dangers divers"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/18.png",
+    options: ["Attention, intersection", "Attention, priorité aux véhicules venant en face", "Attention, intersection sans priorité"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/10.png",
+    options: ["Attention, priorité aux véhicules venant en face", "Attention, intersection sans priorité", "Route menant à l'autoroute"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/11.png",
+    options: ["Attention, priorité aux véhicules venant en face", "Attention, intersection sans priorité", "Attention, intersection à droite"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/14.png",
+    options: ["Route prioritaire", "Fin de la limite de vitesse", "Stationnement à durée limitée"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/21.png",
+    options: ["Attention, passage piéton", "Interdit aux piétons", "N'est pas réservé aux piétons"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/15.png",
+    options: ["Attention, passage cyclistes", "Interdit aux deux roues", "Passage pour poussettes"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/12.png",
+    options: ["Attention, route étroite", "Attention, route étroite à gauche", "Attention, route large"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/22.png",
+    options: ["Attention, route étroite à gauche", "Route étroite à droite", "Priorité à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/91.png",
+    options: ["Attention, priorité aux véhicules venant en face", "Attention, route étroite à droite", "Fin de priorité"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/2.png",
+    options: ["Attention, route étroite", "Attention, roches ou de chute de roches sur la route", "Région montagnarde"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/25.png",
+    options: ["Attention, rond point", "Attention, feu de circulation", "Sens interdit aux véhicules de tous genres"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/19.png",
+    options: ["Attention, dangers divers", "Ceder le passage, route prioritaire", "Sens interdit"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/24.png",
+    options: ["Attention, dangers divers", "Céder le passage, route prioritaire", "Sens interdit"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/7.png",
+    options: ["Attention, priorité aux véhicules venant en face", "Fin de priorité", "Sens interdit"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/4.png",
+    options: ["Attention, priorité aux véhicules venant en face", "Fin de priorité", "Dépassement interdit aux véhicules de tous genres"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/13.png",
+    options: ["Arrêtez-vous", "Sens interdit", "Route à voie unique"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/29.png",
+    options: ["Sens interdit aux véhicules de tous genres", "Stationnement interdit", "Route à voie unique"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/30.png",
+    options: ["Sens interdit", "Stationnement interdit", "Dangers divers"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/26.png",
+    options: ["Sens interdit", "Dépassement interdit aux véhicules de tous genres", "Dépassement interdit aux camions"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/17.png",
+    options: ["Céder le passage, route prioritaire", "Vitesse minimale: 80 km/heure", "Vitesse maximale: 30 km/heure"],
+    correct: 2
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/60.png",
+    options: ["Klaxonnement interdit", "Stationnement interdit", "Théatre"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/43.png",
+    options: ["Dépassement interdit aux camions", "Dépassement permis aux camions", "Route réservée aux camions"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/34.png",
+    options: ["Passage interdit aux véhicules transportant des animaux", "Passage interdit aux piétons", "Passage autorisé aux véhicules transportant des animaux"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/45.png",
+    options: ["Passage interdit aux piétons", "Attention, voie réservée aux piétons", "Passage interdit aux voitures"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/51.png",
+    options: ["Passage interdit aux deux roues", "Voie réservée aux deux roues", "Passage obligatoire pour les voitures"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/59.png",
+    options: ["Passage interdit aux deux roues", "Voie réservée aux deux roues", "Voie réservée aux deux roues"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/58.png",
+    options: ["Passage interdit aux poussettes", "Voie réservée aux poussettes", "Stationnement interdit aux poussettes"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/48.png",
+    options: ["Passage interdit aux véhicules de tous genres", "Voie réservée aux voitures", "Interdit aux voitures de stationner"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/56.png",
+    options: ["Passage interdit aux voitures de plus de 2,3 m de largeur", "Passage interdit aux camions", "Passage interdit aux camions de plus de 2,3 m de longueur"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/53.png",
+    options: ["Passage interdit aux camions de plus de 3,5 m de hauteur", "Passage interdit aux camions de plus de 3.5 tonnes", "Direction obligatoire pour les camions"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/37.png",
+    options: ["Passage interdit aux aux camions de plus de 10 m de longueur", "Passage interdit aux camions transportant plus de 6.5 tonnes de cargaison", "La cargaison ne doit pas dépasser les 10 m en hauteur"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/32.png",
+    options: ["Passage interdit aux camions transportant plus de 7 tonnes de cargaison", "Passage interdit aux camions portant plus de 7 tonnes par pneu", "Passage interdit aux camions de plus de 7 m de hauteur"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/36.png",
+    options: ["Fin de signalisation restrictive", "Excès de vitesse interdit", "Début de signalisation restrictive"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/44.png",
+    options: ["Fin de limites de vitesse", "Début de limite de vitesse", "Limite de vitesse"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/31.png",
+    options: ["Tourner à droite", "Interdit de tourner à droite", "Obligation de tourner à gauche"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/57.png",
+    options: ["Tourner à gauche", "Interdit de tourner à gauche", "Obligation d'aller tout droit ou de tourner à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/55.png",
+    options: ["Il est possible de tourner à gauche ou à droite", "Obligation d'aller tout droit", "Interdit de tourner à gauche ou à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/38.png",
+    options: ["Il est possible d'aller tout droit ou de tourner à droite", "Interdit de tourner à gauche", "Obligation aux camions de tourner à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/50.png",
+    options: ["Il est possible d'aller tout droit ou de tourner à gauche", "Passage obligatoire à gauche", "Interdit de tourner à gauche"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/42.png",
+    options: ["Passage obligatoire à gauche", "Voie principale", "Il est possible de tourner à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/54.png",
+    options: ["Passage obligatoire à droite", "Interdit de tourner à droite", "Il est possible d'aller tout droit"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/39.png",
+    options: ["Passage obligatoire à droite ou à gauche", "Il est possible de tourner à droite", "Interdit de tourner à droite ou à gauche"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/33.png",
+    options: ["Fin de la piste cyclable", "Voie réservée aux deux roues", "Voie réservée aux piétons et aux deux roues"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/35.png",
+    options: ["Fin de la piste cyclable", "Voie réservée uniquement aux piétons et aux deux roues", "Passage interdit aux piétons et aux deux roues"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/46.png",
+    options: ["Interdit de tourner à droite", "Sens de circulation", "Passage obligatoire à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/40.png",
+    options: ["Interdit de tourner", "Sens de circulation", "Obligation de tourner"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/49.png",
+    options: ["Passage interdit aux bus", "Voie réservée aux bus", "Fin de dépassement interdit aux bus"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/41.png",
+    options: ["Passage interdit aux camions", "Voie réservée aux camions", "Passage interdit aux camions dont le poids dépasse les 6.5 tonnes"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/47.png",
+    options: ["Passage interdit aux camions dont le poids de la cargaison dépasse les 6.5 tonnes", "Stationnement interdit aux camions", "Route obligatoire pour les camions"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/52.png",
+    options: ["Passage interdit aux camions transportant des matières dangereuses", "Passage interdit aux camions remorque", "Route obligatoire pour les camions"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/83.png",
+    options: ["Passage interdit aux véhicules agricoles", "Voie réservée aux véhicules agricoles", "Stationnement à durée limitée pour les véhicules agricoles"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/64.png",
+    options: ["Attention, route à deux voies", "Fin de la zone \"dépassement interdit\"", "Fin de la zone \"interdit aux camions de dépasser\""],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/80.png",
+    options: ["Attention, route à deux voies", "Fin de la zone \"interdit aux camions de dépasser\"", "Voie réservée aux camions"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/63.png",
+    options: ["Sens interdit", "Dépassement interdit aux véhicules de tous genres", "Stationnement interdit"],
+    correct: 2
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/70.png",
+    options: ["Sens interdit", "Stationnement interdit", "Interdit de s'arrêter et de stationner"],
+    correct: 2
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/85.png",
+    options: ["Obligation d'aller tout droit", "Interdit de passer dans cette direction", "Interdit de s'arrêter ici"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/86.png",
+    options: ["Direction vers la gauche", "Interdit de tourner à gauche", "Interdit de stationner à gauche"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/67.png",
+    options: ["Direction vers la droite", "Interdit de tourner à droite", "Interdit de stationner à droite"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/90.png",
+    options: ["Interdit de tourner", "Rond point", "Zone de stationnement"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/81.png",
+    options: ["Vitesse minimale obligatoire", "Vitesse maximale obligatoire", "Interdit de stationner pour plus de 30 minutes"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/87.png",
+    options: ["Fin de vitesse minimale obligatoire", "Interdit de stationner pour plus de 30 minutes", "Vitesse maximale: 30 km/heure"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/69.png",
+    options: ["Véhicules équipés de chaines à neige uniquement", "Enlever les chaînes à neige", "Attention, route glissante"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/84.png",
+    options: ["Voie réservée aux piétons", "Passage interdit aux piétons", "Parc"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/62.png",
+    options: ["Fin de la voie réservée aux piétons", "Passage piéton au-dessus de la route", "Voie réservée aux piétons"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/88.png",
+    options: ["Piste cyclable", "Passage interdit aux deux roues", "Stationnement interdit aux deux roues"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/82.png",
+    options: ["Interdit de tourner à gauche", "Interdit de stationner à gauche", "Obligation de tourner à gauche"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/79.png",
+    options: ["Hopital", "Route à deux voies connectée à un pont", "Attention, pont mobile"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/76.png",
+    options: ["Attention, passage piéton", "Fin de la voie réservée aux piétons", "Attention, passage interdit aux piétons"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/71.png",
+    options: ["Voie réservée aux deux roues", "Voie réservée aux deux roues", "Passage interdit aux deux roues"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/74.png",
+    options: ["Impasse", "Chemin menant à une route principale", "Point de rencontre de deux voies"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/78.png",
+    options: ["Autoroute", "Attention, pont", "Attention, piste de décollage et d'atterrissage"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/73.png",
+    options: ["Attention, route étroite", "Fin de l'autoroute", "Pont au-dessus de la route"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/75.png",
+    options: ["Attention, route rugueuse", "Tunnel", "Pont"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/89.png",
+    options: ["Centre d'assistance", "Zone de stationnement réservée aux handicapés", "Réservé aux médecins"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/61.png",
+    options: ["Zone de stationnement réservée aux handicapés", "Stationnement à durée limitée", "Stationnement interdit aux handicapés"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/65.png",
+    options: ["Stationnement interdit", "Stationnement à durée limitée", "Zone de stationnement"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/66.png",
+    options: ["Zone de stationnement pour taxis", "Stationnement interdit aux taxis", "Zone de stationnement pour tous genres de véhicules - deux voitures taxi au maximum"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/77.png",
+    options: ["Police", "Information", "Enlèvement immédiat"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/72.png",
+    options: ["Information", "Station service", "Centre d'internet"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/68.png",
+    options: ["Police municipale", "Pompiers", "Zone de stationnement pour police"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/94.png",
+    options: ["Voie principale", "Virage indirect vers la gauche", "Intersection dangereuse"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/98.png",
+    options: ["Stationnement interdit", "Stationnement à durée limitée", "Zone de stationnement"],
+    correct: 2
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/102.png",
+    options: ["Hotel", "Restaurant", "Garage"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/101.png",
+    options: ["Information", "Restaurant", "Rafraîchissements"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/95.png",
+    options: ["Restaurant", "Téléphone publique", "Station service"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/103.png",
+    options: ["Station service", "Garage", "Restaurant"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/92.png",
+    options: ["Zone de stationnement pour bus", "Stationnement interdit aux bus", "Voie réservée aux bus"],
+    correct: 0
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/97.png",
+    options: ["Stationnement interdit", "Zone de camping et camping cars", "Centre de secours"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/96.png",
+    options: ["Virage", "Virage indirect vers la gauche", "Ralentissez"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/99.png",
+    options: ["Virage indirect vers la gauche", "Ralentissez", "Virage"],
+    correct: 1
+  },
+  {
+    text: "Quel est le sens de ce signe de route ?",
+    image: "signs/100.png",
+    options: ["Attention, abaissement de la route", "Attention, casse-vitesse", "Attention, virage à droite"],
+    correct: 1
+  }
+];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = 10;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1} :</strong> ${q.text}</p>
+        ${q.image ? `<div class="question-image-wrap"><img src="${q.image}" alt="" class="question-image"></div>` : ""}
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">
+              ${opt}
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Votre score final : <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `Vous avez répondu à ${answered} sur ${count} questions. Voulez-vous terminer le test ?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>

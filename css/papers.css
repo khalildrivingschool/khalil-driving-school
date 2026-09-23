@@ -1,0 +1,139 @@
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #000000;
+      padding: 2rem 1rem;
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #f9f3e9;
+      border: 1px solid #f9b23f;
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+    }
+
+    /* ----- LOGO ----- */
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .logo-wrap img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      display: inline-block;
+    }
+
+    /* ----- PHONE NUMBERS ----- */
+    .phones {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #000;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+      direction: ltr;
+    }
+
+    /* ----- TRAFFIC SIGNS ROW ----- */
+    .signs-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .signs-strip img {
+      max-height: 40px;
+      width: auto;
+    }
+
+    /* ----- DOCUMENTS LIST ----- */
+    .docs-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #000;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid #f9b23f;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .docs-title i { color: #f9b23f; }
+
+    .docs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+    }
+
+    .docs-list li {
+      position: relative;
+      padding-right: 1.8rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.02rem;
+      color: #000;
+      line-height: 1.8;
+    }
+
+    .docs-list li::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0.7rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f9b23f;
+    }
+
+    /* ----- LOCATION / TIME ----- */
+    .location-block {
+      background: #ffffff;
+      border: 1px dashed #f9b23f;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+    }
+
+    .location-block .label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 0.4rem;
+    }
+
+    .location-block .value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .location-block .value + .value {
+      margin-top: 0.5rem;
+    }
+
+    .location-block i {
+      color: #f9b23f;
+      margin-left: 0.4rem;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 600px) {
+      .container { padding: 1.75rem 1.25rem; border-radius: 20px; }
+      .phones { font-size: 1.1rem; }
+      .docs-title { font-size: 1.05rem; }
+      .docs-list li { font-size: 0.95rem; }
+      .location-block .value { font-size: 0.95rem; }
+    }

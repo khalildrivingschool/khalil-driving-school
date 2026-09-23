@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Véhicules Lourds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Bonnes réponses :</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Test Véhicules Lourds</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Terminer le test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+<div class="custom-modal-overlay" id="confirmModal">
+  <div class="custom-modal">
+    <div class="custom-modal-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <h3 class="custom-modal-title">Terminer le Test</h3>
+    <p class="custom-modal-text" id="confirmMessage"></p>
+    <div class="custom-modal-actions">
+      <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Oui, Terminer</button>
+      <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+  <script>
+    const allQuestions = [
+
+      {text: "Lors du débranchement du tracteur de la remorque, le conducteur doit :",
+       options: ["Serrer le frein de la remorque et abaisser ses pieds au maximum", "Relâcher le frein de la remorque et abaisser ses pieds au maximum", "Serrer le frein de la remorque sans abaisser ses pieds au maximum"], correct: 0},
+
+      {text: "Tout conducteur de véhicule lourd doit faire attention à la largeur de son véhicule surtout :",
+       options: ["Lorsqu'il dépasse un autre véhicule", "Lorsqu'il conduit sur des routes ouvertes", "Lorsqu'il prend une pause"], correct: 0},
+
+      {text: "Si vous abordez une longue descente avec votre véhicule lourd et que vous tardez à passer à une vitesse inférieure, vous allez :",
+       options: ["Pouvoir facilement passer à une vitesse inférieure", "Ne plus pouvoir passer à une vitesse inférieure pour contrôler le véhicule", "Pouvoir dépasser des véhicules en toute sécurité"], correct: 1},
+
+      {text: "Si un conducteur de véhicule lourd souhaite reculer, il doit se fier aux informations de :",
+       options: ["Le rétroviseur uniquement", "Une autre personne qui l'assiste", "La caméra arrière uniquement"], correct: 1},
+
+      {text: "Le conducteur d'un véhicule lourd doit faire attention à la hauteur de son véhicule surtout :",
+       options: ["Lorsqu'il conduit sur des routes ouvertes", "Lorsqu'il passe sous un pont ou entre dans un tunnel", "Lorsqu'il traverse un pont"], correct: 1},
+
+      {text: "La conduite d'un véhicule lourd diffère de celle d'un véhicule léger ; lorsque le conducteur d'un poids lourd tourne à droite :",
+       options: ["Il ne doit pas laisser assez d'espace du côté droit", "Il doit laisser assez d'espace devant", "Il doit laisser assez d'espace du côté droit"], correct: 2},
+
+      {text: "Lors du désaccouplement du tracteur de la remorque, le conducteur doit choisir un endroit :",
+       options: ["Plat et mou", "En pente et mou", "En pente et solide"], correct: 0},
+
+      {text: "Le nombre de passagers dans un camion chargé ne doit pas dépasser :",
+       options: ["Une personne", "Le nombre indiqué sur le permis", "Il n'est pas autorisé de transporter des passagers"], correct: 1},
+
+      {text: "Lorsque vous conduisez votre poids lourd dans un virage à droite, afin d'éviter que vos roues arrière droites ne quittent le bord de la route, vous devez :",
+       options: ["Prendre votre extrême droite tout au long du virage", "Augmenter votre vitesse tout au long du virage", "Conduire au milieu de votre voie"], correct: 2},
+
+      {text: "Si vous souhaitez dépasser un autre véhicule en montée avec votre poids lourd et que cela prendra beaucoup de temps, vous devez :",
+       options: ["Insister pour effectuer le dépassement", "Augmenter votre vitesse au-delà de la limite légale", "Renoncer à ce dépassement"], correct: 2},
+
+      {text: "Pour contrôler votre véhicule lorsque vous descendez une pente, vous devez principalement compter sur :",
+       options: ["Les freins", "Le frein à main", "Un rapport inférieur"], correct: 2},
+
+      {text: "Un conducteur de véhicule lourd a des angles morts autour de son véhicule, dont le nombre est :",
+       options: ["Au moins quatre angles morts", "Au moins huit angles morts", "Trois angles morts"], correct: 0},
+
+      {text: "Lorsque vous approchez du sommet d'une côte, vous devez vous attendre à trouver :",
+       options: ["La présence d'obstacles", "Aucun obstacle", "Une route droite"], correct: 0},
+
+      {text: "Après avoir attelé le tracteur à la remorque, le conducteur doit s'assurer que :",
+       options: ["Les conduites d'air et les fils électriques sont bien connectés", "Seules les conduites d'air sont bien connectées", "Seuls les fils électriques sont bien connectés"], correct: 0},
+
+      {text: "Lorsque vous conduisez votre poids lourd en montée continue, vous devez :",
+       options: ["Vérifier le niveau de carburant", "Rester le plus à gauche possible", "Rester le plus à droite possible"], correct: 2},
+
+      {text: "Le conducteur d'un véhicule lourd doit :",
+       options: ["Reculer dans les endroits bondés", "Reculer immédiatement après une intersection", "Éviter de reculer dans les endroits bondés"], correct: 2},
+
+      {text: "Lorsqu'il commence à atteler le tracteur à la remorque, le conducteur doit :",
+       options: ["Reculer lentement le tracteur au-dessus de la remorque", "Reculer lentement le tracteur sous la remorque", "Reculer rapidement le tracteur sous la remorque"], correct: 1},
+
+      {text: "Lorsque vous conduisez votre véhicule lourd en montée continue, vous devez :",
+       options: ["Éviter de fatiguer le moteur", "Rester du côté gauche", "Ne pas laisser les véhicules légers vous dépasser"], correct: 0},
+
+      {text: "L'utilisation continue des freins principaux sur une longue pente annule leur effet à cause de :",
+       options: ["L'augmentation de leur température", "La pression du liquide de frein", "La raideur de la pente"], correct: 0},
+
+      {text: "Tout conducteur de véhicule lourd doit prêter attention à la largeur de son véhicule surtout :",
+       options: ["Lorsqu'il entre dans un endroit étroit", "Lorsqu'il prend une pause", "Lorsqu'il charge le véhicule"], correct: 0},
+
+      {text: "Lors de l'attelage du tracteur à la remorque, le conducteur doit s'assurer que :",
+       options: ["Les freins de la remorque sont serrés et ses pieds touchent le sol", "Les freins de la remorque sont relâchés et ses pieds touchent le sol", "La remorque touche le sol sur un seul pied"], correct: 0},
+
+      {text: "Lorsque vous conduisez votre poids lourd dans un virage à gauche, afin d'éviter que vos roues arrière gauches ne franchissent la ligne médiane, vous devez :",
+       options: ["Prendre votre extrême gauche tout au long du virage", "Prendre légèrement votre droite tout au long du virage", "Augmenter votre vitesse tout au long du virage"], correct: 0},
+
+      {text: "Après avoir rempli la citerne, le conducteur doit s'assurer que :",
+       options: ["Tous les couvercles de la citerne et les vannes de vidange sont bien fermés", "Seuls les couvercles de la citerne sont bien fermés", "Seules les vannes de vidange sont bien fermées"], correct: 0},
+
+      {text: "La conduite d'un véhicule lourd sur une route accidentée vous oblige à :",
+       options: ["Augmenter légèrement votre vitesse", "Être prudent et planifier la route à l'avance", "Concentrer votre attention vers l'arrière"], correct: 1}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1} :</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Votre score final : <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+  // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `Vous avez répondu à ${answered} sur ${count} questions. Voulez-vous terminer le test ?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>

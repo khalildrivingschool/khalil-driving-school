@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الاختبار التجريبي</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <!-- LIVE SCORE BOX (fixed on screen) -->
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">الإجابات الصحيحة:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+
+    <h1 class="page-title">الاختبار التجريبي</h1>
+
+    <div id="questionsArea"></div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        إنهاء الاختبار
+      </button>
+    </div>
+
+    <!-- FINAL RESULT -->
+    <div id="finalResult" class="final-result"></div>
+
+  </div>
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="العودة للأعلى">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+      <div class="custom-modal">
+        <div class="custom-modal-icon">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">إنهاء الاختبار</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+          <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">نعم، إنهاء</button>
+          <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  <script>
+    // ========================================================
+    // 1. YOUR QUESTIONS DATABASE
+    // ========================================================
+    // Each question: text, image (optional), options[], correct (index)
+    const allQuestions = [
+      
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/5.png",
+    options: ["انتبه طريق منزلق", "انتبه مطبات", "انتبه انخفاضات"],
+    correct:2
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/16.png",
+    options: ["انتبه منعطف يمين", "انتبه منعطف يسار", "اتجاه مستديرة"],
+    correct:0
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/23.png",
+    options: ["انتبه منعطف يمين", "انتبه منعطف يسار", "اتجاه إختياري إلى اليسار"]
+  ,
+    correct:1
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/28.png",
+    options: ["انتبه منعطفان أولها يمين", "انتبه منعطفان أولها يسار", "انتبه منعطف سير على خطين"]
+  ,
+    correct:0
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/20.png",
+    options: ["انتبه منعطفان أولها يمين", "انتبه منعطفان أولها يسار", "انتبه منعطفة سير على خطين"]
+  ,
+    correct:1
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/93.png",
+    options: ["انتبه طريق ضيق", "انتبه منحدر خطر", "انتبه طريق منزلق"]
+  ,
+    correct:2
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/6.png",
+    options: ["انتبه أولاد أو مدرسة", "ممنوع المرور", "ممر غير مؤمن"]
+  ,
+    correct:0
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/3.png",
+    options: ["انتبه حيوانات", "ممنوع للحيوانات", "حيوانات متشرّدة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/1.png",
+    options: ["انتبه منطقة سير على خطين", "انتبه تقاطع مع طرقات بدون أفضلية", "منطقة سير على اليمين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/27.png",
+    options: ["انتبه مستديرة", "ممنوع الإلتفاف", "انتبه أخطار متنوعة"]
+ ,
+    correct:0
+   },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/18.png",
+    options: ["انتبه تقاطع", "انتبه أفضلية المرور سيارات المتجهة من الجهة المقابلة", "انتبه تقاطع مع طرقات بدون أفضلية"]
+   ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/10.png",
+    options: ["انتبه أفضلية المرور سيارات المتجهة من الجهة المقابلة", "انتبه تقاطع مع طرقات بدون أفضلية", "التقاء مع طريق سريع"]
+   ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/11.png",
+    options: ["انتبه أفضلية المرور سيارات المتجهة من الجهة المقابلة", "انتبه تقاطع مع طرقات بدون أفضلية", "انتبه تقاطع على اليمين"]
+   ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/14.png",
+    options: ["طريق أفضلية", "نهاية تحديد السرعة", "موقف لحظة"]
+  
+   ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/21.png",
+    options: ["انتبه ممر للمشاة", "ممنوع مرور المشاة", "ممر غير مخصص للمشاة"]
+   ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/15.png",
+    options: ["انتبه ممر للدراجات", "ممنوع مرور الدراجات", "ممر لعربات اليد"]
+  ,
+    correct:0 },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/12.png",
+    options: ["انتبه طريق ضيق", "انتبه طريق ضيق على اليسار", "انتبه طريق واسع"]
+  ,
+    correct:0 },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/22.png",
+    options: ["انتبه طريق ضيق على اليسار", "طريق ضيق على اليمين", "أفضلية مرور لليمين"]
+   ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/91.png",
+    options: ["انتبه أفضلية المرور سيارات المتجهة من الجهة المقابلة", "انتبه طريق ضيق على اليمين", "نهاية الأفضلية"]
+   ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/2.png",
+    options: ["انتبه طريق ضيق", "انتبه إحتمال سقوط أو وجود صخور", "منطقة جبلية"]
+   ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/25.png",
+    options: ["انتبه مستديرة", "انتبه إشارات كهربائية", "ممنوع الدخول لعموم السارات"]
+   ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/19.png",
+    options: ["انتبه مخاطر متنوعة", "انتبه أفسح الطريق - طريق أفضلية أمامك", "ممنوع المرور"]
+  
+   ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/24.png",
+    options: ["انتبه مخاطر متنوعة", "انتبه أفسح الطريق - طريق أفضلية أمامك", "ممنوع المرور"]
+   ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/7.png",
+    options: ["انتبه أفضلية المرور للسيارات المتجهة من الجهة المقابلة", "نهاية الأفضلية", "ممنوع المرور"]
+   ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/4.png",
+    options: ["انتبه أفضلية المرور للسيارات المتجهة من الجهة المقابلة", "نهاية الأفضلية", "ممنوع التجاوز لجميع المركبات"]
+   ,
+    correct:0
+  },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/13.png",
+    options: ["قف", "ممنوع الدخول", "طريق على خط واحد"]
+  
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/29.png",
+    options: ["ممنوع الدخول لعموم السيارات", "ممنوع الوقوف", "طريق على خط واحد"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/30.png",
+    options: ["ممنوع المرور", "ممنوع الوقوف", "أخطار متنوعة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/26.png",
+    options: ["ممنوع المرور", "ممنوع التجاوز لجميع المركبات", "ممنوع التجاوز للشاحنات"]
+ ,
+    correct:1 },
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/17.png",
+    options: ["إنتبه أفسح الطريق - طريق أفضلية أمامك", "السرعة الدنيا 80 كم في الساعة", "السرعة القصوى 30 كم في الساعة"]
+  
+  ,
+    correct:2},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/60.png",
+    options: ["ممنوع التزمير", "ممنوع الوقوف", "مسرح"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/43.png",
+    options: ["ممنوع التجاوز للشاحنات", "مسموح التجاوز للشاحنات", "طريق مخصص للشاحنات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/34.png",
+    options: ["ممنوع مرور عربات الحيوانات", "ممنوع مرور المشاة", "مسموح مرور عربات الحيوانات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/45.png",
+    options: ["ممنوع مرور المشاة", "انتبه طريق مخصص للمشاة", "ممنوع مرور السيارات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/51.png",
+    options: ["ممنوع المرور للدراجات", "طريق مخصص للدراجات", "ممر إجباري للسيارات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/59.png",
+    options: ["ممنوع المرور للدراجات النارية", "طريق مخصص للدراجات", "ممر خاص للدراجات النارية"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/58.png",
+    options: ["ممنوع مرور عربات اليد", "طريق مخصص لعربات اليد", "ممنوع وقوف عربات اليد"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/48.png",
+    options: ["ممنوع المرور لعموم السيارات", "طريق مخصص للسيارات", "ممنوع وقوف السيارات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/56.png",
+    options: ["ممنوع مرور الشاحنات التي يزيد عرضها عن 2,3 متر", "ممنوع مرور الشاحنات", "ممنوع مرور الشاحنات التي يزيد طولها عن 2,3 متر"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/53.png",
+    options: ["ممنوع مرور الشاحنات التي يفوق علوها عن 3,5 متر", "ممنوع مرور الشاحنات التي تزيد حمواتها عن 3,5 طن", "انجاه إجباري للشاحنات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/37.png",
+    options: ["ممنوع مرور الشاحنات التي يفوق طولها عن 10 أمتار", "ممنوع مرور الشاحنات التي تزيد حمواتها عن 6,5 طن", "ممنوع زيادة الحمولة أكثر من 10 أمتار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/32.png",
+    options: ["ممنوع مرور الشاحنات التي تزيد حمواتها عن 7 طن", "ممنوع مرور الشاحنات التي تزيد حموتها كل دولاب منها عن 7 أطنان", "ممنوع مرور الشاحنات التي يفوق طولها عن 7 أمتار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/36.png",
+    options: ["نهاية الإشارات الممنوعة", "ممنوع السرعة", "بداية الإشارات الممنوعة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/44.png",
+    options: ["نهاية تحديد السرعة", "بداية تحديد السرعة", "تحديد السرعة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/31.png",
+    options: ["الإلتفاف على اليمين", "ممنوع الإلتفاف على اليمين", "إتجاه إجباري على اليسار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/57.png",
+    options: ["الإلتفاف على اليسار", "ممنوع الإلتفاف على اليسار", "إتجاه إختياري مستقيم أو يمين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/55.png",
+    options: ["إتجاه إختياري يمين ويسار", "إتجاه إجباري مستقيم", "ممنوع المرور يمين ويسار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/38.png",
+    options: ["إتجاه إختياري يمين أو مستقيم", "ممنوع الإتجاه نحو اليسار", "إتجاه إجباري للشاحنات نحو اليمين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/50.png",
+    options: ["إتجاه إختياري مستقيم أو يسار", "ممر إجباري نحو اليسار", "ممنوع الإتجاه نحو اليسار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/42.png",
+    options: ["ممر إجباري نحو اليسار", "خط الطريق الرئيسية", "إتجاه إختياري نحو اليمين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/54.png",
+    options: ["ممر إجباري يمين", "ممنوع الإلتفاف إلى اليمين", "إتجاه إختياري مستقيم"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/39.png",
+    options: ["ممر إجباري يمين أو يسار", "إتجاه إختياري نحو اليمين", "ممنوع الإلتفاف يمين أو يسار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/33.png",
+    options: ["نهاية حلبة الدراجات الهوائية", "طريق مخصص للدراجات", "طريق للمشاة والدراجات الهوائية"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/35.png",
+    options: ["نهاية حلبة الدراجات الهوائية", "طريق مخصص للمشاة والدراجات", "ممنوع مرور المشاة والدراجات الهوائية"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/46.png",
+    options: ["ممنوع الإلتفاف يميناً", "وجهة السير", "إتجاه إجباري يمين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/40.png",
+    options: ["ممنوع الإلتفاف", "وجهة السير", "إلتفاف إلزامي"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/49.png",
+    options: ["ممنوع مرور الأوتوبيسات", "طريق مخصص للأوتوبيسات", "نهاية منع تجاوز الأوتوبيسات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/41.png",
+    options: ["ممنوع مرور الشاحنات", "طريق مخصص للشاحنات", "ممنوع مرور الشاحنات التي يزيد وزنها عن 6.5 طن"]
+    ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/47.png",
+    options: ["ممنوع مرور الشاحنات التي تزيد حمواتها عن 6,5 طن", "ممنوع وقوف الشاحنات", "طريق إلزامي للشاحنات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/52.png",
+    options: ["ممنوع مرور الشاحنات المحملة بمواد خطرة", "  ممنوع مرور الشاحنات التي تجر قاطرة", "طريق إلزامي للشاحنات"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/83.png",
+    options: ["ممنوع مرور الآليات الزراعية", "طريق مخصص للآليات الزراعية", "موقف لحظة للآليات الزراعية"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/64.png",
+    options: ["إنتبه منطقة سير على خطين", "نهاية منع التجاوز", "نهاية منع تجاوز الشاحنات"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/80.png",
+    options: ["إنتبه منطقة سير على خطين", "نهاية منع تجاوز الشاحنات", "طريق مخصص للشاحنات فقط"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/63.png",
+    options: ["ممنوع المرور", "ممنوع التجاوز لجميع المركبات", "ممنوع الوقوف"]
+  ,
+    correct:2},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/70.png",
+    options: ["ممنوع المرور", "ممنوع الوقوف", "ممنوع الوقوف والتوقف"]
+  ,
+    correct:2},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/85.png",
+    options: ["إتجاه إجباري مستقيم", "ممنوع المرور بهذا الإتجاه", "ممنوع الوقوف في هذا المكان"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/86.png",
+    options: ["وجهة السير إلى اليسار", "ممنوع الإتجاه نحو اليسار", "ممنوع الوقوف يساراً"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/67.png",
+    options: ["وجهة السير إلى اليمين", "ممنوع الإتجاه نحو اليمين", "ممنوع الوقوف ناحية اليمين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/90.png",
+    options: ["ممنوع الإلتفاف", "وجهة سير مستديرة", "موقع توقف"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/81.png",
+    options: ["أدنى سرعة إجبارية", "أقصى سرعة إجبارية", "ممنوع الوقوف أكثر من ثلاثين دقيقة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/87.png",
+    options: ["نهاية أدنى سرعة", "ممنوع الوقوف أكثر من ثلاثين دقيقة", "السرعة القصوى 30"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/69.png",
+    options: ["السيارات المجهزة بسلاسل معدنية فقط", "يجب نزع السلاسل المعدنية", "انتبه طريق منزلق"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/84.png",
+    options: ["طريق للمشاة", "ممنوع المرور للمشاة", "منتزه"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/62.png",
+    options: ["نهاية طريق للمشاة", "ممر للمشاة فوق الطريق", "طريق مخصص للمشاة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/88.png",
+    options: ["حلبة مخصصة للدراجات الهوائية", "ممنوع مرور الدراجات الهوائية", "ممنوع وقوف الدراجات الهوائية"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/82.png",
+    options: ["ممنوع الإلتفاف يساراً", "ممنوع الوقوف يساراً", "إتجاه إلزامي نحو اليسار"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/79.png",
+    options: ["مستشفى", "طريق على خطين موصول بجسر", "انتبه جسر متحرك"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/76.png",
+    options: ["انتبه ممر للمشاة", "نهاية طريق للمشاة", "انتبه ممنوع مرور المشاة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/71.png",
+    options: ["حلبة مخصصة للدراجات الهوائية", "ممر مخصص للدراجات", "ممنوع ركوب الدراجات الهوائية"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/74.png",
+    options: ["طريق غير نافذ", "طريق يصل بخط رئيسي", "نقطة التقاء خطين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/78.png",
+    options: ["أوتوستراد", "انتبه جسر", "انتبه مدرج طيران"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/73.png",
+    options: ["انتبه طريق ضيق", "نهاية الأوتوستراد", "جسر فوق الطريق"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/75.png",
+    options: ["انتبه طريق وعرة", "نفق", "جسر"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/89.png",
+    options: ["مركز نجدة - مساعدة", "موقف مخصص للمعاقين", "الأطباء فقط"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/61.png",
+    options: ["موقف مخصص للمعوقين", "موقف لحظة", "ممنوع وقوف المعاقين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/65.png",
+    options: ["ممنوع الوقوف", "موقف لحظة", "موقف"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/66.png",
+    options: ["موقف تاكسي", "ممنوع وقوف سيارات التاكسي", "موقف للعموم - ممنوع التاكسي أكثر من سيارتين"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/77.png",
+    options: ["شرطة", "إستعلامات", "إزالة فورية"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/72.png",
+    options: ["إستعلامات", "محطة وقود", "مركز إنترنت"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/68.png",
+    options: ["شرطة البلدية", "إطفاء", "موقف مخصص للشرطة"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/94.png",
+    options: ["خط الطريق الرئيسية", "إنعطاف غير مباشر إلى اليسار", "تقاطع خطر"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/98.png",
+    options: ["ممنوع الوقوف", "موقف لحظة", "موقف"]
+   ,
+    correct:2},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/102.png",
+    options: ["فندق", "مطعم", "مركز للتصليح"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/101.png",
+    options: ["إستعلامات", "مطعم", "مرطبات"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/95.png",
+    options: ["مطعم", "هاتف", "محطة وقود"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/103.png",
+    options: ["محطة وقود", "مركز للتصليح", "مطعم"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/92.png",
+    options: ["موقف باص", "ممنوع وقوف الباصات", "خط سير مخصص للباصات"]
+  ,
+    correct:0},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/97.png",
+    options: ["ممنوع الوقوف", "موقع للمقطورات والخيم", "موقع توقف ونداء ومساعدة"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/96.png",
+    options: ["إنعطاف", "إنعطاف غير مباشر إلى اليسار", "خفف السرعة"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/99.png",
+    options: ["إنعطاف غير مباشر إلى اليسار", "خفف السرعة", "إنعطاف"]
+  ,
+    correct:1},
+  {
+    text: "ماذا تعني هذه الإشارة؟",
+    image: "signs/100.png",
+    options: ["إنتبه انخفاضات", "إنتبه مطبات", "إنتبه منعطف يمين"]
+  ,
+    correct:1},
+
+];
+      // 👆 أضف المزيد من الأسئلة هنا
+    
+
+    // ========================================================
+    // 2. READ count FROM URL
+    // ========================================================
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = 10;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    // ========================================================
+    // 3. PICK RANDOM QUESTIONS
+    // ========================================================
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    // ========================================================
+    // 4. RENDER QUESTIONS
+    // ========================================================
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>سؤال ${i + 1}:</strong> ${q.text}</p>
+        ${q.image ? `<div class="question-image-wrap"><img src="${q.image}" alt="" class="question-image"></div>` : ""}
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">
+              ${opt}
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    // ========================================================
+    // 5. HANDLE ANSWER CLICK
+    // ========================================================
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      // Prevent answering the same question twice
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+
+      // Mark correct answer green
+      buttons[question.correct].classList.add("correct");
+
+      // If user was wrong, mark their pick red
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+
+      // Disable all options for this question
+      buttons.forEach(b => b.disabled = true);
+
+      // Update live score
+      document.getElementById("score").textContent = score;
+
+      // If all answered, show final score
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    // ========================================================
+    // 6. FINAL RESULT
+    // ========================================================
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        نتيجتك النهائية: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // ========================================================
+    // 7. SUBMIT BUTTON
+    // ========================================================
+   // ============ SUBMIT BUTTON ============
+// ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+// ============ CUSTOM CONFIRM ============
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `لقد أجبت على ${answered} من ${count} سؤال. هل تريد إنهاء الاختبار؟`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    // ========================================================
+    // 8. SCROLL TO TOP BUTTON
+    // ========================================================
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>

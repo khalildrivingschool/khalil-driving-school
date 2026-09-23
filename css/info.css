@@ -1,0 +1,111 @@
+    /* ----- RESET ----- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f8faff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem 1rem;
+      color: #000;
+    }
+
+    /* ----- TWO-CARD GRID ----- */
+    .exam-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* ----- CARD BASE ----- */
+    .exam-card {
+      background: #f9f3e9;              /* soft gold background */
+      border: 1px solid #f9b23f;        /* gold border */
+      border-radius: 24px;
+      padding: 2rem 2rem 1.75rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 14px rgba(249, 178, 63, 0.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .exam-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 26px rgba(249, 178, 63, 0.22);
+    }
+
+    /* Icon */
+    .exam-card .exam-icon {
+      font-size: 2.6rem;
+      color: #f9b23f;                   /* gold icon */
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    /* Title */
+    .exam-card .exam-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #000;                      /* black title */
+      margin-bottom: 1rem;
+      line-height: 1.35;
+    }
+
+    /* Paragraph text */
+    .exam-card .exam-desc {
+      font-size: 1rem;
+      color: #000;                      /* black text */
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+      text-align: right;                /* RTL-friendly */
+    }
+
+    /* Bullet list */
+    .exam-card .exam-list {
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+      display: inline-block;
+      text-align: right;
+      margin-top: auto;
+    }
+
+    .exam-card .exam-list li {
+      position: relative;
+      padding-right: 1.4rem;
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+      color: #000;                      /* black list items */
+      line-height: 1.8;
+    }
+
+    .exam-card .exam-list li::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0.7rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f9b23f;              /* gold bullet */
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 750px) {
+      .exam-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .exam-card {
+        padding: 1.75rem 1.5rem 1.5rem;
+        border-radius: 20px;
+      }
+
+      .exam-card .exam-icon { font-size: 2.2rem; }
+      .exam-card .exam-title { font-size: 1.2rem; }
+      .exam-card .exam-desc { font-size: 0.95rem; }
+      .exam-card .exam-list li { font-size: 0.95rem; }
+    }
+  

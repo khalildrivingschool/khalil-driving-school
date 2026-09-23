@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Correct answers:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Mock Test</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Finish Test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+  <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+      <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+      </div>
+      <h3 class="custom-modal-title">Finish Test</h3>
+      <p class="custom-modal-text" id="confirmMessage"></p>
+      <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Yes, Finish</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // ========================================================
+    // QUESTIONS — from the official PDF (excluding signs)
+    // ========================================================
+    const allQuestions = [
+      {
+        text: "When entering a tunnel during daytime, the driver should:",
+        options: ["Turn on the regular headlights (low beam) and speed up", "Turn on the regular headlights (low beam) and slow down", "Sound the horn"],
+        correct: 1
+      },
+      {
+        text: "At night, when driving behind another vehicle, you should:",
+        options: ["Turn on the normal headlights (low beam)", "Turn on the high beam", "Not use car headlights"],
+        correct: 0
+      },
+      {
+        text: "If a car approaches from the other direction while your high beam is on, you should:",
+        options: ["Switch to normal headlights (low beam) immediately", "Turn off lights", "Switch between high and low beam repetitively"],
+        correct: 0
+      },
+      {
+        text: "When filling up your car with gas, you should:",
+        options: ["Keep the engine running", "Not care as it does not pose any threat", "Turn off the engine"],
+        correct: 2
+      },
+      {
+        text: "If the traffic light turns yellow when your vehicle has already entered the intersection, you should:",
+        options: ["Stop immediately in the middle of the intersection", "Continue forward cautiously", "Stare at the traffic light"],
+        correct: 1
+      },
+      {
+        text: "If you feel sleepy while driving, you should:",
+        options: ["Take amphetamines and continue driving", "Not be concerned as it will pass", "Stop immediately at the side of the road to get some rest"],
+        correct: 2
+      },
+      {
+        text: "When approaching an intersection that has a traffic policeman regulating traffic and an active traffic light and fixed traffic sign, you should:",
+        options: ["Follow the traffic policeman's instructions", "Follow the traffic lights", "Heed the fixed traffic sign"],
+        correct: 0
+      },
+      {
+        text: "The moment you enter your vehicle, you should first perform the following necessary adjustments in order:",
+        options: ["Fasten the seat belt, adjust the mirrors, and adjust your seat", "Fasten the seat belt, adjust the seat, and adjust the mirrors", "Adjust the seat, adjust the mirrors, and fasten the seat belt"],
+        correct: 2
+      },
+      {
+        text: "Everyday prior to driving the vehicle, the driver should:",
+        options: ["Do a routine check of the various vehicle systems", "Should not perform any routine checks as long as the engine is running", "Listen to the weather forecast"],
+        correct: 0
+      },
+      {
+        text: "It is acceptable while driving that the driver:",
+        options: ["Reads the newspaper", "Uses the phone", "Listens to the radio at low volume"],
+        correct: 2
+      },
+      {
+        text: "The driver and passengers should fasten their seat belt:",
+        options: ["Before starting the engine", "Before moving", "Within one minute of moving"],
+        correct: 0
+      },
+      {
+        text: "The purpose of the headrest on top of the seat is to:",
+        options: ["Rest your head during the trip", "Prevent neck fracture if the vehicle is hit from the back", "Use it as a pillow for sleeping at night on long trips"],
+        correct: 1
+      },
+      {
+        text: "The driver's ability to focus while driving decreases due to:",
+        options: ["Being energetic and active", "Fatigue and drowsiness", "Driving inside the city"],
+        correct: 1
+      },
+      {
+        text: "Using a mobile phone while driving has an effect on the driver's performance that is:",
+        options: ["Positive", "Negative", "Both positive and negative"],
+        correct: 1
+      },
+      {
+        text: "The first advice for a driver who drank alcohol is:",
+        options: ["To drive at low speed", "Not to drive until the effect of alcohol has ended", "Not to worry about it"],
+        correct: 1
+      },
+      {
+        text: "Driving under the influence of sedative medication is:",
+        options: ["Less tiring", "Not dangerous", "Dangerous"],
+        correct: 2
+      },
+      {
+        text: "If the gas pedal gets stuck while driving, you should immediately:",
+        options: ["Pull the handbrake", "Shift to a lower gear", "Put the gear in N, turn off the engine, and stop on the side of the road"],
+        correct: 2
+      },
+      {
+        text: "If the hood suddenly opens while the vehicle is moving, you should immediately:",
+        options: ["Increase your speed slightly", "Slow down gradually to stop the vehicle on the side of the road", "Press hard on the brake pedal"],
+        correct: 1
+      },
+      {
+        text: "To avoid being late during heavy rain, the driver should start his journey:",
+        options: ["A bit earlier than usual", "A bit later than usual", "With good spirits"],
+        correct: 0
+      },
+      {
+        text: "Before stepping into the vehicle, the driver should:",
+        options: ["Make sure he has enough time on his hands", "Look around and under the vehicle", "Fasten the seatbelt"],
+        correct: 1
+      },
+      {
+        text: "While driving in heavy traffic, the driver should glance at his mirrors every:",
+        options: ["45 seconds", "30 seconds", "4 to 8 seconds"],
+        correct: 2
+      },
+      {
+        text: "Before turning right, the driver should glance at:",
+        options: ["The left-side mirror only", "The right-side mirror only", "All the mirrors, especially the right-side mirror and blind spots"],
+        correct: 2
+      },
+      {
+        text: "The biggest threat that vehicles parked on the right-side pavement pose to drivers passing close to them is:",
+        options: ["Pedestrians, and children, appearing suddenly from between these parked vehicles", "Trash being thrown from them towards the passing vehicles", "Loud sounds from the radios of these vehicles"],
+        correct: 0
+      },
+      {
+        text: "The threat that vehicles parked on the right-side pavement bring to drivers passing close to them is:",
+        options: ["The alarm that would go off as the drivers cross next to these vehicles", "The opening of a car trunk", "The fact that any of these parked vehicles could take off and join traffic at any time"],
+        correct: 2
+      },
+      {
+        text: "As a cautious driver, you should:",
+        options: ["Take the right of way by force as it is your right", "Yield the right of way to prevent road collisions", "Never yield your right of way"],
+        correct: 1
+      },
+      {
+        text: "While driving and prior to hitting your brakes, you should first look:",
+        options: ["In the mirrors, namely the rear-view mirror", "To your right", "To your left"],
+        correct: 0
+      },
+      {
+        text: "When strong braking is applied, ABS in modern vehicles:",
+        options: ["Should not make noise or cause the brake pedal to pulsate", "Would normally make noise and cause the brake pedal to pulsate", "Would normally cause the brake pedal to pulsate"],
+        correct: 1
+      },
+      {
+        text: "One of the benefits of ABS in modern vehicles when strong braking is applied, is:",
+        options: ["Preventing brakes from locking-up and allows the driver to maintain steering control of the vehicle", "Not preventing brakes locking-up and not helping the driver maintain steering control of the vehicle", "Preventing brakes locking-up only"],
+        correct: 0
+      },
+      {
+        text: "If your vehicle is beginning to lose traction on a slippery surface, you should spontaneously:",
+        options: ["Press on the brakes and steer your vehicle in the opposite direction to your vehicle's rear", "Get your foot off the accelerator (don't press on the brakes) and steer your vehicle in the same direction", "Increase your speed"],
+        correct: 1
+      },
+      {
+        text: "If you leave a safe distance between your vehicle and the vehicle in front, you will be able to:",
+        options: ["Avoid a collision with that vehicle should it make a sudden stop", "Enjoy the view surrounding you", "Read the plate number of that vehicle"],
+        correct: 0
+      },
+      {
+        text: "When the vehicle in front immediately takes off the moment a red light turns green, you should:",
+        options: ["Take off immediately after it and fast", "Sound your horn", "Make sure the road is empty then take off"],
+        correct: 2
+      },
+      {
+        text: "When approaching an intersection with a flashing yellow traffic light, you should:",
+        options: ["Provide right of way", "Stop", "Fasten the seatbelt"],
+        correct: 0
+      },
+      {
+        text: "The seat belt must be used:",
+        options: ["By all passengers", "By front-seat passengers only", "Not absolutely necessary"],
+        correct: 0
+      },
+      {
+        text: "If your vehicle suddenly malfunctions while driving on a highway, you should:",
+        options: ["Leave the highway from the nearest exit", "Stop the car immediately in the place you're at", "Keep on driving to your destination"],
+        correct: 0
+      },
+      {
+        text: "The driver should hold the steering wheel:",
+        options: ["With one hand", "With both hands", "With his fingertips"],
+        correct: 1
+      },
+      {
+        text: "Passengers of a loaded truck should not exceed:",
+        options: ["One passenger", "The authorized number of passengers", "Are not entitled to transport passengers"],
+        correct: 1
+      },
+      {
+        text: "Upon coupling the trailer with the tractor, the driver should make sure that the:",
+        options: ["Trailer brake is applied and its legs are lowered to the ground", "Trailer brake is released and its legs are lowered to the ground", "One leg is lowered to the ground"],
+        correct: 0
+      },
+      {
+        text: "After coupling the trailer with the tractor, the driver should make sure that the:",
+        options: ["Air pipes and electric lines are connected properly", "Air pipes only are connected properly", "Electric lines only are connected properly"],
+        correct: 0
+      },
+      {
+        text: "When coupling the trailer to the tractor, the driver should:",
+        options: ["Reverse slowly above the trailer", "Reverse quickly below the trailer", "Reverse slowly below the trailer"],
+        correct: 2
+      },
+      {
+        text: "When uncoupling the trailer from the tractor, the driver must select a place:",
+        options: ["With a plane area and soft ground", "With an incline and solid ground", "With an incline and soft ground"],
+        correct: 0
+      },
+      {
+        text: "Upon uncoupling the trailer from the tractor, the driver should:",
+        options: ["Apply the trailer brake and lower its legs to the maximum", "Release the trailer brake and lower its legs to the maximum", "Apply the trailer brake firmly and not lower its legs to the maximum"],
+        correct: 0
+      },
+      {
+        text: "The heavy vehicle driver has numerous blind spots around his vehicle. The count of these blindspots is:",
+        options: ["At least four", "At least eight", "Three"],
+        correct: 0
+      },
+      {
+        text: "The heavy vehicle driver should pay attention to the height of his vehicle especially:",
+        options: ["When driving on freeways", "When driving under a bridge or into a tunnel", "When driving over a bridge"],
+        correct: 1
+      },
+      {
+        text: "The heavy vehicle driver should give special care for the width of his vehicle especially:",
+        options: ["When overtaking another vehicle", "When driving on the freeway", "When taking a rest"],
+        correct: 0
+      },
+      {
+        text: "The heavy vehicle driver should:",
+        options: ["Reverse in crowded places", "Reverse immediately after an intersection", "Avoid reversing in crowded places"],
+        correct: 2
+      },
+      {
+        text: "Dealing with heavy vehicles differs from smaller vehicles, thus when turning to the right, the driver of a heavy vehicle should:",
+        options: ["Not allow enough distance to his right side", "Allow enough distance in the front", "Allow enough distance to his right side"],
+        correct: 2
+      },
+      {
+        text: "In order to avoid your heavy vehicle's rear left wheels from crossing the center line as you negotiate a left hand turn, you should:",
+        options: ["Take the extreme left at the turn", "Take the right a bit at the turn", "Increase your speed at the turn"],
+        correct: 0
+      },
+      {
+        text: "In order to avoid your heavy vehicle's rear right wheels from skidding off the road as you negotiate a right hand turn, you should:",
+        options: ["Take to the right at the turn", "Increase your speed at the turn", "Drive in the middle of the lane"],
+        correct: 2
+      },
+      {
+        text: "As you approach a hill top, you should always expect _____ behind the peak.",
+        options: ["Obstacles", "No obstacles", "A straight stretch of road"],
+        correct: 0
+      },
+      {
+        text: "While driving your heavy vehicle downhill and in order to keep control of your vehicle, you should mainly depend on using:",
+        options: ["The brakes", "The hand brake", "An appropriate low gear"],
+        correct: 2
+      },
+      {
+        text: "Using the main brakes of your heavy vehicle continuously when driving downhill for long disables the brakes due to:",
+        options: ["Heat build-up", "Break oil pressure", "Slope steepness"],
+        correct: 0
+      },
+      {
+        text: "If the driver doesn't change quickly to a low gear as he starts to drive downhill, and the heavy vehicle gains speed:",
+        options: ["It will be easy to change to a lower gear", "It will be impossible to change to a lower gear to have more control over the vehicle", "The driver will be able to overtake other vehicles safely"],
+        correct: 1
+      },
+      {
+        text: "As you drive your heavy vehicle uphill for a long period of time, you should:",
+        options: ["Avoid engine pressure build-up", "Stick to driving on the left", "Prevent smaller vehicles from overtaking you"],
+        correct: 0
+      },
+      {
+        text: "As you drive your heavy vehicle uphill for a long period of time, you should:",
+        options: ["Check the fuel gauge continuously", "Keep to the extreme left as much as possible", "Keep to the extreme right as much as possible"],
+        correct: 2
+      },
+      {
+        text: "If you are going to overtake a vehicle uphill with your heavy vehicle and it will take too long, you should:",
+        options: ["Insist on overtaking", "Go beyond the speed limit", "Forget about overtaking the vehicle"],
+        correct: 2
+      },
+      {
+        text: "When you are about to drive your heavy vehicle off-road, you should:",
+        options: ["Increase your speed a little", "Plan your path carefully", "You should keep an eye on the driver behind you"],
+        correct: 1
+      },
+      {
+        text: "Eye contact at the intersection:",
+        options: ["Helps drivers avoid misunderstandings", "Is a sort of alert", "Is a forum for drivers to get to know one another"],
+        correct: 0
+      },
+      {
+        text: "As a safety driving rule and whenever possible, the driver should avoid:",
+        options: ["Reversing", "Slowing down gradually", "Washing his vehicle frequently"],
+        correct: 0
+      },
+      {
+        text: "By law, the driver should yield the right of way to:",
+        options: ["Speeding vehicles", "Bus Schools flashing their hazard lights", "Slow vehicles"],
+        correct: 1
+      },
+      {
+        text: "By law, the driver should yield the right of way to:",
+        options: ["Vehicles that are already in the roundabout", "Vehicles that are entering a roundabout", "Vehicles located to the right of the vehicle"],
+        correct: 0
+      },
+      {
+        text: "It is legal to parallel park a vehicle to the pavement on a single-lane two-way street:",
+        options: ["To the right of the direction of driving for the vehicle", "Doesn't matter as long as it doesn't hinder traffic", "To the left of the road"],
+        correct: 0
+      },
+      {
+        text: "Excessive eating:",
+        options: ["Helps the driver drive more safely", "Will impair the driver's ability to react properly and make the right decisions", "Will allow the driver to maintain control of his vehicle while driving at very high speeds"],
+        correct: 1
+      },
+      {
+        text: "Lack of sleep for a driver:",
+        options: ["Helps improve his reaction", "Slows his reaction while driving and causes mild memory loss", "Helps him stay alert"],
+        correct: 1
+      },
+      {
+        text: "In long trips, the driver must stop for rest every:",
+        options: ["10 hours", "8 hours", "4 hours"],
+        correct: 2
+      },
+      {
+        text: "In long trips, the driver must stop for rest around every:",
+        options: ["250 kilometers", "750 kilometers", "900 kilometers"],
+        correct: 0
+      },
+      {
+        text: "Driving under the influence of alcohol:",
+        options: ["Endangers driver's life as well as the lives of others", "Endangers others' lives only", "Endangers the driver lives only"],
+        correct: 0
+      },
+      {
+        text: "During very long trips, the driver should:",
+        options: ["Consume amphetamines regularly", "Continue driving without rest", "Never consume amphetamines to stay awake"],
+        correct: 2
+      },
+      {
+        text: "The best way for a driver to know how a medical drug affects his driving is to:",
+        options: ["Check with another driver", "Check with his physician", "Test it on another driver"],
+        correct: 1
+      },
+      {
+        text: "Driving under the influence of alcohol or drugs causes the driver a false feeling of:",
+        options: ["Fear", "Courage and boldness", "Outrage"],
+        correct: 1
+      },
+      {
+        text: "When you are about to overtake another vehicle, you should:",
+        options: ["Rely on that vehicle light signals that vehicle's driver hand gestures", "Never depend on that vehicle's driver hand gestures", "Check the signals of the driver behind you"],
+        correct: 1
+      },
+      {
+        text: "Every heavy vehicle driver should be careful about his vehicle width especially when he:",
+        options: ["Enters narrow places", "Stops for some rest", "Loads his cargo"],
+        correct: 0
+      },
+      {
+        text: "When reversing, the driver of a heavy vehicle should:",
+        options: ["Reverse in crowded places", "Reverse in a tunnel driving", "Request help from an assistant"],
+        correct: 2
+      },
+      {
+        text: "After filling up a tanker, the driver should check that:",
+        options: ["All the lids and release valves are securely fastened", "Some of the lids are securely fastened", "All release valves are securely fastened"],
+        correct: 0
+      },
+      {
+        text: "The motorcyclist can protect himself by:",
+        options: ["Wearing motorcycle protective gear", "Driving the motorcycle on one wheel", "Ensure that there is insurance on the motorcycle"],
+        correct: 0
+      },
+      {
+        text: "The motorcycle protective leather suit can resist:",
+        options: ["Driving fast and straddling lanes", "Friction with asphalt and small stones", "Fire"],
+        correct: 1
+      },
+      {
+        text: "Motorcycle gloves protect:",
+        options: ["The head when falling", "The hands from cold and injuries", "The legs when falling"],
+        correct: 1
+      },
+      {
+        text: "Motorcycle boots protect:",
+        options: ["The knees and thighs from cold", "The feet from dust", "The feet from injury, water, and cold"],
+        correct: 2
+      },
+      {
+        text: "The spine protective suit protect:",
+        options: ["The chest and abdomen from heat and cold", "The spine and spinal cord from the rain", "The spine and spinal cord from injury"],
+        correct: 2
+      },
+      {
+        text: "The protective eye glasses protect:",
+        options: ["Ears from cold", "Eyes from rain, wind sand, and insects", "Eyes from crying"],
+        correct: 1
+      },
+      {
+        text: "The motorcyclist helmet protects:",
+        options: ["The hearing sense from traffic noise", "From fatal head injuries", "The spine"],
+        correct: 1
+      },
+      {
+        text: "If the motorcyclist wears the helmet improperly or fails to wear it while driving, this behavior:",
+        options: ["Is illegal", "Is legal", "Is normal"],
+        correct: 0
+      },
+      {
+        text: "If the motorcyclist just carries the helmet but does not wear it while driving, the behavior:",
+        options: ["Give the motorcyclist legal protection", "Does not give the motorcyclist legal protection", "Is wise"],
+        correct: 1
+      },
+      {
+        text: "While driving at night, the motorcyclist should wear:",
+        options: ["Dark colors", "A fluorescent suit", "A sports outfit"],
+        correct: 1
+      },
+      {
+        text: "To be seen while driving at night, the motorcyclist is advised to:",
+        options: ["Attach luminous stripes", "Turn off his lights and attach luminous stripes", "Make squeaking noise with his brakes"],
+        correct: 0
+      },
+      {
+        text: "If the motorcycle is equipped with a hydraulic brake system, then the driver should periodically:",
+        options: ["Check the level of brake fluid", "Limit the use of brakes", "Check the level of brakes line"],
+        correct: 0
+      },
+      {
+        text: "The tread depth of the motorcycle tires should not be less than:",
+        options: ["5 millimeters", "3 millimeters", "6 millimeters"],
+        correct: 1
+      },
+      {
+        text: "In order to steer the motorcycle freely, the driver should:",
+        options: ["Sit away from the steering grips", "Sit close to the steering grips", "Hold the steering grips with one hand"],
+        correct: 1
+      },
+      {
+        text: "In order to avoid unintended speed increase, the motorcyclist should hold the steering grip in such a way that his:",
+        options: ["Right wrist is upwards", "Right wrist is downwards", "Left wrist is upwards"],
+        correct: 1
+      },
+      {
+        text: "For motorcycles, the braking process is most effective when the motorcyclist uses:",
+        options: ["Back brakes only", "Both back and front brakes", "His feet, by pressing on the asphalt"],
+        correct: 1
+      },
+      {
+        text: "For motorcycles to avoid skidding while severe braking, the motorcycle should be:",
+        options: ["In a curve", "At high speed", "At an intersection"],
+        correct: 2
+      },
+      {
+        text: "Two causes for a motorcycle to skid on the road:",
+        options: ["Broken lights and weak battery", "Slippery road and nervous reaction", "Low speed and low gear"],
+        correct: 1
+      },
+      {
+        text: "While driving your motorcycle at night, you should drive:",
+        options: ["Slowly and maintain a shorter stopping distance", "Slowly and maintain a longer stopping distance", "Fast, with your low beam on"],
+        correct: 1
+      },
+      {
+        text: "When the motorcycle vibrates in motion, it is often due to:",
+        options: ["Uneven rotation of a least one wheel or one tire", "Even rotation of both wheels and both tires", "Bad distribution of the load"],
+        correct: 0
+      },
+      {
+        text: "One of the main causes for motorcycle crash is the presence of:",
+        options: ["Oil and pebbles on the road surface", "Cars and pedestrians on the road", "Police and traffic lights on the road"],
+        correct: 0
+      },
+      {
+        text: "To avoid motorcycle accidents at intersections you should:",
+        options: ["Slow down and move to the appropriate lane", "Depend on your mirrors", "Overtake from the right of the vehicles stopped at the intersection"],
+        correct: 0
+      },
+      {
+        text: "A motorcycle is legally allowed to pass vehicles:",
+        options: ["From their right side", "From their left side", "From any side"],
+        correct: 1
+      },
+      {
+        text: "When you overtake with your motorcycle a vehicle from the left side, you should always remember that this vehicle may:",
+        options: ["Decrease its speed gradually", "Swerve left suddenly", "Turn on its hazard lights"],
+        correct: 1
+      },
+      {
+        text: "While driving your motorcycle in a straight direction, you should always remember that an oncoming vehicle may:",
+        options: ["Swerve suddenly into your path", "Stop suddenly on its path", "Swerve suddenly away from your path"],
+        correct: 0
+      },
+      {
+        text: "If you have the habit of passing vehicles with your motorcycle in a zigzag manner, this means:",
+        options: ["Your chances of being involved in an accident are much higher", "Your chances of being involved in an accident are much lower", "You are a safe driver"],
+        correct: 0
+      },
+      {
+        text: "When you drive your motorcycle with an intentionally emptied exhaust system producing a very loud noisy sound, it:",
+        options: ["Makes people respect your creative ideas", "Is considered a clear traffic violation", "Is legal"],
+        correct: 1
+      },
+      {
+        text: "What are the environmental benefits of eco-friendly driving?",
+        options: ["Reduction in local air pollutant levels", "Increase of greenhouse gas emissions (CO2)", "Reduction in road traffic"],
+        correct: 0
+      },
+      {
+        text: "How does eco-friendly driving maintain the safety of the driver?",
+        options: ["Improves road safety", "Improves driving skills", "All of the above"],
+        correct: 2
+      },
+      {
+        text: "What are the social responsibility benefits of eco-driving?",
+        options: ["Avoids stress while driving", "Increases comfort for drivers and passengers", "All of the above"],
+        correct: 2
+      },
+      {
+        text: "What instrument should be used to monitor your speed on high-ways?",
+        options: ["Cruise control", "Braking and accelerating constantly", "Sudden braking"],
+        correct: 0
+      },
+      {
+        text: "What is the optimal speed range for eco-friendly driving?",
+        options: ["80 km/h - 100 km/h", "50 km/h - 80 km/h", "40 km/h - 50 km/h"],
+        correct: 1
+      },
+      {
+        text: "What is the maximum RPM level that should not be exceeded?",
+        options: ["3000 RPM", "4000 RPM", "2000 RPM"],
+        correct: 2
+      },
+      {
+        text: "What is the result of exceeding 2000 RPM?",
+        options: ["It consumes more fuel", "It consumes less fuel", "It increases the temperature of the engine"],
+        correct: 0
+      },
+      {
+        text: "What is the result of fast starts and hard braking?",
+        options: ["Wastes fuel", "Wears out tires and brakes more quickly", "All of the above"],
+        correct: 2
+      },
+      {
+        text: "By how much is fuel consumption reduced when you change the oil and oil filter regularly?",
+        options: ["1% to 2%", "1% to 3%", "2% to 3%"],
+        correct: 0
+      },
+      {
+        text: "Which type of oil is best for the environment?",
+        options: ["Energy-conserving oil which has additives that reduce friction", "Energy-conserving oil which has additives that increase friction", "Energy-conserving oil which has additives that eliminate friction"],
+        correct: 0
+      },
+      {
+        text: "How do you ensure long-lasting tyres?",
+        options: ["Change the tires each year", "Check tire pressure at least once a month to preserve a low rolling resistance", "Check tire pressure at least once a year to preserve a low rolling resistance"],
+        correct: 1
+      },
+      {
+        text: "What is the benefit of cleaning your air filters regularly?",
+        options: ["Improved engine performance by 6 to 11%", "Reduce air pollution", "All of the above"],
+        correct: 2
+      },
+      {
+        text: "What should you do when your car stops moving for more than a minute?",
+        options: ["Turn it off", "Put it on neutral", "Do nothing"],
+        correct: 1
+      },
+      {
+        text: "How do you enhance the performance of your engine and reduce emission levels?",
+        options: ["Change the engine's water regularly", "Use clean fuel that complies with international standards", "Buy a new engine"],
+        correct: 1
+      },
+      {
+        text: "What should you always check after filling your fuel tank?",
+        options: ["Fuel tank cap is securely closed", "Fuel tank cap is open", "Car temperature is stable"],
+        correct: 0
+      },
+      {
+        text: "Why is it preferable to park in the shade?",
+        options: ["Reduces the pressure on the air conditioner", "Decreases fuel consumption", "All of the above"],
+        correct: 2
+      },
+      {
+        text: "By how much does the frequent use of air conditioning increase fuel consumption?",
+        options: ["0.1", "0.2", "0.3"],
+        correct: 0
+      },
+      {
+        text: "Which of the following reduces fuel consumption?",
+        options: ["Driving during peak times", "Traveling Light", "Driving at random speed"],
+        correct: 1
+      },
+      {
+        text: "What is eco-friendly driving?",
+        options: [
+          "Eco-Friendly Driving is the efficient use of fuel in road transportation through easy, smart, and socially responsible driving practices that help cut fuel consumption and reduce air pollution from land transportation.",
+          "Eco-Friendly Driving is the efficient use of fuel in road transportation through easy, smart, and socially responsible driving practices that help increase fuel consumption and air pollution from land transportation.",
+          "Eco-Friendly Driving is the efficient use of lighting in driving through a simple method and smart water consumption"
+        ],
+        correct: 0
+      },
+      {
+        text: "If the road is divided into two lanes with solid lines or other lane separator, the driver:",
+        options: ["Should travel in the opposite direction", "Should cross these lines and drive on it", "Should not cross these lines or other lane separators"],
+        correct: 2
+      },
+      {
+        text: "In case of normal traffic, the driver should:",
+        options: ["Keep to the left side of the road", "Cross the dividing lines to overtake", "Keep to the right side of the road"],
+        correct: 2
+      },
+      {
+        text: "Pavements are intended:",
+        options: ["To park vehicles, when parking is allowed", "To put anything that obstructs the use of the pavement", "To be used by pedestrians, children trolleys, the sick, and the disabled"],
+        correct: 2
+      },
+      {
+        text: "When drastically changing speed or direction, the driver should:",
+        options: ["Cross the solid line if the solid line is on his left", "Cross the broken line without any signaling", "Make sure in advance that he can do so without any danger, and give signals to alert others"],
+        correct: 2
+      },
+      {
+        text: "The driver should not use the brakes suddenly except:",
+        options: ["For stopping", "To test them", "For danger"],
+        correct: 2
+      },
+      {
+        text: "The driver should keep to the right side of the road:",
+        options: ["When another driver is overtaking him", "When another vehicle is approaching from the opposite direction", "When another vehicle is approaching from the opposite direction"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Overtake another vehicle from the left when visibility is good", "Travel on the right side when another vehicle is approaching from the opposite direction", "Overtake military, police, or other convoys that are in motion"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Travel slowly on the left side of the road", "Travel in the indicated direction", "Drive in neutral on descents"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Make sure it is safe to overtake", "Travel in the indicated direction", "Make a U-turn in the middle of the road within a populated area"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Make sure it is safe to overtake", "Travel in the indicated direction", "Travel in a direction other than the indicated direction"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Travel on the right side of the road", "Check there is no danger before overtaking", "Wash their vehicles on the road"],
+        correct: 2
+      },
+      {
+        text: "The driver:",
+        options: ["Should not take into consideration the condition of the road or the traffic density", "Should increase his speed when visibility is low", "Should reduce his speed or stop completely when the conditions surrounding him dictate so, especially when visibility is really bad"],
+        correct: 2
+      },
+      {
+        text: "The driver should:",
+        options: ["Take the left", "Overtake from the right on single lane roads", "Overtake from the left"],
+        correct: 2
+      },
+      {
+        text: "When a driver is passing a vehicle, the driver should:",
+        options: ["Keep to the middle if it is a single lane road", "Keep to the left side of the road as much as possible with other road users around", "Keep to the right side of the road as much as possible with other road users around"],
+        correct: 2
+      },
+      {
+        text: "Before overtaking, the driver should:",
+        options: ["Should not take into consideration driving decorum when in populated areas", "Overtake, even if the driver behind have have already initiated a similar overtake", "Check that drivers behind him have not initiated a similar overtake"],
+        correct: 2
+      },
+      {
+        text: "Before overtaking, the driver should:",
+        options: ["Know that he has the right to overtake even if the driver behind him is overtaking him", "Not alert the driver that he is about to overtake", "Alert the driver he is about to overtake"],
+        correct: 2
+      },
+      {
+        text: "When overtaking, the driver should:",
+        options: ["Not return to the right immediately after overtaking", "Keep to the middle of the road even if annoying the oncoming drivers", "Keep to the left side of the road, provided not annoying the oncoming drivers"],
+        correct: 2
+      },
+      {
+        text: "Exceptionally, overtaking on the right is allowed:",
+        options: ["If the driver has signaled that he wants to take the right", "Overtaking on the right is prohibited", "On a road with multiple lanes (more than two), provided the driver ensures the maneuver is safe and without disturbing others"],
+        correct: 2
+      },
+      {
+        text: "Overtaking is prohibited:",
+        options: ["On the left when the road is marked with broken lines", "If the road is divided into lanes marked by broken lines", "In bends"],
+        correct: 2
+      },
+      {
+        text: "Overtaking is prohibited:",
+        options: ["On wide roads", "If the road is divided into several lanes marked by broken lines", "On bridges and in tunnels"],
+        correct: 2
+      },
+      {
+        text: "Overtaking is prohibited:",
+        options: ["If the left side of the road will be clear after overtaking", "If the vehicle being overtaken is traveling on the right side of the road", "If several vehicles have stopped due to a traffic obstruction or a stop signal"],
+        correct: 2
+      },
+      {
+        text: "Overtaking is prohibited:",
+        options: ["If the road width is sufficient to overtake easily and safely", "If the road lanes are separated by broken lines", "At the top of a hill, when visibility is not sufficient"],
+        correct: 2
+      },
+      {
+        text: "If a police car, ambulance or fire truck signals its approach, road users should:",
+        options: ["Stop immediately where they are to facilitate its passage", "Hurry up to facilitate its passage", "Slow down or even stop at the side to facilitate its passage"],
+        correct: 2
+      },
+      {
+        text: "Overtaking is prohibited:",
+        options: ["On wide roads", "If the road is divided into several lanes marked by broken lines", "On narrow mountain roads or with strong slopes"],
+        correct: 2
+      },
+      {
+        text: "When approaching an intersection, the driver should:",
+        options: ["Proceed without checking whether the road is clear", "Keep to the right side of the road", "Check that the road he intends to cross is clear"],
+        correct: 2
+      },
+      {
+        text: "The driver preparing to leave a road for another one on his right should:",
+        options: ["Lean to the left without crossing the middle of the road", "Keep to the right side of the road", "Keep to the middle of the road"],
+        correct: 1
+      },
+      {
+        text: "The driver preparing to leave a road for another one on his left should:",
+        options: ["Stay in the middle without leaning either right or left", "Lean to the right without crossing the middle of the road", "Lean to the left without crossing the middle of the road"],
+        correct: 2
+      },
+      {
+        text: "The driver preparing to leave a road for another one should:",
+        options: ["Lean to the right slowly", "Turn very quickly so as not to disturb others", "Turn at a moderate speed after ensuring it can be done without danger or disturbing others"],
+        correct: 2
+      },
+      {
+        text: "It is preferable to keep a 'safety distance':",
+        options: ["Only on the right and left sides", "Only in front and behind", "On all sides of the vehicle"],
+        correct: 2
+      },
+      {
+        text: "Keeping a 'safety distance' is important because it:",
+        options: ["Gives space for another car to enter", "Prevents distraction by other vehicles", "Gives time for reaction and interaction with traffic"],
+        correct: 2
+      },
+      {
+        text: "A steady green light at an intersection means:",
+        options: ["You must stop and ensure cross traffic is clear before proceeding", "You cannot turn right", "You may cross the intersection if possible"],
+        correct: 2
+      },
+      {
+        text: "A flashing yellow light means:",
+        options: ["Continue if the road is clear", "Stop then proceed when the road is clear", "Slow down and proceed with caution"],
+        correct: 2
+      },
+      {
+        text: "A yellow light at an intersection means:",
+        options: ["Go", "Slow down and prepare to stop", "Stop"],
+        correct: 1
+      },
+      {
+        text: "If a tire bursts while driving:",
+        options: ["Let the steering wheel move freely", "Release the gas pedal to slow the car, hold the wheel firmly, and stop off the road", "Reduce speed using the brakes and stop off the road"],
+        correct: 1
+      },
+      {
+        text: "If the lights of an oncoming vehicle bother you, you should look at:",
+        options: ["The middle of the road", "The left side of the road", "Down and to the right side of the road"],
+        correct: 2
+      },
+      {
+        text: "If your vehicle breaks down on the freeway:",
+        options: ["Look in the vehicle for help to arrive", "Place the warning triangle and turn on the main lights to warn other drivers", "Place the warning triangle and turn on the hazard lights to warn other drivers"],
+        correct: 2
+      },
+      {
+        text: "If you enter a freeway, you should:",
+        options: ["Slow down", "Drive slower than the speed limit", "Drive at the speed of traffic on the freeway"],
+        correct: 2
+      },
+      {
+        text: "If a lane is marked with a broken line next to a solid line:",
+        options: ["The driver may cross the broken line if it is directly to his left", "The driver is prohibited from crossing the solid line if it is directly to his right", "The driver is prohibited from crossing the solid line if it is directly to his left"],
+        correct: 2
+      },
+      {
+        text: "If you are being tailgated while on the left lane of a freeway, you should:",
+        options: ["Increase speed", "Tap the brake to make them back off", "Move to the right lane, adjusting your speed to match the flow of that lane"],
+        correct: 2
+      },
+      {
+        text: "If the brakes fail while driving, you should:",
+        options: ["Turn off the engine", "Go directly to a repair shop", "Pump the brake pedal repeatedly"],
+        correct: 2
+      },
+      {
+        text: "In bad weather:",
+        options: ["Stick to the maximum speed", "Drive below the maximum speed according to road conditions", "Stick to the maximum speed and turn on the lights"],
+        correct: 1
+      },
+      {
+        text: "You need extra stopping distance when driving:",
+        options: ["Behind other cars", "On dry roads", "On wet roads"],
+        correct: 2
+      },
+      {
+        text: "Pavements, when present, are reserved for:",
+        options: ["Placing anything that obstructs the use of the pavement", "Parking vehicles when permitted", "Pedestrians, children's carts, the sick, and the disabled"],
+        correct: 2
+      },
+      {
+        text: "The rear brake lights indicate to other drivers that you:",
+        options: ["Are entering a bend", "Are changing lanes", "Are slowing down or stopping"],
+        correct: 2
+      },
+      {
+        text: "At a four-way intersection, the vehicle that goes first is:",
+        options: ["The one that arrives first", "The one turning right", "The one that arrived first and entered the intersection"],
+        correct: 2
+      },
+      {
+        text: "You must stop when you see:",
+        options: ["A steady yellow light", "A flashing yellow light", "A flashing red light"],
+        correct: 0
+      },
+      {
+        text: "Trucks need a longer stopping distance than cars because:",
+        options: ["They have a shorter turning radius", "They need less time to overtake on a slope", "They take a longer distance than cars to stop"],
+        correct: 2
+      },
+      {
+        text: "When turning right on a green light, you should:",
+        options: ["Reduce speed because of the turn", "Continue on the same lane", "Give way to pedestrians"],
+        correct: 2
+      },
+      {
+        text: "Refusing to undergo an alcohol or drug test:",
+        options: ["Is allowed in emergencies", "Is allowed if the driver is under 21", "Is never allowed under any circumstances"],
+        correct: 2
+      },
+      {
+        text: "When driving in fog, you should use:",
+        options: ["High beam", "Fog lights and/or low beam", "Fog lights and/or high beam"],
+        correct: 1
+      },
+      {
+        text: "When overtaking on a multi-lane freeway:",
+        options: ["No need to signal", "Watch the oncoming traffic", "Make sure there is enough space in the lane you want to move to"],
+        correct: 2
+      },
+      {
+        text: "When entering a bend, you should:",
+        options: ["Maintain your speed", "Increase your speed", "Reduce your speed"],
+        correct: 2
+      },
+      {
+        text: "When traffic lights fail, you should:",
+        options: ["Give priority to the driver on the left", "Stop and wait for the traffic police", "Act as if you were at an intersection without traffic lights"],
+        correct: 2
+      },
+      {
+        text: "When a truck overtakes your vehicle, you should:",
+        options: ["Change lane", "Increase speed", "Maintain your speed or slow down"],
+        correct: 2
+      },
+      {
+        text: "When driving behind a motorcycle, you should:",
+        options: ["Allow the motorcycle to use half the lane", "Overtake the motorcycle in the same lane", "Allow the motorcycle to use the full width of the lane"],
+        correct: 2
+      },
+      {
+        text: "If two drivers approach an intersection from different roads:",
+        options: ["Each passes without giving priority", "The driver coming from the left should yield", "The driver coming from the right should yield"],
+        correct: 1
+      },
+      {
+        text: "Before overtaking, entering a bend, or being overtaken, you should:",
+        options: ["Slow down, turn on signals to identify drivers, and check the mirrors", "Slow down and signal when changing lanes", "Slow down, signal well in advance, check mirrors, and check blind spots"],
+        correct: 2
+      },
+      {
+        text: "During normal overtaking, the driver may not:",
+        options: ["Crowd those traveling to his right", "Use the right lane of the road", "Use the left lane of the road"],
+        correct: 0
+      },
+      {
+        text: "If a car is turning and a pedestrian is crossing without a traffic light, who has priority?",
+        options: ["The one moving faster", "The one who arrived first", "The pedestrian"],
+        correct: 2
+      },
+      {
+        text: "Ice forms fastest on roads that are:",
+        options: ["Flat", "Uneven with grooves", "In the shade"],
+        correct: 2
+      },
+      {
+        text: "Drivers are prohibited from:",
+        options: ["Traveling in the wrong direction", "Staying alert and in control of their car", "Ensuring it is safe before overtaking"],
+        correct: 0
+      },
+      {
+        text: "Drivers are prohibited from:",
+        options: ["Traveling on the right side of the road", "Washing vehicles on the public road", "Ensuring it is safe before overtaking"],
+        correct: 1
+      },
+      {
+        text: "Drivers are prohibited from:",
+        options: ["Traveling in the indicated direction", "Making a U-turn in the middle of the public road", "Ensuring it is safe before overtaking"],
+        correct: 1
+      },
+      {
+        text: "Common sense requires that:",
+        options: ["You do not exceed the maximum speed of 80 km/h", "You do not exceed the posted speed", "You do not exceed the safe speed for the road conditions"],
+        correct: 2
+      },
+      {
+        text: "You may leave the road to overtake another vehicle:",
+        options: ["If the car in front is turning left", "If the road or pedestrian crossing fits your car", "Under no circumstances"],
+        correct: 2
+      },
+      {
+        text: "You may proceed cautiously on a yellow light if you:",
+        options: ["Are behind a priority vehicle (ambulance, fire truck)", "Are turning left", "Have already entered the intersection"],
+        correct: 2
+      },
+      {
+        text: "Drivers are prohibited from:",
+        options: ["Traveling on the right side of the road", "Repairing vehicles on the public road except in extreme emergencies", "Ensuring it is safe before overtaking"],
+        correct: 1
+      },
+      {
+        text: "The driver should keep to the far right:",
+        options: ["When his speed is below the speed in effect", "When he wants to overtake another driver", "When visibility ahead is good"],
+        correct: 0
+      },
+      {
+        text: "Drivers with more than three years of holding a license are prohibited from driving with blood alcohol above:",
+        options: ["0.3 g/L", "0.4 g/L", "0.5 g/L"],
+        correct: 2
+      },
+      {
+        text: "During the first three years of holding a driver's license, blood alcohol must not exceed:",
+        options: ["0 g/L", "0.3 g/L", "0.5 g/L"],
+        correct: 0
+      },
+      {
+        text: "Drivers are prohibited while driving from:",
+        options: ["Using any communication device", "Using one hand to drive and the other to answer the phone", "Using both hands to drive and answering via Bluetooth"],
+        correct: 0
+      },
+      {
+        text: "In the absence of speed limit signs, the maximum speed on the freeway is:",
+        options: ["80 km/h", "100 km/h", "120 km/h"],
+        correct: 1
+      },
+      {
+        text: "In the absence of speed limit signs, the maximum speed outside populated areas is:",
+        options: ["50 km/h", "60 km/h", "70 km/h"],
+        correct: 2
+      },
+      {
+        text: "In the absence of speed limit signs, the maximum speed inside populated areas is:",
+        options: ["40 km/h", "50 km/h", "60 km/h"],
+        correct: 1
+      },
+      {
+        text: "You can reverse on the freeway if the exit is near, provided you do not go faster than:",
+        options: ["10 meters", "20 meters", "You cannot reverse at all"],
+        correct: 2
+      },
+      {
+        text: "On a normal road, you place the warning triangle in front or behind the vehicle, depending on the direction of traffic, at the following distance from the vehicle:",
+        options: ["20 meters", "30 meters", "40 meters"],
+        correct: 1
+      },
+      {
+        text: "On the freeway, you place the warning triangle in front or behind the vehicle, depending on the direction of traffic, at the following distance from the vehicle:",
+        options: ["50 meters", "60 meters", "70 meters"],
+        correct: 0
+      },
+      {
+        text: "Pedestrians should use pavements and pedestrian crossings and paths when they are at a distance of:",
+        options: ["130 meters", "150 meters", "170 meters"],
+        correct: 1
+      },
+      {
+        text: "When the driver causes an accident, and even if damages are material damages only:",
+        options: ["The driver has the right to flee the scene and avoid responsibility", "The driver should carry on driving", "The driver should stop and take care of the victim"],
+        correct: 2
+      },
+      {
+        text: "If the brake lights are down:",
+        options: ["The car may be impounded", "This is a Class 2 violation", "All of the above"],
+        correct: 2
+      },
+      {
+        text: "The shelf life of tyres does not exceed:",
+        options: ["4 years from manufacturing date or 1.6 mm thread thickness, whichever comes first", "5 years from manufacturing date or 1.6 mm thread thickness, whichever comes first", "6 years from manufacturing date or 1.6 mm thread thickness, whichever comes first"],
+        correct: 2
+      },
+      {
+        text: "When the traffic light is green, but traffic is congested, road users should:",
+        options: ["Move slowly so as not to obstruct traffic", "Cross the green light quickly", "Refrain from crossing the green light if it would obstruct traffic"],
+        correct: 2
+      },
+      {
+        text: "A power of attorney to sell a vehicle is valid for not more than:",
+        options: ["One month", "Three months", "Two months"],
+        correct: 2
+      },
+      {
+        text: "A broken line on the road means:",
+        options: ["You can travel on the line", "You cannot cross the line", "You can cross the line"],
+        correct: 2
+      },
+      {
+        text: "Vehicles of all types cannot be fitted in the front with lights other than:",
+        options: ["Blue or yellow", "White or blue", "White or yellow"],
+        correct: 2
+      },
+      {
+        text: "If the road is divided into two lanes with a yellow line, the driver should, in normal traffic situation:",
+        options: ["Use the middle lane", "Use the left lane", "Use the right lane"],
+        correct: 2
+      },
+      {
+        text: "If the lane is marked with a solid yellow line and a broken yellow line:",
+        options: ["The driver can change lane if the solid line is to the right, and cannot change lane if the broken line is to the right", "The driver cannot change lane if the solid or broken line is to the right", "The driver can change lane if the broken line is to the right, and cannot change lane if the solid line is to the right"],
+        correct: 2
+      },
+      {
+        text: "The driver should give the right of way to:",
+        options: ["Vehicles", "Trucks", "Pedestrians"],
+        correct: 2
+      },
+      {
+        text: "In steep descents, the right of way goes to:",
+        options: ["It depends on the road itself", "Vehicles moving upwards", "Vehicles moving downwards"],
+        correct: 1
+      },
+      {
+        text: "Inside cities, you should always keep a safe distance of:",
+        options: ["1 second", "2 meters", "2 seconds"],
+        correct: 2
+      },
+      {
+        text: "In entering a roundabout, the right of way is for:",
+        options: ["The vehicle on the left", "The vehicle on the right", "The vehicle that is already in the roundabout"],
+        correct: 2
+      },
+      {
+        text: "Overtaking is not allowed in:",
+        options: ["Multiple lane tunnels", "Double lane tunnels", "Single lane tunnels"],
+        correct: 2
+      },
+      {
+        text: "In case of road works, the driver should:",
+        options: ["Turn on his vehicle lights", "Drive fast", "Reduce speed"],
+        correct: 2
+      },
+      {
+        text: "Children below the age of five should be seated:",
+        options: ["In their parents laps", "In the back seats", "In child seats"],
+        correct: 2
+      },
+      {
+        text: "When vehicles are still approaching an intersection, the right of way is always for the driver coming from:",
+        options: ["Inside the intersection", "The left", "The right"],
+        correct: 2
+      },
+      {
+        text: "When overtaking a motorbike, the driver should keep a side distance of no less than:",
+        options: ["65 CM", "70 CM", "75 CM"],
+        correct: 2
+      },
+      {
+        text: "When overtaking another vehicle, the driver should keep a side distance of no less than:",
+        options: ["45 CM", "60 CM", "50 CM"],
+        correct: 2
+      },
+      {
+        text: "Drivers are prohibited to obstruct traffic by:",
+        options: ["Stopping slowly", "Travelling below the lower speed limit", "Stopping suddenly with a valid reason to do so"],
+        correct: 2
+      },
+      {
+        text: "When you meet head-on with another vehicle on a two-way road, who should reverse?",
+        options: ["Heavy vehicles for a single vehicle", "A group of vehicles for a single vehicle", "A single vehicle for a group of vehicles"],
+        correct: 2
+      },
+      {
+        text: "Who has the right of way on a three forked road?",
+        options: ["The driver who proceeds cautiously", "The driver on the right side", "The driver who is on the straight lane"],
+        correct: 2
+      },
+      {
+        text: "When you see on the freeway a sign that indicates that there is a road diversion or that the lane you are on will lead you to another direction, all drivers wishing to exist the lane should:",
+        options: ["Swerve very quickly to the lane that will take them to the desired direction to avoid obstructing traffic", "Swerve immediately left or right to the lane that will take them to the desired direction to avoid obstructing traffic", "Swerve gradually left or right to the lane that will take them to the desired direction"],
+        correct: 2
+      },
+      {
+        text: "Seat belts should be fastened by passengers sitting:",
+        options: ["In the front and back seats when on the highway, in all types of vehicles", "In the front seats, in all types of vehicles", "In the front and back seats, in all types of vehicles and on all roads"],
+        correct: 2
+      },
+      {
+        text: "When the traffic policeman lifts his hand vertically, it means:",
+        options: ["You have to slow down", "Traffic ahead has come to a halt", "\"Careful and stop\" to all road users"],
+        correct: 2
+      },
+      {
+        text: "When the traffic policeman's both hands are stretched horizontally, it means:",
+        options: ["\"Slow down\" for all road users coming from directions that cross with the stretched hands directions", "\"Make Way\" for all road users coming from directions that cross with the stretched hands directions", "\"Stop\" for all road users coming from directions that cross with the stretched hands directions"],
+        correct: 2
+      },
+      {
+        text: "Every vehicle should be fitted with:",
+        options: ["A registration plate at the back side of the vehicle", "Two registration plates with the vehicle number, at front or back side of the vehicles", "Two registration plates with the vehicle number, at the front and back sides of the vehicles"],
+        correct: 2
+      },
+      {
+        text: "Up until the age of 50, the driver should renew his driving license, every:",
+        options: ["20 years", "5 years", "10 years"],
+        correct: 2
+      },
+      {
+        text: "Warning sounds can be used only:",
+        options: ["To alert other drivers that they should move quickly", "To escape heavy traffic", "To alarm other road users so as to avoid accidents"],
+        correct: 2
+      },
+      {
+        text: "In case there is no sign that indicates which side of the vehicle should be used to step out of the vehicle:",
+        options: ["The passenger should step out from the side that is easier for his movement and that he deems appropriate", "The passenger should step in and out of the vehicle from the door that is on the same side of traffic", "The passenger should step in and out of the vehicle from the door that is on the other side of traffic"],
+        correct: 2
+      },
+      {
+        text: "When the driver waives his hand up and down, it means:",
+        options: ["Car breakdown", "Direction to the left", "Slow down and stop"],
+        correct: 2
+      },
+      {
+        text: "When the driver stretches his hand horizontally, it means the driver is:",
+        options: ["Reversing", "Slowing down", "Turning left"],
+        correct: 2
+      },
+      {
+        text: "When the driver stretches his hand vertically, it means:",
+        options: ["Stop", "Direction to the left", "Direction to the right"],
+        correct: 2
+      },
+      {
+        text: "Vehicles turning right can cross a red light provided:",
+        options: ["They do it quickly", "Vehicles turning right cannot cross a red light", "They stop at the traffic light, make sure they can cross without putting pedestrians and vehicles at risk"],
+        correct: 2
+      },
+      {
+        text: "When the road is marked with solid lines:",
+        options: ["The driver can change lanes, but has to do it quickly", "The driver can change lanes, provided he makes sure there is enough gap in the other lane", "The driver cannot change lanes"],
+        correct: 2
+      },
+      {
+        text: "Children under ____ cannot sit in the front seat:",
+        options: ["10 years", "12 years", "8 years"],
+        correct: 0
+      },
+      {
+        text: "It is strictly prohibited to throw stuff from the vehicle as this would:",
+        options: ["Obstruct policemen", "Cause road markings to fade away", "Cause accidents, and clog water drainage system"],
+        correct: 2
+      },
+      {
+        text: "What is the difference between yellow lines and white lines when they are in the middle of the road?",
+        options: ["Yellow lines are used on road sides only, whereas white lines are used to mark vehicle lanes", "Yellow lines are used for one-way roads whereas white lines are used for two-way streets", "White lines demarcate lanes that go in the same direction, yellow lines are demarcate lanes that go in opposite directions"],
+        correct: 2
+      },
+      {
+        text: "Drivers cannot stop and park within a distance of _____ from the top edge of ascent, curb, intersection, roundabout, and traffic light:",
+        options: ["50 meters", "30 meters", "25 meters"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Transport expired bottles or cans of alcohol", "Transport in their vehicles bottles or cans of alcohol that have the manufacturer seal", "Transport in their vehicles unsealed bottles or cans of alcohol"],
+        correct: 2
+      },
+      {
+        text: "Drivers should stop and park:",
+        options: ["On white pedestrian crossing stripes", "After white pedestrian crossing stripes", "Before white pedestrian crossing stripes"],
+        correct: 2
+      },
+      {
+        text: "Drivers are strictly prohibited to:",
+        options: ["Cross white broken lines", "Travel between white lines", "Travel on white lines"],
+        correct: 2
+      }
+    ];
+
+    // ========================================================
+    // READ count FROM URL
+    // ========================================================
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = 10;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    // ========================================================
+    // SHUFFLE & PICK
+    // ========================================================
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    // ========================================================
+    // RENDER
+    // ========================================================
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">
+              ${opt}
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    // ========================================================
+    // HANDLE ANSWER
+    // ========================================================
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    // ========================================================
+    // FINAL RESULT
+    // ========================================================
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Your final score: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // ========================================================
+    // SUBMIT BUTTON
+    // ========================================================
+    // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `You answered ${answered} of ${count} questions. Do you want to end the test?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    // ========================================================
+    // SCROLL TO TOP
+    // ========================================================
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>

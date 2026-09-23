@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Moto</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <!-- LIVE SCORE BOX -->
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Bonnes réponses :</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Test Moto</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Terminer le test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+<div class="custom-modal-overlay" id="confirmModal">
+  <div class="custom-modal">
+    <div class="custom-modal-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <h3 class="custom-modal-title">Terminer le Test</h3>
+    <p class="custom-modal-text" id="confirmMessage"></p>
+    <div class="custom-modal-actions">
+      <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Oui, Terminer</button>
+      <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+  <script>
+    const allQuestions = [
+      {text: "Pour éviter un accident à moto aux intersections, vous devez :",
+       options: ["Ralentir et prendre la bonne voie", "Accélérer pour traverser rapidement", "Passer à droite des véhicules arrêtés à l'intersection"], correct: 0},
+
+      {text: "Pour ne pas augmenter la vitesse par erreur pendant la conduite, vous devez tenir le guidon de la moto de sorte que votre poignet soit :",
+       options: ["Le droit vers le haut", "Le gauche vers le haut", "Le droit vers le bas"], correct: 2},
+
+      {text: "La protection réelle du motard est assurée par :",
+       options: ["Le port de vêtements spéciaux pour motards", "La conduite sur la roue arrière uniquement", "S'assurer que la moto est assurée"], correct: 0},
+
+      {text: "Le casque de protection pour motards assure une protection au conducteur pour :",
+       options: ["L'ouïe contre le bruit de la circulation", "La tête contre les blessures mortelles", "La colonne vertébrale"], correct: 1},
+
+      {text: "Parmi les causes de renversement d'une moto, il y a :",
+       options: ["De l'huile et du gravier sur la chaussée", "Des voitures et des piétons sur la route", "La police et les feux de circulation sur la route"], correct: 0},
+
+      {text: "Pour éviter de déraper en utilisant les freins de la moto, celle-ci doit rouler :",
+       options: ["Dans un virage", "À grande vitesse", "En ligne droite"], correct: 2},
+
+      {text: "En tant que motard, vous avez le droit de dépasser le véhicule devant vous :",
+       options: ["Par sa droite", "Par sa gauche", "De n'importe quel côté"], correct: 1},
+
+      {text: "Le port de gants spéciaux pour moto offre au conducteur :",
+       options: ["Une protection de la tête en cas de chute", "Une protection des mains contre les blessures et le froid", "Une protection des pieds en cas de chute"], correct: 1},
+
+      {text: "Le simple fait de porter le casque à la main sans le mettre et l'attacher correctement en conduisant :",
+       options: ["Exempte le conducteur de toute responsabilité légale", "N'exempte pas le conducteur de toute responsabilité légale", "Est un acte logique du conducteur"], correct: 1},
+
+      {text: "Habituellement, la raison du \"louvoiement\" à moto en roulant est :",
+       options: ["La déformation d'au moins une roue ou un pneu", "La rotation des deux roues sur le même axe", "Une mauvaise répartition de la charge"], correct: 0},
+
+      {text: "Lorsque vous dépassez à gauche un véhicule devant vous, sachez qu'il peut :",
+       options: ["Ralentir progressivement", "Tourner soudainement à gauche", "Allumer ses feux de détresse"], correct: 1},
+
+      {text: "Si la moto est équipée d'un système de freinage hydraulique, il faut périodiquement :",
+       options: ["Vérifier le niveau de liquide de frein", "Réduire l'utilisation des freins", "Régler la tension du câble de frein"], correct: 0},
+
+      {text: "Il est conseillé au motard la nuit, afin d'être vu par les autres, de :",
+       options: ["Porter des bandes ou signes réfléchissants", "Éteindre les feux et porter des signes réfléchissants", "Faire grincer les freins"], correct: 0},
+
+      {text: "Le port d'un protège-dos spécial moto assure une protection :",
+       options: ["De la poitrine et de l'abdomen contre la chaleur et le froid", "De la colonne vertébrale et de la moelle épinière contre la pluie", "De la colonne vertébrale et de la moelle épinière contre les blessures"], correct: 2},
+
+      {text: "Pendant la conduite de nuit, le motard doit porter :",
+       options: ["Des vêtements sombres ordinaires", "Une combinaison fluorescente spéciale", "Des vêtements de sport"], correct: 1},
+
+      {text: "Le fait de porter des bottes spéciales motards offre une protection pour :",
+       options: ["Le genou et la cuisse contre l'eau et le froid", "Le genou et la cuisse contre l'eau et le froid", "Les pieds et le tibia contre les blessures, l'eau et le froid"], correct: 2},
+
+      {text: "La profondeur minimale de sculpture sur un pneu de moto ne doit pas être inférieure à :",
+       options: ["5 millimètres", "3 millimètres", "6 millimètres"], correct: 1},
+
+      {text: "Lorsque vous conduisez votre moto en zigzagant entre les véhicules, cela :",
+       options: ["Augmente le risque d'être impliqué dans un accident", "Diminue le risque d'être impliqué dans un accident", "Fait de vous un conducteur prudent"], correct: 0},
+
+      {text: "Pour qu'un motard puisse diriger le guidon sans difficulté, il doit :",
+       options: ["S'asseoir loin du guidon", "S'asseoir près du guidon", "Tenir le guidon avec une seule main"], correct: 1},
+
+      {text: "Le freinage est le plus efficace quand le motard utilise :",
+       options: ["Le frein arrière uniquement", "Les freins arrière et avant ensemble", "Son pied appuyé sur l'asphalte"], correct: 1},
+
+      {text: "Lorsque vous conduisez votre moto avec un échappement volontairement ouvert et très bruyant, cela :",
+       options: ["Montre que vous avez des idées créatives", "Est considéré comme une infraction claire", "Est légalement autorisé"], correct: 1},
+
+      {text: "Les combinaisons en cuir pour motards ont la capacité de résister :",
+       options: ["À la conduite rapide entre les véhicules", "À la friction avec le gravier et l'asphalte", "Au feu"], correct: 1},
+
+      {text: "Ne pas porter de casque en roulant, ou le porter partiellement ou pas du tout attaché :",
+       options: ["Est considéré comme une infraction légale", "Est considéré comme un acte légal", "Est considéré comme un acte normal"], correct: 0},
+
+      {text: "Le port de lunettes de protection spéciales pour motards offre une protection pour :",
+       options: ["Les oreilles contre le froid", "Les yeux contre le vent, le sable, la pluie et les insectes", "Les yeux contre les larmes"], correct: 1},
+
+      {text: "Lorsque vous conduisez votre moto la nuit, vous devez :",
+       options: ["Ralentir et laisser une distance d'arrêt plus courte", "Ralentir et laisser une distance d'arrêt plus longue", "Accélérer et utiliser les feux de croisement"], correct: 1},
+
+      {text: "Il y a deux raisons principales qui provoquent le glissement d'une moto en roulant :",
+       options: ["Un moteur rapide et un guidon élevé", "Une chaussée glissante et une réaction nerveuse", "Une vitesse basse et un rapport de vitesse bas"], correct: 1},
+
+      {text: "Lorsque vous conduisez votre moto en ligne droite, faites attention qu'un véhicule en sens inverse peut :",
+       options: ["Tourner soudainement dans votre trajectoire", "S'arrêter soudainement dans sa trajectoire", "Tourner brusquement loin de votre trajectoire"], correct: 0}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1} :</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Votre score final : <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+// ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `Vous avez répondu à ${answered} sur ${count} questions. Voulez-vous terminer le test ?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Test - Signs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Correct answers:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Mock Test</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Finish Test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+  <!-- CUSTOM CONFIRM MODAL -->
+  <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+      <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+      </div>
+      <h3 class="custom-modal-title">Finish Test</h3>
+      <p class="custom-modal-text" id="confirmMessage"></p>
+      <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Yes, Finish</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const allQuestions = [
+  {
+    text: "What does this sign mean?",
+    image: "signs/5.png",
+    options: ["Caution, slippery road ahead", "Caution, speed bumps ahead", "Caution, uneven road ahead"],
+    correct: 2
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/16.png",
+    options: ["Caution, right bend ahead", "Caution, left bend ahead", "Roundabout direction"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/23.png",
+    options: ["Caution, right bend ahead", "Caution, left bend ahead", "Optional direction to the left"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/28.png",
+    options: ["Caution, double bend ahead, first one to the right", "Caution, double bend ahead, first one to the left", "Caution, double lane road bend"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/20.png",
+    options: ["Caution, double bend ahead, first one to the right", "Caution, double bend ahead, first one to the left", "Caution, double lane road bend"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/93.png",
+    options: ["Caution, narrow road ahead", "Caution, dangerous slope", "Caution, slippery road ahead"],
+    correct: 2
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/6.png",
+    options: ["Caution, students or school", "No entry", "Unsecure crossing"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/3.png",
+    options: ["Caution, animals", "Animals not allowed", "Stray animals"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/1.png",
+    options: ["Caution, double lane traffic area", "Caution, intersection with roads without priority", "Traffic area on the right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/27.png",
+    options: ["Caution, roundabout ahead", "No U-turn", "Caution, various dangers"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/18.png",
+    options: ["Caution, intersection ahead", "Caution, vehicles coming from the opposite direction have the right of way", "Caution, intersection with no right of way"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/10.png",
+    options: ["Caution, vehicles coming from the opposite direction have the right of way", "Caution, intersection with no right of way", "Merging with a freeway"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/11.png",
+    options: ["Caution, vehicles coming from the opposite direction have the right of way", "Caution, intersection with no right of way", "Caution, intersection on the right"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/14.png",
+    options: ["Road with priority right of way", "End of speed limit", "One-minute parking"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/21.png",
+    options: ["Caution, pedestrian crossing", "No entry for pedestrians", "Crossing not reserved for pedestrians"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/15.png",
+    options: ["Caution, cycles crossing", "No entry for bikes", "Trolley crossing"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/12.png",
+    options: ["Caution, narrow road ahead", "Caution, narrow road on the left ahead", "Caution, wide road"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/22.png",
+    options: ["Caution, narrow road on the left", "Narrow road on the right", "Priority to the right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/91.png",
+    options: ["Caution, vehicles coming from the opposite direction have the right of way", "Caution, narrow road on the right", "End of priority"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/2.png",
+    options: ["Caution, narrow road ahead", "Caution, falling or fallen rocks ahead", "Mountainous area"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/25.png",
+    options: ["Caution, roundabout ahead", "Caution, electrical signs ahead", "No entry to all types of motor vehicles"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/19.png",
+    options: ["Caution, various dangers", "Give way - priority road ahead", "No entry"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/24.png",
+    options: ["Caution, various dangers", "Give way - priority road ahead", "No entry"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/7.png",
+    options: ["Caution, vehicles coming from the opposite direction have the right of way", "End of priority", "No entry"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/4.png",
+    options: ["Caution, vehicles coming from the opposite direction have the right of way", "End of priority", "No overtaking for all kinds of vehicles"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/13.png",
+    options: ["Stop", "No entry", "One lane road"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/29.png",
+    options: ["No entry for all motor vehicles", "No parking", "One lane road"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/30.png",
+    options: ["No entry", "No parking", "Various dangers"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/26.png",
+    options: ["No entry", "No overtaking for all kinds of vehicles", "No overtaking allowed for trucks"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/17.png",
+    options: ["Give way - priority road ahead", "Lower Speed limit: 80 km/hour", "Upper speed limit: 30 km/hour"],
+    correct: 2
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/60.png",
+    options: ["You are not allowed to sound your horn", "No parking", "Theatre"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/43.png",
+    options: ["Trucks cannot overtake", "Trucks can overtake", "Road reserved for trucks"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/34.png",
+    options: ["No entry for animal carts", "No entry for pedestrians", "Animal carts allowed"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/45.png",
+    options: ["No entry for pedestrians", "Caution, Lane reserved for pedestrians", "No entry for all types of motor vehicles"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/51.png",
+    options: ["No entry for bikes", "Lane reserved for bikes", "Compulsory path for motor vehicles"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/59.png",
+    options: ["No entry for motorbikes", "Lane reserved for bikes", "Lane reserved for bikes"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/58.png",
+    options: ["Not entry for trolleys", "Lane reserved for trolleys", "Trolleys cannot be parked here"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/48.png",
+    options: ["No entry to all types of motor vehicles", "Road reserved for motor vehicles", "No parking"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/56.png",
+    options: ["No entry to cars exceeding 2.3m in width", "No entry for trucks", "No entry to trucks exceeding 2.3m in height"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/53.png",
+    options: ["No entry to trucks exceeding 3.5 m in height", "No entry to trucks exceeding 3.5 tons in weight", "Compulsory direction for trucks"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/37.png",
+    options: ["No entry to trucks exceeding 10 m in length", "No entry to trucks exceeding 6.5 tons in weight", "Cargo length not exceeding 10 m"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/32.png",
+    options: ["No entry to trucks exceeding 7 tons in weight", "No entry to trucks whose wheel exceeds 7 tons", "No entry to trucks exceeding 7 m in length"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/36.png",
+    options: ["End of prohibition signs", "Speed limit", "Start of prohibition signs"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/44.png",
+    options: ["End of speed limit", "Start of speed limit", "Speed limit"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/31.png",
+    options: ["Turn right", "No right turn", "Compulsory direction to the left"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/57.png",
+    options: ["Turn left", "No left turn", "Optional direction straight or right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/55.png",
+    options: ["Optional direction right and left", "Compulsory direction straight", "No entry right and left"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/38.png",
+    options: ["Optional direction right or straight", "No direction to the left", "Compulsory direction for trucks to the right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/50.png",
+    options: ["Optional direction straight or left", "Compulsory lane to the left", "No direction to the left"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/42.png",
+    options: ["Compulsory lane to the left", "Main road line", "Optional direction to the right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/54.png",
+    options: ["Compulsory lane to the right", "No right turn", "Optional direction straight"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/39.png",
+    options: ["Compulsory lane to the right or left", "Optional direction to the right", "No right or left turn"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/33.png",
+    options: ["End of bicycle track", "Lane reserved for bicycles", "Lane reserved for pedestrians and bicycles"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/35.png",
+    options: ["End of bicycle track", "Lane reserved for pedestrians and bicycles", "No entry for pedestrians and bicycles"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/46.png",
+    options: ["No right turn", "Traffic direction", "Compulsory direction to the right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/40.png",
+    options: ["No U-turn", "Traffic direction", "Compulsory turn"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/49.png",
+    options: ["No entry to buses", "Lane reserved for buses", "End of no bus overtaking zone"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/41.png",
+    options: ["No entry to trucks", "Lane reserved for trucks", "No entry to trucks exceeding 6.5 tons in weight"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/47.png",
+    options: ["No entry to trucks exceeding 6.5 tons in weight", "Trucks cannot park here", "Compulsory direction for trucks"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/52.png",
+    options: ["No entry for trucks carrying Hazardous Material", "No entry to trailer trucks", "Compulsory direction for trucks"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/83.png",
+    options: ["Agricultural machinery not allowed", "Road reserved for agricultural machinery", "One-minute parking for agricultural machinery"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/64.png",
+    options: ["Caution, two-lane road", "End of no overtaking zone", "End of no overtaking for trucks"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/80.png",
+    options: ["Caution, two lane road", "End of no overtaking for trucks", "Trucks only"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/63.png",
+    options: ["No entry", "No overtaking for all kinds of vehicles", "No parking"],
+    correct: 2
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/70.png",
+    options: ["No entry", "No parking", "No stopping and no parking"],
+    correct: 2
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/85.png",
+    options: ["You must go straight", "No entry in this direction", "No parking in this zone"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/86.png",
+    options: ["Direction to the left", "No direction to the left", "No parking on the left"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/67.png",
+    options: ["Direction to the right", "No direction to the right", "No parking on the right"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/90.png",
+    options: ["No U-turn", "Roundabout ahead", "Site for stop"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/81.png",
+    options: ["Mandatory lower speed", "Mandatory upper speed", "You cannot park for more than 30 minutes"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/87.png",
+    options: ["End of mandatory lower speed", "You cannot park for more than 30 minutes", "Maximum speed: 30 km/h"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/69.png",
+    options: ["Vehicles equipped with metal chains only", "Tyre chains must be removed", "Caution, slippery road ahead"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/84.png",
+    options: ["Lane reserved for pedestrians", "No entry for pedestrians", "Park"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/62.png",
+    options: ["End of pedestrian Lane", "Upper ground pedestrian crossing", "Lane reserved for pedestrians"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/88.png",
+    options: ["Bicycles track", "No entry for bicycles", "No parking for bicycles"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/82.png",
+    options: ["Cannot turn left", "No parking on the left", "Compulsory direction to the left"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/79.png",
+    options: ["Hospital", "Two-lane road connected to a bridge", "Caution, moving bridge ahead"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/76.png",
+    options: ["Caution, pedestrian crossing", "End of pedestrian lane", "Caution, no entry to pedestrians"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/71.png",
+    options: ["Lane reseved for bikes", "Lane reseved for bikes", "No entry for bicycles"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/74.png",
+    options: ["Dead end road", "Road reaches a main road", "Lanes merge ahead"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/78.png",
+    options: ["Highway", "Caution, bridge", "Caution, airport runway"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/73.png",
+    options: ["Caution, narrow road ahead", "End of freeway", "Bridge above the road"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/75.png",
+    options: ["Caution, rough road ahead", "Tunnel", "Bridge"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/89.png",
+    options: ["Help center", "Parking for the disabled", "For doctors only"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/61.png",
+    options: ["Parking reserved for disabled", "One-minute parking", "No parking for the disabled"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/65.png",
+    options: ["No parking", "One-minute parking", "Parking"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/66.png",
+    options: ["Taxi stop", "Taxis not allowed to park here", "Parking for all - not more than two taxi cars allowed"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/77.png",
+    options: ["Police", "Inquiries", "Remove immediately"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/72.png",
+    options: ["Inquiries", "Petrol station", "Internet Center"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/68.png",
+    options: ["Municipality police", "Fire Brigade", "Parking reserved for the police"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/94.png",
+    options: ["Main road line", "Indirect turn to the left", "Dangerous intersection ahead"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/98.png",
+    options: ["No parking", "One-minute parking", "Parking"],
+    correct: 2
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/102.png",
+    options: ["Hotel", "Restaurant", "Repair Center"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/101.png",
+    options: ["Inquiries", "Restaurant", "Refreshments"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/95.png",
+    options: ["Restaurant", "Public phone", "Petrol station"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/103.png",
+    options: ["Petrol station", "Repair Center", "Restaurant"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/92.png",
+    options: ["Bus parking", "Buses are not allowed to stop here", "Lane reserved for buses"],
+    correct: 0
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/97.png",
+    options: ["No parking", "Camping & camping cars", "Help Center"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/96.png",
+    options: ["Bend ahead", "Indirect bend to the left", "Reduce Speed"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/99.png",
+    options: ["Indirect bend to the left", "Reduce Speed", "Bend ahead"],
+    correct: 1
+  },
+  {
+    text: "What does this sign mean?",
+    image: "signs/100.png",
+    options: ["Caution, uneven roads", "Caution, road bumps ahead", "Caution, right bend ahead"],
+    correct: 1
+  }
+];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = 10;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1}:</strong> ${q.text}</p>
+        ${q.image ? `<div class="question-image-wrap"><img src="${q.image}" alt="" class="question-image"></div>` : ""}
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">
+              ${opt}
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Your final score: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `You answered ${answered} of ${count} questions. Do you want to end the test?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+  
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+
+</style>
+</body>
+</html>

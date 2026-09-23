@@ -1,0 +1,122 @@
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #000000;
+      padding: 2rem 1rem;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* ----- PAGE TITLE ----- */
+    .page-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #000;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-title i { color: #f9b23f; }
+
+    .page-intro {
+      font-size: 1.05rem;
+      color: #000;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ----- LAYOUT: image left, grid right ----- */
+    .layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* ----- IMAGE PANEL ----- */
+    .image-panel {
+      background: #f9f3e9;
+      border: 1px solid #f9b23f;
+      border-radius: 20px;
+      padding: 1rem;
+      position: sticky;
+      top: 1rem;
+    }
+
+    .image-panel img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    /* ----- GRID ----- */
+    .maneuver-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .maneuver-card {
+      background: #f9f3e9;
+      border: 1px solid #f9b23f;
+      border-radius: 18px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .maneuver-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(249, 178, 63, 0.25);
+    }
+
+    .maneuver-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f9b23f;
+      color: #000;
+      font-weight: 800;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .maneuver-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #000;
+      line-height: 1.4;
+    }
+
+    .maneuver-desc {
+      font-size: 0.9rem;
+      color: #000;
+      line-height: 1.7;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; gap: 1.5rem; }
+      .image-panel { position: static; }
+    }
+
+    @media (max-width: 600px) {
+      .page-title { font-size: 1.6rem; }
+      .page-intro { font-size: 0.95rem; }
+      .maneuver-grid { grid-template-columns: 1fr; }
+    }
+ 

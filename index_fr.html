@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-école Al-Khalil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style_fr.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+
+</head>
+<body>
+  <nav class="navbar">
+  <div class="navbar-inner">
+
+    <!-- 3 ITEMS -->
+    <ul class="navbar-links">
+      <li class="nav-item">
+        <button class="nav-toggle" type="button">
+          <i class="fas fa-info-circle"></i>
+          Informations
+          <i class="fas fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-dropdown">
+          <a href="masar_fr.html"><i class="fas fa-map"></i> Parcours</a>
+          <a href="dk_fr.html"><i class="fas fa-file-alt"></i> Montrez-moi Dites-moi</a>
+          <a href="info_fr.html"><i class="fas fa-book"></i> Informations sur l'examen</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="papers_fr.html"><i class="fas fa-file-alt"></i> Documents</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="learn_fr.html"><i class="fas fa-book"></i> Apprentissage</a>
+      </li>
+
+    </ul>
+
+  </div>
+</nav>
+  <div class="container">
+
+    
+
+    <div class="header-row">
+      <div class="header-text">
+        <h1>École Khalil</h1>
+        <div class="subhead">Pour les leçons de conduite</div>
+        <div class="location">
+          <i class="fas fa-map-pin"></i>
+          <span>
+            Ansar - Rue principale - Bureau Ali Hasan Khalil.<br>
+            Nafaa de Nabatieh.
+          </span>
+        </div>
+        <br>
+        <div class="lang-switcher">
+        <a href="index.html" class="lang-btn"><span class="fi fi-lb"></span> العربية</a>
+        <a href="index_en.html" class="lang-btn"><span class="fi fi-gb"></span> English</a>
+        <a href="index_fr.html" class="lang-btn active"><span class="fi fi-fr"></span> Français</a>
+        </div>
+      </div>
+      <img src="الخليل.jpeg" alt="École Al-Khalil" class="header-image">
+    </div>
+
+    <div class="section-title">
+      <i class="fas fa-car"></i>
+      <span>Examens de conduite</span>
+    </div>
+    <div class="highlight-text">
+      Voici la plupart des questions qui apparaissent à l'examen de conduite au Liban, avec leurs réponses possibles.
+    </div>
+    <!-- CATEGORY CARDS (3 categories) -->
+<div class="category-grid">
+
+  <a href="mock_fr_cars.html" class="category-card">
+    <img src="icon/cars.jpg" alt="Voiture privée" class="category-icon">
+    <span class="category-label">Voiture privée</span>
+  </a>
+
+  <a href="mock_fr_general.html" class="category-card">
+    <img src="icon/anoun.png" alt="Voiture publique" class="category-icon">
+    <span class="category-label">Code de la Route</span>
+  </a>
+
+  <a href="mock_fr_signs.html" class="category-card">
+    <img src="icon/signs.png" alt="Panneaux de signalisation" class="category-icon">
+    <span class="category-label">Panneaux de signalisation</span>
+  </a>
+  <a href="mock_fr_motors.html" class="category-card">
+        <img src="icon/motorcycle.png" alt="cars" class="category-icon">
+        <span class="category-label">Motos</span>
+    </a>
+    <a href="mock_fr_trucks.html" class="category-card">
+        <img src="icon/trucks.png" alt="cars" class="category-icon">
+        <span class="category-label">Camions</span>
+    </a>
+    <a href="mock_fr_taxi.html" class="category-card">
+        <img src="icon/taxi.png" alt="cars" class="category-icon">
+        <span class="category-label">Taxi Public</span>
+    </a>
+
+</div>
+
+    <div class="divider"></div>
+
+    <div class="contact-section">
+      <h3>Contactez-nous pour plus d'informations</h3>
+        <div class="phone-links">
+          <a href="tel:+9613718900" class="phone-btn">
+            <i class="fas fa-phone"></i>
+            <span>03 718 900</span>
+          </a>
+          <a href="tel:+96171718900" class="phone-btn">
+            <i class="fas fa-phone"></i>
+            <span>71 718 900</span>
+          </a>
+          <a href="tel:+96103275885" class="phone-btn">
+          <i class="fas fa-phone"></i>
+          <span>03 275 885</span>
+          </a>
+        </div>
+        <div class="location-block">
+          <span class="label"><i class="fas fa-clock"></i> Horaires</span>
+
+          <div class="hours-row">
+            <span class="hours-place">Nabatiyeh – Nafaa</span>
+            <span class="hours-time">8:00 AM – 2:00 PM</span>
+          </div>
+
+          <div class="hours-row">
+            <span class="hours-place">Ansar – Bureau Ali Hassan Khalil</span>
+            <span class="hours-time">4:30 PM – 8:30 PM</span>
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+   <script>
+  // ============================================
+  // NAVBAR DROPDOWN TOGGLE
+  // ============================================
+  document.querySelectorAll('.nav-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const li = btn.closest('.nav-item');
+      const isOpen = li.classList.contains('open');
+
+      // Close all other open dropdowns
+      document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('open'));
+
+      // Toggle the clicked one
+      if (!isOpen) li.classList.add('open');
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('open'));
+  });
+
+  // Close dropdown on Escape key (accessibility bonus)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('open'));
+    }
+  });
+</script>
+</body>
+
+</html>

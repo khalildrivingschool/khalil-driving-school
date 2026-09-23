@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Test Setup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="mock-page">
+
+  <div class="mock-card">
+
+    <!-- ICON + TITLE -->
+    <div class="mock-header">
+      <i class="fas fa-car-side mock-icon"></i>
+      <h2 class="mock-title">Start Your Mock Test</h2>
+      <p class="mock-subtitle">Choose how many questions you want to practice</p>
+    </div>
+
+    <!-- FORM -->
+    <div class="mock-form">
+      <label for="questionCount" class="mock-label">
+        Number of Questions
+        <span class="mock-max">(Max: 27)</span>
+      </label>
+      <input
+        type="number"
+        id="questionCount"
+        class="mock-input"
+        min="1"
+        max="27"
+        value=""
+        placeholder="Enter a number"
+      >
+      <p id="errorMessage" class="mock-error"></p>
+    </div>
+
+    <!-- BUTTON -->
+    <button id="startBtn" class="start-btn">
+      <i class="fas fa-play"></i>
+      Start Mock Test
+    </button>
+
+  </div>
+
+    <script>
+  const input = document.getElementById("questionCount");
+  const btn = document.getElementById("startBtn");
+  const errorMsg = document.getElementById("errorMessage");
+
+  function showError(message) {
+    errorMsg.textContent = message;
+    errorMsg.classList.add("visible");
+    input.classList.add("input-error");
+    input.classList.remove("shake");
+    void input.offsetWidth;
+    input.classList.add("shake");
+  }
+
+  function clearError() {
+    errorMsg.textContent = "";
+    errorMsg.classList.remove("visible");
+    input.classList.remove("input-error");
+  }
+
+  input.addEventListener("input", clearError);
+
+  btn.addEventListener("click", () => {
+    clearError();
+    const count = parseInt(input.value, 10);
+
+    if (isNaN(count) || count < 1) {
+      showError("Please enter a valid number.");
+      return;
+    }
+    if (count > 27) {
+      showError("Maximum is 27 questions.");
+      return;
+    }
+
+    window.location.href = `questions_en_motors.html?count=${count}`;
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") btn.click();
+  });
+    </script>
+
+</body>
+</html>

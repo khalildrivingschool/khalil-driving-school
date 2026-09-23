@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motorcycle Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Correct answers:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Motorcycle Test</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Finish Test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+        <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">Finish Test</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Yes, Finish</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Cancel</button>
+        </div>
+    </div>
+    </div>
+  <script>
+    const allQuestions = [
+      {text: "To avoid an accident with your motorcycle at intersections, you should:",
+       options: ["Slow down and take the correct lane", "Speed up to cross quickly", "Pass to the right of vehicles stopped at the intersection"], correct: 0},
+
+      {text: "To avoid accidentally increasing speed while riding, you should hold the motorcycle handlebar grip so that your wrist is:",
+       options: ["Right wrist upward", "Left wrist upward", "Right wrist downward"], correct: 2},
+
+      {text: "The real protection for a motorcyclist is ensured by:",
+       options: ["Wearing motorcycle-specific protective clothing", "Riding on the rear wheel only", "Making sure the motorcycle is insured"], correct: 0},
+
+      {text: "The protective helmet for motorcyclists provides the rider with protection for:",
+       options: ["Hearing from traffic noise", "The head from fatal injuries", "The spine"], correct: 1},
+
+      {text: "One cause that leads to motorcycle skidding is the presence of:",
+       options: ["Oil and gravel on the road surface", "Cars and pedestrians on the road", "Police and traffic lights on the road"], correct: 0},
+
+      {text: "To avoid skidding when using motorcycle brakes, the motorcycle should be moving:",
+       options: ["In a curve", "At high speed", "In a straight direction"], correct: 2},
+
+      {text: "As a motorcyclist, you are allowed to overtake the vehicle in front of you:",
+       options: ["From its right side", "From its left side", "From any side"], correct: 1},
+
+      {text: "Wearing motorcycle gloves provides the rider with:",
+       options: ["Head protection when falling", "Protection for the hands from injury and cold", "Foot protection when falling"], correct: 1},
+
+      {text: "Merely carrying the motorcycle helmet without wearing it and strapping it correctly while riding:",
+       options: ["Exempts the rider from legal liability", "Does not exempt the rider from legal liability", "Is a logical act by the rider"], correct: 1},
+
+      {text: "The usual cause of motorcycle wobble while riding is:",
+       options: ["Bending of at least one wheel or one tire", "Both wheels rotating on the same axle", "Poor load distribution"], correct: 0},
+
+      {text: "When overtaking a vehicle on your left with your motorcycle, you should be aware that this vehicle may:",
+       options: ["Gradually slow down", "Suddenly turn left", "Turn on its hazard lights"], correct: 1},
+
+      {text: "If the motorcycle is equipped with a hydraulic brake system, you should periodically:",
+       options: ["Check the brake fluid level", "Reduce the use of the brakes", "Adjust the brake cable tension"], correct: 0},
+
+      {text: "It is recommended that a motorcyclist, while riding, enables others to see them at night by:",
+       options: ["Wearing reflective strips or signs", "Turning off lights and wearing reflective signs", "Making the brakes squeak"], correct: 0},
+
+      {text: "Wearing the spine protector specific to motorcyclists provides the rider with protection for:",
+       options: ["Chest and abdomen from heat and cold", "The spine and spinal cord from rain", "The spine and spinal cord from injury"], correct: 2},
+
+      {text: "During night riding, the motorcyclist must wear:",
+       options: ["Regular dark-colored clothing", "A special fluorescent suit", "Sports clothing"], correct: 1},
+
+      {text: "Wearing motorcycle-specific boots provides the rider with protection for:",
+       options: ["The knee and thigh from water and cold", "The knee and thigh from water and cold", "The feet and shin from injury, water and cold"], correct: 2},
+
+      {text: "The minimum tread depth on motorcycle tires should not be less than:",
+       options: ["5 millimeters", "3 millimeters", "6 millimeters"], correct: 1},
+
+      {text: "When you ride your motorcycle in a zigzag pattern between vehicles, this:",
+       options: ["Increases the chance of being involved in an accident", "Decreases the chance of being involved in an accident", "Makes you a cautious rider"], correct: 0},
+
+      {text: "To steer the handlebar without difficulty, the motorcyclist should:",
+       options: ["Sit far from the handlebar", "Sit close to the handlebar", "Hold the handlebar with one hand"], correct: 1},
+
+      {text: "Brakes are most effective when the motorcyclist uses:",
+       options: ["Rear brake only", "Rear and front brakes together", "Their foot pressed on the asphalt"], correct: 1},
+
+      {text: "When you ride your motorcycle with an intentionally emptied exhaust (loud noise), this:",
+       options: ["Shows you have creative ideas", "Is considered a clear legal violation", "Is legally allowed"], correct: 1},
+
+      {text: "The protective leather suits of motorcyclists are able to resist:",
+       options: ["Fast riding between vehicles", "Friction with gravel and asphalt", "Fire"], correct: 1},
+
+      {text: "Not wearing the helmet while riding, or wearing it partially strapped or not strapped at all:",
+       options: ["Is considered a legal violation", "Is considered a legal act", "Is considered a normal act"], correct: 0},
+
+      {text: "Wearing protective glasses specific to motorcyclists provides protection for:",
+       options: ["Ears from cold", "Eyes from wind, sand, rain, and insects", "Eyes from tears"], correct: 1},
+
+      {text: "When riding your motorcycle at night, you should:",
+       options: ["Slow down and leave a shorter stopping distance", "Slow down and leave a longer stopping distance", "Speed up and use the low beam"], correct: 1},
+
+      {text: "There are two main causes for motorcycle skidding while riding:",
+       options: ["Fast engine and raised handlebar", "Slippery road surface and nervous reaction", "Low speed and low gear"], correct: 1},
+
+      {text: "When riding your motorcycle in a straight direction, be aware that the oncoming vehicle may:",
+       options: ["Suddenly turn into your path", "Suddenly stop in its path", "Turn away from your path"], correct: 0}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Your final score: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `You answered ${answered} of ${count} questions. Do you want to end the test?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+  
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+
+</style>
+</body>
+</html>

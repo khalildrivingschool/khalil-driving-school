@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Vehicle Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Correct answers:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Heavy Vehicle Test</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Finish Test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+        <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">Finish Test</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Yes, Finish</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Cancel</button>
+        </div>
+    </div>
+    </div>
+  <script>
+    const allQuestions = [
+
+      {text: "When disconnecting the tractor from the trailer, the driver should:",
+       options: ["Apply the trailer brake and lower its legs to the maximum", "Release the trailer brake and lower its legs to the maximum", "Apply the trailer brake but not lower its legs to the maximum"], correct: 0},
+
+      {text: "Every heavy vehicle driver must pay attention to the width of the vehicle, especially:",
+       options: ["When overtaking another vehicle", "When driving on open roads", "When taking a rest"], correct: 0},
+
+      {text: "If you enter a long downhill with your heavy vehicle and delay shifting to a low gear, and your speed becomes high:",
+       options: ["It will be easy to shift to a low gear", "It will be impossible to shift to a low gear to control the vehicle", "You will be able to overtake vehicles safely in bulk"], correct: 1},
+
+      {text: "If the heavy vehicle driver wants to reverse, they should rely on information from:",
+       options: ["The rearview mirror only", "Another person assisting them", "The rear camera only"], correct: 1},
+
+      {text: "The heavy vehicle driver should pay attention to the height of the vehicle, especially:",
+       options: ["When driving on open roads", "When passing under a bridge or entering a tunnel", "When driving over a bridge"], correct: 1},
+
+      {text: "Handling heavy vehicles differs from small vehicles. When a heavy vehicle turns right:",
+       options: ["You should not leave enough space on the right side", "You should leave enough space in front", "You should leave enough space on the right side"], correct: 2},
+
+      {text: "When disconnecting the tractor from the trailer, the driver should choose a place that is:",
+       options: ["Flat and soft", "Sloped and soft", "Sloped and solid"], correct: 0},
+
+      {text: "The number of passengers in a loaded truck must not exceed:",
+       options: ["One person", "The number specified on the license", "It is not allowed to carry any passengers"], correct: 1},
+
+      {text: "When driving your heavy vehicle in a right curve, to avoid the rear right wheels slipping off the road edge, you should:",
+       options: ["Take your extreme right throughout the curve", "Increase your speed throughout the curve", "Drive in the middle of your lane"], correct: 2},
+
+      {text: "If you want to overtake another vehicle uphill with your heavy vehicle and it will take a long time, you should:",
+       options: ["Insist on making the overtake", "Increase your speed above the legal limit", "Give up on the overtake"], correct: 2},
+
+      {text: "To control your vehicle while driving downhill, you should mainly rely on using:",
+       options: ["The brakes", "The handbrake", "A low gear"], correct: 2},
+
+      {text: "The heavy vehicle driver has blind spots around the vehicle, and their number is:",
+       options: ["At least four blind spots", "At least eight blind spots", "Three blind spots"], correct: 0},
+
+      {text: "When approaching the crest of a hill, you should expect beyond the crest:",
+       options: ["The presence of obstacles", "No obstacles", "A straight road"], correct: 0},
+
+      {text: "After connecting the tractor to the trailer, the driver should make sure that:",
+       options: ["Air lines and electrical wires are properly connected", "Only air lines are properly connected", "Only electrical wires are properly connected"], correct: 0},
+
+      {text: "When driving your heavy vehicle on a continuous uphill, you should:",
+       options: ["Check the fuel level", "Stay as far left as possible", "Stay as far right as possible"], correct: 2},
+
+      {text: "The heavy vehicle driver should:",
+       options: ["Reverse in crowded places", "Reverse immediately after an intersection", "Avoid reversing in crowded places"], correct: 2},
+
+      {text: "When starting to connect the tractor to the trailer, the driver should:",
+       options: ["Reverse the tractor slowly above the trailer", "Reverse the tractor slowly under the trailer", "Reverse the tractor quickly under the trailer"], correct: 1},
+
+      {text: "When driving your heavy vehicle on a continuous uphill, you should:",
+       options: ["Avoid straining the engine", "Stay on the left side", "Not allow small vehicles to overtake you"], correct: 0},
+
+      {text: "Using the main brakes continuously on a long downhill disables them because of:",
+       options: ["Their temperature increase", "Brake fluid pressure", "The steepness of the slope"], correct: 0},
+
+      {text: "Every heavy vehicle driver must pay attention to the width of the vehicle, especially:",
+       options: ["When entering a narrow place", "When taking a rest", "When loading the vehicle"], correct: 0},
+
+      {text: "When connecting the tractor to the trailer, the driver should make sure that:",
+       options: ["The trailer brakes are applied and its legs touch the ground", "The trailer brakes are released and its legs touch the ground", "The trailer touches the ground on one leg only"], correct: 0},
+
+      {text: "When driving your heavy vehicle in a left curve, to avoid the rear left wheels crossing the center line of the road, you should:",
+       options: ["Take your extreme left throughout the curve", "Take slightly to your right throughout the curve", "Increase your speed throughout the curve"], correct: 0},
+
+      {text: "After filling the tanker with its load, the driver must make sure that:",
+       options: ["All tank covers and discharge valves are tightly closed", "Only the tank covers are tightly closed", "Only the discharge valves are tightly closed"], correct: 0},
+
+      {text: "Driving a heavy vehicle on rough roads requires you to:",
+       options: ["Increase your speed slightly", "Be cautious and plan the road ahead", "Focus your attention behind"], correct: 1}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Your final score: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `You answered ${answered} of ${count} questions. Do you want to end the test?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  <style>
+  
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+
+</style>
+
+</body>
+</html>
