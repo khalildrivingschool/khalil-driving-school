@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبار المركبات الثقيلة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <!-- LIVE SCORE BOX -->
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">الإجابات الصحيحة:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">اختبار باص </h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        إنهاء الاختبار
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="العودة للأعلى">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+  <!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+        <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">إنهاء الاختبار</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">نعم، إنهاء</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">إلغاء</button>
+        </div>
+    </div>
+    </div>
+
+  <script>
+    const allQuestions = [
+
+      {text: "ما هو تعريف الباص من الفئة D1 في قانون السير اللبناني؟", options: ["مركبة لنقل البضائع يتجاوز وزنها 3500 كلغ.", "مركبة لنقل الركاب تتسع لـ 24 راكباً.", "مركبة لنقل الركاب تضم أكثر من 8 مقاعد ولا تتعدى 16 مقعداً عدا مقعد السائق."], correct: 2},
+{text: "ما هو السن الأدنى المطلوب للحصول على رخصة سوق عمومية من الفئة D1؟", options: ["سنة 20", "سنة 21", "سنة 25 "], correct: 1},
+{text: "هل يسمح للسائق باص من الفئة D1 أن يجر مقطورة خلف الباص؟", options: ["نعم، بشرط ألا يتجاوز وزن المقطورة 750 كلغ.", "لا، يمنع جر أي مقطورة مهما كان وزنها.", "نعم، بشرط ان تكون مخصصة للركاب."], correct: 0},
+{text: "ما مدة مدة صلاحية رخصة سوق عمومية من الفئة D1 للسائقين دون سن الخمسين؟", options: ["سنتان.", "سنوات 5 . ", "سنوات 10 ."], correct: 1},
+{text: "ما مدة مدة صلاحية رخصة سوق عمومية من الفئة D1 للسائقين بين سن الخمسين وسن الخمس وستين؟", options: ["سنتان.", "سنوات 3 .", "سنوات 6. "], correct: 1},
+{text: "ما مدة مدة صلاحية رخصة سوق عمومية من الفئة D1 للسائقين بعد سن الخمس وستين؟", options: ["سنتان.", "سنوات 5", "سنوات 7"], correct: 0},
+{text: "ما هي التجهيزات الإجبارية التي يجب توافرها في باص من فئة D1 لنقل الركاب؟", options: ["جهاز تلفاز للركاب.", "ستائر داكنة جداً على النوافذ.", "جهازي إطفاء حريق، حقيبة إسعافات أولية، ومثلث التحذير."], correct: 2},
+{text: "أين يجب وضع لوحة التسجيل في باصات الفئة D1؟", options: ["في مقدمة ومؤخرة الباص فقط.", "في مقدمة ومؤخرة الباص وقرب السائق.", "في مقدمة ومؤخرة والى جانب الباص."], correct: 0},
+{text: "ما هو الإجراء القانوني الصحيح عند توقف الباص لإنزال وإصعاد الركاب؟", options: ["الاقتراب قدر الإمكان من الحافة اليمنى للطريق.", "تنظيم محضر طابع من الفئة الثالثة، إي غرامة مالية واحتجاز المركبة إضافة إلى إعطاء مهلة شهر للتقدم لامتحان فئة باص.", "تنظيم محضر من الفئة الخامسة، إي غرامة مالية وحجز المركبة وسحب نقاط من الرخصة."], correct: 0},
+{text: "هل يجب على ركاب الباص (D1) وضع حزام الأمان؟", options: ["نعم، جمع الركاب ملزون بوضع الحزام إذا كان الباص مجهزاً بها.", "لا داعي لاستخدام أحزمة الأمان، لأن الباص ثقيل وآمن.", "فقط عند السير بسرعة تفوق 100 كم/س."], correct: 0},
+{text: "ما هو اللون المخصص للوحة تسجيل الباصات العمومية في لبنان؟", options: ["الأرقام بالأحمر مع طرف اللوحة أحمر.", "الأرقام بالكحلي مع طرف اللوحة أحمر.", "الأرقام بالأحمر مع طرف اللوحة أبيض."], correct: 0},
+{text: "من أي جهة يجب على الركاب الصعود إلى الباص؟", options: ["من أي جهة يختاروها شرط الا يعيق السير.", "من الجهة اليمنى المحاذية للرصيف إذا وجد.", "من الجهة اليمنى."], correct: 1},
+{text: "ماذا يجب أن يفعل سائق الباص عند اقترابه من سكة حديد غير محروسة؟", options: ["عدم الاهتمام لأن القطارات نادرة في لبنان.", "التوقف التام والتأكد من خلو السكة من القطارات.", "إطلاق الزمور وزيادة السرعة للعبور بسرعة."], correct: 1},
+{text: "ما هو الإجراء الأول الذي يجب القيام به فور حدوث حريق في محرك الباص؟", options: ["الاتصال بقوى الأمن والطوارئ.", "إخلاء الركاب، ثم محاولة إطفاء الحريق باستخدام المطفأة دون فتح الغطاء بالكامل.", "فتح غطاء المحرك وسكب الماء عليه فوراً وبسرعة."], correct: 1},
+{text: "ما هي الحمولة القصوى المسموح بها فوق سطح باص فئة D1؟", options: ["لا يسمح بوضع أي حمولة.", "الحمولة التي لا تزيد عن ارتفاع متر فوق الباص مهما كان وزنها.", "الحمولة التي لا تتجاوز الوزن الإجمالي المسموح به للناس مع الركاب ولا تؤثر على توازن المركبة."], correct: 0},
+{text: "عند القيادة في الضباب الكثيف، أي أضواء يجب استخدامها؟", options: ["إطفاء كافة الأضواء.", "الأضواء العالية (القوية).", "أضواء الضباب والأضواء المنخفضة."], correct: 2},
+{text: "ماذا تفعل إذا شعرت بالنعاس أثناء قيادة الباص؟", options: ["زيادة السرعة لزيادة الانتباه وتخفيض قوة النعاس.", "التوقف في مكان آمن وأخذ قسط من الراحة.", "فتح النافذة وتشغيل الراديو بصوت عال مع شرب القهوة."], correct: 1},
+{text: "ما هي عقوبة قيادة باص من فئة D1 برخصة سوق من غير فئة D1؟", options: ["لا يتم تنظيم محضر فوراً ويكتفي بتنبيه شفهي وإعطاء مهلة شهر للتقدم لامتحان فئة باص وفي حال عدم حيازة رخصة بعد شهر يتم تنظيم محضر.", "تنظيم محضر طابع من الفئة الثالثة، إي غرامة مالية واحتجاز المركبة إضافة إلى إعطاء مهلة شهر للتقدم لامتحان فئة باص.", "تنظيم محضر من الفئة الخامسة، إي غرامة مالية وحجز المركبة وسحب نقاط من الرخصة."], correct: 2},
+{text: "ما عدا مثلث التنبيه التي يتوجب وضعها في حال تعطل الباص على الطريق سريع؟", options: ["واحد على مسافة لا تقل عن 50 إلى 100 متر خلف الباص.", "اثنين، الأول واحد على مسافة 25 متر والثاني على مسافة 50 متر خلف الباص.", "ثلاثة، الأول واحد على مسافة 25 متر والثاني على مسافة 50 متر خلف الباص والثالث فوق سطح الباص."], correct: 0},
+{text: "لمن يجب افساح الطريق على تقاطعات الطرق غير المنظمة بإشارات؟", options: ["لأي مركبة قادمة من اليمين.", "للباصات التي تسير بسرعة أكبر.", "للباصات التي تشغل أنوار التنبيه."], correct: 0},
+{text: "هل يسمح لسائق الباص باستخدام الهاتف المحمول بواسطة سماعة الأذن (Hands-free)؟", options: ["نعم، مسموح فقط لإرسال الرسائل الصوتية.", "يمنع استخدامه الا في حالات الضرورة القصوى مع الحفاظ على التركيز التام.", "لا، يمنع منعا باتا تحت أي ظرف."], correct: 2},
+{text: "ما هي أقصى فترة قيادة متواصلة مسموح بها لسائق الباص قبل أخذ استراحة؟", options: ["ساعتين.", "3 ساعات.", "4 ساعات."], correct: 2},
+{text: "ما هو ترتيب الإجراءات الصحيحة عند الرغبة في الانعطاف يميناً بباص من فئة D1؟", options: ["إعطاء إشارة اتجاه قبل مسافة كافية، مراقبة المرايا، ثم الانعطاف بهدوء.", "إعطاء إشارة اتجاه قبل مسافة كافية، مراقبة المرايا، ثم الانعطاف بعد استخدام المسرب الأيسر لتوسيع المسار والسماح بالانعطاف بهادي للركاب.", "إعطاء إشارة اتجاه قبل مسافة كافية، ثم الانعطاف من ضمن المسرب الأيمن دون توسيع المسار."], correct: 0},
+{text: "ما هو الإجراء الصحيح عند الرغبة في الانعطاف يساراً بباص من فئة D1؟", options: ["إعطاء إشارة اتجاه قبل مسافة كافية، مراقبة المرايا، ثم الانعطاف بهدوء.", "إعطاء إشارة اتجاه قبل مسافة كافية، مراقبة المرايا، ثم الانعطاف بعد استخدام المسرب الأيمن لتوسيع المسار والسماح بالانعطاف بهادي للركاب.", "إعطاء إشارة اتجاه قبل مسافة كافية، ثم الانعطاف من ضمن المسرب الأيسر دون توسيع المسار."], correct: 0},
+{text: "متى يجب إجراء المعاينة الميكانيكية لباصات فئة D1 العمومية؟", options: ["مرة كل سنة.", "مرة كل سنتين للباصات التي يقل تاريخ صنعها عن عشر سنوات.", "مرة كل سنتين للباصات التي يقل تاريخ صنعها عن خمس سنوات."], correct: 0},
+{text: "في حال وجود عطل في أضواء الكابح، ماذا يجب على سائق باص من فئة D1 أن يفعل؟", options: ["الاستمرار في القيادة بحذر حتى انتهاء الدوام.", "إصلاح العطل فوراً وعدم السير بالمركبة في حال شكل ذلك خطراً.", "استخدام أضواء التنبيه والخراج اليد من النافذة عند كل توقف."], correct: 1},
+{text: "أي من هذه الشروط ضروري للحصول على رخصة سوق عمومية لباص من فئة D1؟", options: ["أن يكون لديه الجنسية اللبنانية أو العربية.", "أن لا يكون مداناً لمخالفات خطيرة.", "أن يكون لديه رخصة سوق سيارة فئة B عمومية."], correct: 2},
+{text: "ما هي النسبة المسموحة للكحول في دم سائق مركبة نقل ركاب (D1) أثناء القيادة？", options: ["صفر غال/لتر.", "0.2 غال/لتر.", "0.5 غال/لتر."], correct: 0},
+{text: "ماذا يعني وجود خطين متواصلين في وسط الطريق لسائق الباص؟", options: ["يمنع التجاوز لكن يمكن التدوير (demi tour) فوقها.", "يمنع التجاوز لكن يمكن الانعطاف (U-turn) فوقها.", "يمنع التجاوز أو اجتياز الخطين تماماً."], correct: 2},
+{text: "في حال تعطل الباص في نفق، ما هو الإجراء الأول؟", options: ["تشغيل أضواء التنبيه والتطلب من الركاب المساعدة في دفع الباص إلى موقع آمن.", "تشغيل أضواء التنبيه والاتصال بالخدمة عبر أرقام الطوارئ هذه دون خلق الذعر.", "تشغيل أضواء الطوارئ (الرباعي) ومحاولة اخراج الركاب لمكان آمن إذا كان ذلك ممكناً."], correct: 2},
+{text: "ما هي المسافة الدنيا التي يجب تركها بين باص من فئة D1 والمركبة التي أمامك؟", options: ["مسافة الأمان (قاعدة الثانيتين أو أكثر حسب السرعة).", "ضعف طول الباص.", "ثلاثة أضعاف طول الباص."], correct: 0}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>سؤال ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        نتيجتك النهائية: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // ============ SUBMIT BUTTON ============
+// ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+// ============ CUSTOM CONFIRM ============
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `لقد أجبت على ${answered} من ${count} سؤال. هل تريد إنهاء الاختبار؟`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>

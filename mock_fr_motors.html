@@ -25,14 +25,14 @@
     <div class="mock-form">
       <label for="questionCount" class="mock-label">
         Nombre de questions
-        <span class="mock-max">(Max : 27)</span>
+        <span class="mock-max">(Max : 151)</span>
       </label>
       <input
         type="number"
         id="questionCount"
         class="mock-input"
         min="1"
-        max="27"
+        max="151"
         value=""
         placeholder="Entrez un nombre"
       >
@@ -77,8 +77,8 @@
       showError("Veuillez entrer un nombre valide.");
       return;
     }
-    if (count > 27) {
-      showError("Le maximum est de 27 questions.");
+    if (count > 151) {
+      showError("Le maximum est de 151 questions.");
       return;
     }
 

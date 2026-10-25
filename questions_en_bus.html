@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Vehicle Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Correct answers:</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Heavy Vehicle Test</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Finish Test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+    <div class="custom-modal-overlay" id="confirmModal">
+    <div class="custom-modal">
+        <div class="custom-modal-icon">
+        <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="custom-modal-title">Finish Test</h3>
+        <p class="custom-modal-text" id="confirmMessage"></p>
+        <div class="custom-modal-actions">
+        <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Yes, Finish</button>
+        <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Cancel</button>
+        </div>
+    </div>
+    </div>
+  <script>
+    const allQuestions = [
+{text: "What is the definition of a D1 category bus in the Lebanese traffic law?", options: ["A goods transport vehicle exceeding 3500 kg.", "A passenger transport vehicle with a capacity of 24 passengers.", "A passenger transport vehicle with more than 8 seats and not exceeding 16 seats, excluding the driver's seat."], correct: 2},
+{text: "What is the minimum age required to obtain a public driving license of category D1?", options: ["20 years", "21 years", "25 years"], correct: 1},
+{text: "Is a D1 bus driver allowed to tow a trailer behind the bus?", options: ["Yes, provided the trailer weight does not exceed 750 kg.", "No, towing any trailer is prohibited regardless of its weight.", "Yes, provided it is designated for passengers."], correct: 0},
+{text: "What is the validity period of a public driving license of category D1 for drivers under 50 years of age?", options: ["Two years.", "5 years.", "10 years."], correct: 1},
+{text: "What is the validity period of a public driving license of category D1 for drivers between 50 and 65 years of age?", options: ["Two years.", "3 years.", "6 years."], correct: 1},
+{text: "What is the validity period of a public driving license of category D1 for drivers after 65 years of age?", options: ["Two years.", "5 years", "7 years"], correct: 0},
+{text: "What are the mandatory equipment that must be available in a D1 passenger bus?", options: ["A TV for passengers.", "Very dark curtains on the windows.", "Two fire extinguishers, a first aid kit, and a warning triangle."], correct: 2},
+{text: "Where must the registration plate be placed on D1 buses?", options: ["At the front and rear of the bus only.", "At the front and rear of the bus and near the driver.", "At the front, rear, and side of the bus."], correct: 0},
+{text: "What is the correct legal procedure when the bus stops to drop off and pick up passengers?", options: ["Approach the right edge of the road as much as possible.", "Drawing up a report stamped category three, i.e., a fine and vehicle impoundment in addition to granting a one-month deadline to take the bus category exam.", "Drawing up a report of category five, i.e., a fine, vehicle impoundment, and point deduction from the license."], correct: 0},
+{text: "Must bus passengers (D1) wear seat belts?", options: ["Yes, all passengers are obliged to wear seat belts if the bus is equipped with them.", "There is no need to use seat belts because the bus is heavy and safe.", "Only when driving at speeds exceeding 100 km/h."], correct: 0},
+{text: "What is the designated color for the registration plate of public buses in Lebanon?", options: ["Red numbers with a red plate border.", "Navy blue numbers with a red plate border.", "Red numbers with a white plate border."], correct: 0},
+{text: "From which side must passengers board the bus?", options: ["From whichever side they choose as long as it does not obstruct traffic.", "From the right side adjacent to the sidewalk if available.", "From the right side."], correct: 1},
+{text: "What should the bus driver do when approaching an unguarded railway crossing?", options: ["Pay no attention because trains are rare in Lebanon.", "Come to a complete stop and make sure the tracks are clear of trains.", "Sound the horn and increase speed to cross quickly."], correct: 1},
+{text: "What is the first action to take immediately upon the outbreak of a fire in the bus engine?", options: ["Call the security forces and emergency services.", "Evacuate passengers, then attempt to extinguish the fire using the extinguisher without fully opening the hood.", "Open the engine hood and pour water on it immediately and quickly."], correct: 1},
+{text: "What is the maximum load permitted on the roof of a D1 bus?", options: ["No load is permitted.", "A load not exceeding one meter in height above the bus regardless of its weight.", "A load that does not exceed the total permissible weight for people with passengers and does not affect vehicle balance."], correct: 0},
+{text: "When driving in dense fog, which lights should be used?", options: ["Turn off all lights.", "High (strong) beams.", "Fog lights and low beams."], correct: 2},
+{text: "What do you do if you feel sleepy while driving the bus?", options: ["Increase speed to increase alertness and reduce drowsiness.", "Stop in a safe place and take a rest.", "Open the window and play the radio loudly while drinking coffee."], correct: 1},
+{text: "What is the penalty for driving a D1 bus with a driving license of a category other than D1?", options: ["A report is not immediately drawn up, a verbal warning is sufficient, and a one-month deadline is granted to take the bus category exam; if no license is obtained after a month, a report is drawn up.", "Drawing up a report stamped category three, i.e., a fine and vehicle impoundment in addition to granting a one-month deadline to take the bus category exam.", "Drawing up a report of category five, i.e., a fine, vehicle impoundment, and point deduction from the license."], correct: 2},
+{text: "How many warning triangles must be placed if the bus breaks down on the highway?", options: ["One at a distance of no less than 50 to 100 meters behind the bus.", "Two: the first at a distance of 25 meters and the second at a distance of 50 meters behind the bus.", "Three: the first at a distance of 25 meters, the second at 50 meters behind the bus, and the third on the bus roof."], correct: 0},
+{text: "To whom must the right of way be given at intersections not regulated by signals?", options: ["To any vehicle coming from the right.", "To buses traveling at higher speed.", "To buses with warning lights on."], correct: 0},
+{text: "Is the bus driver allowed to use a mobile phone via a hands-free headset?", options: ["Yes, allowed only for sending voice messages.", "Use is prohibited except in cases of extreme necessity while maintaining full concentration.", "No, it is strictly prohibited under any circumstance."], correct: 2},
+{text: "What is the maximum continuous driving period allowed for a bus driver before taking a break?", options: ["Two hours.", "3 hours.", "4 hours."], correct: 2},
+{text: "What is the correct sequence of procedures when wishing to turn right with a D1 bus?", options: ["Signal before a sufficient distance, check the mirrors, then turn calmly.", "Signal before a sufficient distance, check the mirrors, then turn after using the left lane to widen the path and allow a smooth turn for passengers.", "Signal before a sufficient distance, then turn from within the right lane without widening the path."], correct: 0},
+{text: "What is the correct procedure when wishing to turn left with a D1 bus?", options: ["Signal before a sufficient distance, check the mirrors, then turn calmly.", "Signal before a sufficient distance, check the mirrors, then turn after using the right lane to widen the path and allow a smooth turn for passengers.", "Signal before a sufficient distance, then turn from within the left lane without widening the path."], correct: 0},
+{text: "When must the mechanical inspection be conducted for public D1 buses?", options: ["Once every year.", "Once every two years for buses manufactured less than ten years ago.", "Once every two years for buses manufactured less than five years ago."], correct: 0},
+{text: "In case of a brake light malfunction, what should a D1 bus driver do?", options: ["Continue driving cautiously until the end of the shift.", "Repair the fault immediately and not drive the vehicle if that poses a danger.", "Use the warning lights and hand signals from the window at every stop."], correct: 1},
+{text: "Which of these conditions is necessary to obtain a public driving license for a D1 bus?", options: ["Having Lebanese or Arab nationality.", "Not being convicted of serious violations.", "Having a public category B car driving license."], correct: 2},
+{text: "What is the permitted blood alcohol level for a passenger transport vehicle (D1) driver while driving?", options: ["Zero g/L.", "0.2 g/L.", "0.5 g/L."], correct: 0},
+{text: "What does the presence of two solid lines in the middle of the road mean for a bus driver?", options: ["Overtaking is prohibited but a U-turn (demi tour) over them is allowed.", "Overtaking is prohibited but turning (U-turn) over them is allowed.", "Overtaking or crossing the two lines at all is prohibited."], correct: 2},
+{text: "If the bus breaks down in a tunnel, what is the first action?", options: ["Turn on warning lights and ask passengers to help push the bus to a safe location.", "Turn on warning lights and call for service via emergency numbers without creating panic.", "Turn on hazard lights and try to evacuate passengers to a safe place if possible."], correct: 2},
+{text: "What is the minimum distance to be kept between a D1 bus and the vehicle in front of it?", options: ["Safe distance (two-second rule or more depending on speed).", "Twice the length of the bus.", "Three times the length of the bus."], correct: 0}
+      ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1}:</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Your final score: <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+   // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `You answered ${answered} of ${count} questions. Do you want to end the test?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  <style>
+  
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+
+</style>
+
+</body>
+</html>

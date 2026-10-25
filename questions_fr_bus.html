@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Véhicules Lourds</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/mock.css">
+    <link rel="icon" type="image/jpeg" href="الخليل.jpeg">
+
+</head>
+<body class="questions-page">
+
+  <div class="score-box" id="scoreBox">
+    <span class="score-label">Bonnes réponses :</span>
+    <span class="score-value"><span id="score">0</span> / <span id="total">0</span></span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Test Véhicules Lourds</h1>
+    <div id="questionsArea"></div>
+
+    <div class="submit-wrap">
+      <button id="submitBtn" class="start-btn">
+        <i class="fas fa-check"></i>
+        Terminer le test
+      </button>
+    </div>
+
+    <div id="finalResult" class="final-result"></div>
+  </div>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+<!-- CUSTOM CONFIRM MODAL -->
+<div class="custom-modal-overlay" id="confirmModal">
+  <div class="custom-modal">
+    <div class="custom-modal-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <h3 class="custom-modal-title">Terminer le Test</h3>
+    <p class="custom-modal-text" id="confirmMessage"></p>
+    <div class="custom-modal-actions">
+      <button class="custom-modal-btn custom-modal-btn-primary" id="confirmYes">Oui, Terminer</button>
+      <button class="custom-modal-btn custom-modal-btn-secondary" id="confirmNo">Annuler</button>
+    </div>
+  </div>
+</div>
+  <script>
+    const allQuestions = [
+
+      {text: "Quelle est la définition d'un bus de catégorie D1 dans le code de la route libanais ?", options: ["Un véhicule de transport de marchandises dont le poids dépasse 3500 kg.", "Un véhicule de transport de passagers d'une capacité de 24 passagers.", "Un véhicule de transport de passagers comprenant plus de 8 sièges et ne dépassant pas 16 sièges, hors siège du conducteur."], correct: 2},
+{text: "Quel est l'âge minimum requis pour obtenir un permis de conduire public de catégorie D1 ?", options: ["20 ans", "21 ans", "25 ans"], correct: 1},
+{text: "Un conducteur de bus D1 est-il autorisé à tracter une remorque derrière le bus ?", options: ["Oui, à condition que le poids de la remorque ne dépasse pas 750 kg.", "Non, le remorquage de toute remorque est interdit quel que soit son poids.", "Oui, à condition qu'elle soit destinée aux passagers."], correct: 0},
+{text: "Quelle est la durée de validité d'un permis de conduire public de catégorie D1 pour les conducteurs de moins de 50 ans ?", options: ["Deux ans.", "5 ans.", "10 ans."], correct: 1},
+{text: "Quelle est la durée de validité d'un permis de conduire public de catégorie D1 pour les conducteurs âgés de 50 à 65 ans ?", options: ["Deux ans.", "3 ans.", "6 ans."], correct: 1},
+{text: "Quelle est la durée de validité d'un permis de conduire public de catégorie D1 pour les conducteurs de plus de 65 ans ?", options: ["Deux ans.", "5 ans", "7 ans"], correct: 0},
+{text: "Quels sont les équipements obligatoires qui doivent être disponibles dans un bus D1 transportant des passagers ?", options: ["Une télévision pour les passagers.", "Des rideaux très foncés aux fenêtres.", "Deux extincteurs, une trousse de premiers secours et un triangle de présignalisation."], correct: 2},
+{text: "Où doit être placée la plaque d'immatriculation sur les bus D1 ?", options: ["Uniquement à l'avant et à l'arrière du bus.", "À l'avant et à l'arrière du bus et près du conducteur.", "À l'avant, à l'arrière et sur le côté du bus."], correct: 0},
+{text: "Quelle est la procédure légale correcte lorsque le bus s'arrête pour faire descendre et monter des passagers ?", options: ["S'approcher le plus possible du bord droit de la route.", "Dresser un procès-verbal de catégorie trois, c'est-à-dire une amende et la mise en fourrière du véhicule, en plus d'accorder un délai d'un mois pour passer l'examen de la catégorie bus.", "Dresser un procès-verbal de catégorie cinq, c'est-à-dire une amende, la mise en fourrière du véhicule et un retrait de points du permis."], correct: 0},
+{text: "Les passagers du bus (D1) doivent-ils porter la ceinture de sécurité ?", options: ["Oui, tous les passagers sont obligés de porter la ceinture si le bus en est équipé.", "Il n'est pas nécessaire d'utiliser des ceintures de sécurité, car le bus est lourd et sûr.", "Uniquement lors d'une conduite à une vitesse supérieure à 100 km/h."], correct: 0},
+{text: "Quelle est la couleur désignée pour la plaque d'immatriculation des bus publics au Liban ?", options: ["Des chiffres rouges avec un bord de plaque rouge.", "Des chiffres bleu marine avec un bord de plaque rouge.", "Des chiffres rouges avec un bord de plaque blanc."], correct: 0},
+{text: "De quel côté les passagers doivent-ils monter dans le bus ?", options: ["Du côté qu'ils choisissent, à condition de ne pas gêner la circulation.", "Du côté droit adjacent au trottoir s'il existe.", "Du côté droit."], correct: 1},
+{text: "Que doit faire le conducteur du bus à l'approche d'un passage à niveau non gardé ?", options: ["Ne pas s'en soucier car les trains sont rares au Liban.", "S'arrêter complètement et s'assurer que la voie est libre de trains.", "Klaxonner et accélérer pour traverser rapidement."], correct: 1},
+{text: "Quelle est la première action à entreprendre immédiatement en cas d'incendie dans le moteur du bus ?", options: ["Appeler les forces de l'ordre et les services d'urgence.", "Évacuer les passagers, puis tenter d'éteindre le feu à l'aide de l'extincteur sans ouvrir complètement le capot.", "Ouvrir le capot du moteur et verser de l'eau dessus immédiatement et rapidement."], correct: 1},
+{text: "Quelle est la charge maximale autorisée sur le toit d'un bus D1 ?", options: ["Aucune charge n'est autorisée.", "Une charge ne dépassant pas un mètre de hauteur au-dessus du bus quel que soit son poids.", "Une charge qui ne dépasse pas le poids total autorisé pour les personnes avec les passagers et n'affecte pas l'équilibre du véhicule."], correct: 0},
+{text: "Lors de la conduite dans un brouillard dense, quels feux doivent être utilisés ?", options: ["Éteindre tous les feux.", "Les feux de route (forts).", "Les feux de brouillard et les feux de croisement."], correct: 2},
+{text: "Que faites-vous si vous vous sentez somnolent en conduisant le bus ?", options: ["Augmenter la vitesse pour augmenter la vigilance et réduire la somnolence.", "S'arrêter dans un endroit sûr et prendre du repos.", "Ouvrir la fenêtre et allumer la radio fort tout en buvant du café."], correct: 1},
+{text: "Quelle est la sanction pour avoir conduit un bus D1 avec un permis de conduire d'une catégorie autre que D1 ?", options: ["Un procès-verbal n'est pas immédiatement dressé, un avertissement verbal suffit et un délai d'un mois est accordé pour passer l'examen de la catégorie bus ; en l'absence de permis après un mois, un procès-verbal est dressé.", "Dresser un procès-verbal de catégorie trois, c'est-à-dire une amende et la mise en fourrière du véhicule, en plus d'accorder un délai d'un mois pour passer l'examen de la catégorie bus.", "Dresser un procès-verbal de catégorie cinq, c'est-à-dire une amende, la mise en fourrière du véhicule et un retrait de points du permis."], correct: 2},
+{text: "Combien de triangles de présignalisation doivent être placés si le bus tombe en panne sur l'autoroute ?", options: ["Un à une distance d'au moins 50 à 100 mètres derrière le bus.", "Deux : le premier à une distance de 25 mètres et le second à une distance de 50 mètres derrière le bus.", "Trois : le premier à une distance de 25 mètres, le second à 50 mètres derrière le bus, et le troisième sur le toit du bus."], correct: 0},
+{text: "À qui faut-il céder le passage aux intersections non réglementées par des feux ?", options: ["À tout véhicule venant de la droite.", "Aux bus circulant à une vitesse plus élevée.", "Aux bus ayant leurs feux de détresse allumés."], correct: 0},
+{text: "Le conducteur de bus est-il autorisé à utiliser un téléphone mobile via un kit mains libres ?", options: ["Oui, autorisé uniquement pour envoyer des messages vocaux.", "L'utilisation est interdite sauf en cas de nécessité absolue tout en maintenant une concentration totale.", "Non, c'est strictement interdit en toutes circonstances."], correct: 2},
+{text: "Quelle est la durée maximale de conduite continue autorisée pour un conducteur de bus avant de prendre une pause ?", options: ["Deux heures.", "3 heures.", "4 heures."], correct: 2},
+{text: "Quelle est la séquence correcte des procédures lorsqu'on souhaite tourner à droite avec un bus D1 ?", options: ["Donner le clignotant avant une distance suffisante, vérifier les rétroviseurs, puis tourner calmement.", "Donner le clignotant avant une distance suffisante, vérifier les rétroviseurs, puis tourner après avoir utilisé la voie de gauche pour élargir la trajectoire et permettre un virage en douceur pour les passagers.", "Donner le clignotant avant une distance suffisante, puis tourner depuis la voie de droite sans élargir la trajectoire."], correct: 0},
+{text: "Quelle est la procédure correcte lorsqu'on souhaite tourner à gauche avec un bus D1 ?", options: ["Donner le clignotant avant une distance suffisante, vérifier les rétroviseurs, puis tourner calmement.", "Donner le clignotant avant une distance suffisante, vérifier les rétroviseurs, puis tourner après avoir utilisé la voie de droite pour élargir la trajectoire et permettre un virage en douceur pour les passagers.", "Donner le clignotant avant une distance suffisante, puis tourner depuis la voie de gauche sans élargir la trajectoire."], correct: 0},
+{text: "Quand doit être effectuée la visite technique mécanique pour les bus D1 publics ?", options: ["Une fois par an.", "Une fois tous les deux ans pour les bus fabriqués depuis moins de dix ans.", "Une fois tous les deux ans pour les bus fabriqués depuis moins de cinq ans."], correct: 0},
+{text: "En cas de panne des feux stop, que doit faire un conducteur de bus D1 ?", options: ["Continuer à conduire prudemment jusqu'à la fin du service.", "Réparer la panne immédiatement et ne pas conduire le véhicule si cela présente un danger.", "Utiliser les feux de détresse et faire des signes de la main par la fenêtre à chaque arrêt."], correct: 1},
+{text: "Laquelle de ces conditions est nécessaire pour obtenir un permis de conduire public pour un bus D1 ?", options: ["Avoir la nationalité libanaise ou arabe.", "Ne pas avoir été condamné pour des infractions graves.", "Avoir un permis de conduire public de catégorie B pour voiture."], correct: 2},
+{text: "Quel est le taux d'alcoolémie autorisé pour un conducteur de véhicule de transport de passagers (D1) pendant la conduite ?", options: ["Zéro g/L.", "0,2 g/L.", "0,5 g/L."], correct: 0},
+{text: "Que signifie la présence de deux lignes continues au milieu de la route pour un conducteur de bus ?", options: ["Le dépassement est interdit mais un demi-tour au-dessus est autorisé.", "Le dépassement est interdit mais un virage en U au-dessus est autorisé.", "Le dépassement ou le franchissement des deux lignes est totalement interdit."], correct: 2},
+{text: "Si le bus tombe en panne dans un tunnel, quelle est la première action ?", options: ["Allumer les feux de détresse et demander aux passagers d'aider à pousser le bus vers un endroit sûr.", "Allumer les feux de détresse et appeler le service via les numéros d'urgence sans créer de panique.", "Allumer les feux de détresse et essayer d'évacuer les passagers vers un endroit sûr si possible."], correct: 2},
+{text: "Quelle est la distance minimale à maintenir entre un bus D1 et le véhicule qui le précède ?", options: ["La distance de sécurité (règle des deux secondes ou plus selon la vitesse).", "Deux fois la longueur du bus.", "Trois fois la longueur du bus."], correct: 0}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    let count = parseInt(params.get("count"), 10);
+    if (isNaN(count) || count < 1) count = allQuestions.length;
+    if (count > allQuestions.length) count = allQuestions.length;
+
+    function shuffle(arr) {
+      const c = [...arr];
+      for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+      }
+      return c;
+    }
+    const selected = shuffle(allQuestions).slice(0, count);
+
+    const area = document.getElementById("questionsArea");
+    let score = 0;
+    let answered = 0;
+
+    document.getElementById("total").textContent = count;
+
+    selected.forEach((q, i) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      block.innerHTML = `
+        <p class="question-text"><strong>Question ${i + 1} :</strong> ${q.text}</p>
+        <div class="options">
+          ${q.options.map((opt, optIdx) => `
+            <button class="option" data-q="${i}" data-opt="${optIdx}">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+
+      area.appendChild(block);
+    });
+
+    area.addEventListener("click", (e) => {
+      const btn = e.target.closest(".option");
+      if (!btn) return;
+
+      const qIndex = parseInt(btn.dataset.q, 10);
+      const optIndex = parseInt(btn.dataset.opt, 10);
+      const question = selected[qIndex];
+
+      const block = btn.closest(".question-block");
+      if (block.classList.contains("answered")) return;
+      block.classList.add("answered");
+
+      const buttons = block.querySelectorAll(".option");
+      buttons[question.correct].classList.add("correct");
+
+      if (optIndex !== question.correct) {
+        btn.classList.add("wrong");
+      } else {
+        score++;
+      }
+
+      answered++;
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("score").textContent = score;
+
+      if (answered === count) {
+        showFinalResult();
+      }
+    });
+
+    function showFinalResult() {
+      const box = document.getElementById("finalResult");
+      const pct = Math.round((score / count) * 100);
+      box.innerHTML = `
+        <i class="fas fa-trophy"></i>
+        Votre score final : <strong>${score} / ${count}</strong> (${pct}%)
+      `;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+  // ============ CUSTOM CONFIRM ============
+const modal = document.getElementById("confirmModal");
+const modalMsg = document.getElementById("confirmMessage");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+function showConfirm(message, onYes) {
+  modalMsg.textContent = message;
+  modal.classList.add("visible");
+
+  // Remove old listeners
+  const newYes = confirmYes.cloneNode(true);
+  const newNo = confirmNo.cloneNode(true);
+  confirmYes.parentNode.replaceChild(newYes, confirmYes);
+  confirmNo.parentNode.replaceChild(newNo, confirmNo);
+
+  newYes.addEventListener("click", () => {
+    modal.classList.remove("visible");
+    onYes();
+  });
+
+  newNo.addEventListener("click", () => {
+    modal.classList.remove("visible");
+  });
+}
+
+// ============ SUBMIT BUTTON ============
+document.getElementById("submitBtn").addEventListener("click", () => {
+  if (answered < count) {
+    showConfirm(
+      `Vous avez répondu à ${answered} sur ${count} questions. Voulez-vous terminer le test ?`,
+      showFinalResult
+    );
+  } else {
+    showFinalResult();
+  }
+});
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+<style>
+    .question-text{
+        text-align: left;  
+    }
+    .option{
+        text-align: left;  
+    }
+</style>
+</body>
+</html>
