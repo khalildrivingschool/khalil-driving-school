@@ -50,270 +50,93 @@
   <script>
     const allQuestions = [
 
-      // ===== QUESTIONS 1 - 30 =====
-      {text: "L'arrêt pour faire monter ou descendre des passagers aux carrefours et ronds-points est interdit dans un rayon de :",
-       options: ["10 mètres du carrefour ou du rond-point", "25 mètres du carrefour ou du rond-point", "40 mètres du carrefour ou du rond-point"], correct: 1},
-
-      {text: "Il est interdit de ralentir ou de s'arrêter pour héler des passagers :",
-       options: ["Près des carrefours et ronds-points et dans les virages", "Uniquement dans les virages", "Uniquement près des carrefours et ronds-points"], correct: 0},
-
-      {text: "Les conducteurs de transport public, face à d'autres usagers de la route, doivent respecter la règle de :",
-       options: ["Faciliter le passage", "Priorité au plus gros véhicule", "Toujours le droit de passage"], correct: 0},
-
-      {text: "Le « droit de passage » est une question qui concerne spécifiquement :",
-       options: ["Droits des piétons uniquement", "Droits immobiliers", "Droits des conducteurs prévus par le code de la route"], correct: 1},
-
-      {text: "Le « droit de priorité » est une question qui concerne spécifiquement :",
-       options: ["Droits des conducteurs ordinaires", "Droits des forces armées uniquement", "Classification des routes par le ministère des Travaux publics et des Transports"], correct: 2},
-
-      {text: "« Faciliter le passage » relève de règles :",
-       options: ["Uniquement locales", "Facultatives selon la courtoisie", "Fixées par les conventions internationales de circulation"], correct: 2},
-
-      {text: "Il convient de « faciliter le passage » aux autres conducteurs :",
-       options: ["Après clignotant", "Tout ce qui précède", "Après feux de détresse (flasher)"], correct: 0},
-
-      {text: "Parler avec les passagers pendant la conduite influe sur :",
-       options: ["Multitâche seulement", "Concentration et capacité de multitâche", "Concentration seulement"], correct: 1},
-
-      {text: "La règle du doublement de l'attention à l'arrêt et à l'approche des carrefours exige :",
-       options: ["Demander l'aide des passagers", "Regarder au moins deux fois tous les rétroviseurs", "Un seul coup d'œil"], correct: 1},
-
-      {text: "En cas de risques accrus (route, éclairage, météo), le conducteur doit :",
-       options: ["Redoubler d'attention seulement", "Ralentir et redoubler d'attention", "Ralentir seulement"], correct: 1},
-
-      {text: "Un conducteur de transport public doit entretenir son véhicule de manière :",
-       options: ["De façon proactive (préventive)", "Seulement selon calendrier", "Seulement en panne"], correct: 0},
-
-      {text: "La propreté intérieure et extérieure des véhicules publics est :",
-       options: ["Conforme aux règles générales pour les taxis", "Obligatoire par la loi", "Facultatif, non imposé par la loi"], correct: 0},
-
-      {text: "Un conducteur de véhicule public doit posséder :",
-       options: ["Trousse de secours, produits d'entretien et articles requis", "Trousse de secours seulement", "Kit nettoyage moteur seulement"], correct: 0},
-
-      {text: "Un conducteur public peut travailler moyennant rémunération sur :",
-       options: ["Véhicules à plaque privée", "Toutes les voitures", "Véhicules à plaque publique"], correct: 1},
-
-      {text: "La sécurité des pneus est liée à :",
-       options: ["À l'âge du pneu", "À la qualité du pneu", "Tout ce qui précède"], correct: 2},
-
-      {text: "Avec cargaison et passagers, le poids total ne doit pas dépasser :",
-       options: ["Poids des passagers seulement", "Maximum fixe arbitraire", "PTAC selon constructeur sans surcharger la tenue de route"], correct: 2},
-
-      {text: "Pour charger des marchandises de poids différents dans le coffre :",
-       options: ["Le plus léger en bas", "N'importe quel ordre", "Le plus lourd en bas"], correct: 2},
-
-      {text: "Un chauffeur de taxi touristique (plaque publique) doit obtenir une autorisation du ministère pour définir :",
-       options: ["Catégories de passagers seulement", "Zones d'exercice (mouhafaza, caza, etc.)", "Tout ce qui précède"], correct: 1},
-
-      {text: "La loi impose un taximètre dans :",
-       options: ["Tous les taxis", "Taxis de société seulement", "Taxis personnels seulement"], correct: 0},
-
-      {text: "Le taximètre sert à calculer :",
-       options: ["Distance et temps y compris temps d'attente", "Distance et temps sans arrêts", "Distance seulement"], correct: 0},
-
-      {text: "Pour le propriétaire ou conducteur d'un véhicule à plaque publique :",
-       options: ["Cotisations sécurité sociale seulement", "Cotisations à jour et responsabilité civile pour accidents du conducteur", "Responsabilité civile seulement"], correct: 1},
-
-      {text: "Un conducteur de véhicule public doit travailler :",
-       options: ["Zones autorisées sauf jours fériés", "Partout", "Uniquement dans les zones autorisées"], correct: 2},
-
-      {text: "L'adhésion des conducteurs publics aux syndicats de transport est :",
-       options: ["Obligatoire partout", "Facultatif", "Obligatoire dans certaines zones selon règlements locaux"], correct: 1},
-
-      {text: "L'action syndicale vise à :",
-       options: ["Augmenter profits entreprises", "Protéger droits et acquis professionnels", "Soutenir les partis"], correct: 1},
-
-      {text: "Les tarifs de transport sont fixés par :",
-       options: ["Syndicats seuls", "Propriétaire", "Autorités officielles selon règlementation"], correct: 2},
-
-      {text: "Une charge haute sur le toit entraîne :",
-       options: ["Tout ce qui précède", "Augmentation de la consommation de carburant", "Risque accru de renversement"], correct: 0},
-
-      {text: "Le dossier des conducteurs publics est suivi ; perte de tous les points mène à :",
-       options: ["Tout ce qui précède", "Annulation définitive du permis", "Retrait temporaire du permis"], correct: 0},
-
-      {text: "Le système de points du permis libanais compte un total de :",
-       options: ["10", "20", "12"], correct: 2},
-
-      {text: "Si un conducteur public est insulté par un passager, il doit :",
-       options: ["Rendre la pareille", "Rester calme, agir avec prudence, signaler si besoin", "Appeler police sans se calmer"], correct: 1},
-
-      {text: "La charge supplémentaire ne doit pas :",
-       options: ["Dépasser longueur seulement", "Dépasser dimensions autorisées", "Dépasser largeur seulement"], correct: 1},
-
-      // ===== QUESTIONS 31 - 60 =====
-      {text: "Vitesse max en zone résidentielle sans panneaux :",
-       options: ["100 km/h", "50 km/h", "80 km/h"], correct: 1},
-
-      {text: "À un carrefour sans feux, vous devez :",
-       options: ["Continuer vitesse normale", "Feux de route en permanence", "Ralentir et céder le passage à droite"], correct: 2},
-
-      {text: "Si un passager demande de descendre, le taxi doit s'arrêter :",
-       options: ["N'importe où hors ville", "Uniquement où l'arrêt est autorisé", "Zones marquées en ville seulement"], correct: 1},
-
-      {text: "À quoi sert la ceinture de sécurité ?",
-       options: ["Protéger occupants en cas d'accident", "Inutile à basse vitesse", "Décoration"], correct: 0},
-
-      {text: "Au feu rouge, vous devez :",
-       options: ["S'arrêter avant ligne d'arrêt et passage piétons jusqu'au vert", "S'arrêter juste avant passage piétons", "Passer"], correct: 0},
-
-      {text: "Quand activer les feux de détresse ?",
-       options: ["Arrêt d'urgence ou panne gênant la circulation", "Dépassement sur autoroute", "Conduite de jour en ville"], correct: 0},
-
-      {text: "Les bagages des passagers se chargent :",
-       options: ["N'importe où dans l'habitacle", "Dans le coffre en sécurité", "Sur les genoux"], correct: 1},
-
-      {text: "Pour embarquer des passagers, l'arrêt doit être :",
-       options: ["Dans les virages", "Où le passager veut", "Aires et emplacements prévus"], correct: 2},
-
-      {text: "Bagages encombrants :",
-       options: ["Sur les sièges", "Même si portières ne ferment pas", "Sans bloquer portes ni visibilité"], correct: 2},
-
-      {text: "Recevoir la course en roulant :",
-       options: ["Encaisser après arrêt en sécurité", "Compter en roulant", "Rendre la monnaie en vitesse"], correct: 0},
-
-      {text: "En cas de conflit avec des passagers :",
-       options: ["Être dur", "Ignorer", "Rester courtois pour désamorcer"], correct: 2},
-
-      {text: "Dépasser le nombre de places ?",
-       options: ["Debout si pas de place", "Deux places pour trois", "Selon places homologuées seulement"], correct: 2},
-
-      {text: "Arrêt pour embarquement :",
-       options: ["Zones prévues à cet effet", "Où le conducteur veut", "Où le passager veut"], correct: 0},
-
-      {text: "Bagages volumineux :",
-       options: ["15 cm hors portes", "Sans gêner portes ni visibilité", "30 cm hors portes"], correct: 1},
-
-      {text: "Paiement de la course :",
-       options: ["En roulant vite", "Après arrêt ou en sécurité", "En roulant en comptant"], correct: 1},
-
-      {text: "Passager avec petite bouteille de gaz :",
-       options: ["Strictement interdit", "OK si bien fermée", "OK si autres d'accord"], correct: 0},
-
-      {text: "Classification des routes au Liban :",
-       options: ["Cinq", "Quatre : internationales, autoroutes, principales, locales", "Trois seulement"], correct: 1},
-
-      {text: "Enregistrement NSSF des conducteurs publics :",
-       options: ["Conducteur-propriétaire et salarié", "Libanais/étranger", "Privé/public"], correct: 0},
-
-      {text: "L'État cotise à la CNSS pour :",
-       options: ["Propriétaire-conducteur", "Conducteur retraité", "Conducteur salarié"], correct: 0},
-
-      {text: "Inscription à la CNSS :",
-       options: ["À l'achat de plaque", "Après demande et acceptation", "Non inscrits seulement"], correct: 1},
-
-      {text: "Chauffeur salarié : déclaration fiscale et CNSS :",
-       options: ["Cabinet comptable", "Directement", "Par l'employeur"], correct: 2},
-
-      {text: "Chauffeur indépendant :",
-       options: ["Directement", "Comptable seulement", "Par employeur"], correct: 0},
-
-      {text: "Retard de cotisations CNSS :",
-       options: ["Suspension des prestations CNSS", "Amende de retard", "Tout ce qui précède"], correct: 0},
-
-      {text: "Renouvellement tardif du permis (bénéficiaires CNSS) :",
-       options: ["Tout ce qui précède", "Amende de retard", "Suspension des prestations CNSS"], correct: 2},
-
-      {text: "Cotisations après 64 ans :",
-       options: ["Maladie, maternité et fin de service", "Fin de service et allocations familiales", "Maladie, maternité et allocations familiales"], correct: 2},
-
-      {text: "Permis public si casier judiciaire sans :",
-       options: ["Stupéfiants et autres interdictions", "Stupéfiants seulement", "Autres interdictions seulement"], correct: 0},
-
-      {text: "Permis de transport pour conducteur public :",
-       options: ["Tous types de voitures", "Camions privés transportant des marchandises", "Véhicules publics transportant des marchandises"], correct: 1},
-
-      {text: "Transport aéroport Hariri autorisé si :",
-       options: ["Si le véhicule est autorisé à cet effet", "Si le conducteur détient un permis catégorie « bus 1 »", "Tout ce qui précède"], correct: 0},
-
-      {text: "Renouvellement permis transport marchandises :",
-       options: ["Annuellement", "5 ans", "6 mois"], correct: 0},
-
-      {text: "Chauffeur touristique public :",
-       options: ["Tout le Liban", "Zone résidence", "Zones autorisées"], correct: 2},
-
-      // ===== QUESTIONS 61 - 87 =====
-      {text: "Durée hebdomadaire max du travail :",
-       options: ["35h", "60h", "48h"], correct: 2},
-
-      {text: "Conduite au-delà des heures légales :",
-       options: ["Interdit", "Heures sup. taux normal", "Heures sup. majorées"], correct: 2},
-
-      {text: "Céder le passage aux piétons :",
-       options: ["Lorsque les piétons descendent du trottoir sur la chaussée", "Lorsque les piétons approchent du bord du trottoir", "Après que les piétons descendent du trottoir sur la chaussée"], correct: 1},
-
-      {text: "Plaque d'identification taxi :",
-       options: ["Arrière seulement", "Avant et arrière", "Passager avant seulement"], correct: 1},
-
-      {text: "Renouvellement permis public 50–65 ans :",
-       options: ["3 ans", "4 ans", "2 ans"], correct: 0},
-
-      {text: "Après 65 ans :",
-       options: ["3 ans", "4 ans", "2 ans"], correct: 2},
-
-      {text: "Brûlure chimique (acide batterie) :",
-       options: ["Pommade", "Rincer abondamment à l'eau courante", "Compresse sèche"], correct: 1},
-
-      {text: "Passager veut descendre au milieu de la route :",
-       options: ["Klaxonner", "Continuer", "S'arrêter prudemment sur le côté"], correct: 2},
-
-      {text: "Téléphone au volant autorisé seulement :",
-       options: ["À l'arrêt complet au feu tricolore", "En utilisant un kit mains-libres", "Lors de l'envoi de SMS"], correct: 1},
-
-      {text: "Personnes âgées ou à besoins spécifiques :",
-       options: ["Sans ceinture", "Enfants seulement", "Ceintures attachées"], correct: 2},
-
-      {text: "Nombre max de passagers taxi selon permis :",
-       options: ["Conducteur inclus", "En plus des sièges rabattables ou ajoutés", "Hors conducteur"], correct: 0},
-
-      {text: "Remorquer une voiture avec taxi :",
-       options: ["Si plus petite", "Interdit", "Même poids"], correct: 1},
-
-      {text: "Remorquer un vélo avec le taxi :",
-       options: ["Routes internes", "Interdit", "Hors zone résidentielle"], correct: 1},
-
-      {text: "Qui classe les routes :",
-       options: ["Premier ministre", "Travaux publics et Transports", "Intérieur"], correct: 1},
-
-      {text: "Feu et agent :",
-       options: ["Feu", "Règles générales", "Signaux de l'agent"], correct: 2},
-
-      {text: "Au rond-point, priorité à :",
-       options: ["Entre", "Déjà engagé", "Plus rapide"], correct: 1},
-
-      {text: "Stationnement prolongé (véhicule immobile) sanctionné après plus de :",
-       options: ["15 jours", "20 jours", "30 jours ou plus"], correct: 2},
-
-      {text: "Mineur sans ceinture : responsabilité :",
-       options: ["Tuteur", "Conducteur du véhicule", "Parents"], correct: 1},
-
-      {text: "Autocollant publicitaire véhicule public :",
-       options: ["Près des plaques", "Capot et coffre", "Deux côtés du véhicule"], correct: 2},
-
-      {text: "Enseigne TAXI sur le toit allumée quand :",
-       options: ["Nuit seulement", "Quand libre", "En circulation"], correct: 1},
-
-      {text: "Plaque identité véhicule et chauffeur :",
-       options: ["Sur les vitres avant et arrière vers l'extérieur", "Tout ce qui précède", "Face aux sièges avant et arrière"], correct: 2},
-
-      {text: "Rouler en parallèle d'une autre voiture :",
-       options: ["Interdit", "Routes internes", "Hors résidentiel"], correct: 0},
-
-      {text: "Véhicule privé pour course payante :",
-       options: ["Interdit", "Villages éloignés", "Hors villes"], correct: 0},
-
-      {text: "Verrouillage portes arrière enfants :",
-       options: ["En présence d'enfants, avec accord des parents", "En présence d'enfants, sans accord des parents", "En permanence"], correct: 0},
-
-      {text: "Armes de guerre ou de chasse :",
-       options: ["Autorisation sécurité", "Plus de deux", "Mairie"], correct: 0},
-
-      {text: "Conversation personnelle conducteur-passagers :",
-       options: ["Passager seulement", "Conducteur seulement", "Accord mutuel des deux parties"], correct: 2},
-
-      {text: "Indiquer le tarif au passager :",
-       options: ["Après embarquement", "Avant embarquement", "Si demandé"], correct: 1},
-       {text: "Il est interdit de s'arrêter pour faire monter ou descendre des passagers aux intersections et aux ronds-points dans un rayon de :", options: ["10 mètres de l'intersection ou du rond-point", "25 mètres de l'intersection ou du rond-point", "40 mètres de l'intersection ou du rond-point"], correct: 1},
+   {text: "Il est interdit de s'arrêter pour faire monter ou descendre des passagers aux intersections et aux ronds-points dans un rayon de :", options: ["10 mètres de l'intersection ou du rond-point", "25 mètres de l'intersection ou du rond-point", "40 mètres de l'intersection ou du rond-point"], correct: 1},
+{text: "Il est interdit de ralentir ou de s'arrêter pour solliciter des passagers :", options: ["Près des intersections et des ronds-points", "Dans les virages", "Tout ce qui précède"], correct: 2},
+{text: "Les conducteurs de service public, lorsqu'ils rencontrent d'autres usagers de la route, doivent respecter la règle de :", options: ["Céder le passage", "Droit de passage", "Tout ce qui précède"], correct: 0},
+{text: "Le « droit de passage » est considéré comme une question spécifiquement liée :", options: ["Aux droits immobiliers", "Aux droits des conducteurs", "Aux droits des piétons"], correct: 0},
+{text: "Le « droit de priorité » est considéré comme une question spécifiquement liée :", options: ["Au classement des routes par le ministère des Travaux publics", "Aux droits des conducteurs mentionnés dans le code de la route", "Aux droits des forces armées"], correct: 0},
+{text: "« Céder le passage » fait partie des règles qui sont :", options: ["Établies dans les conventions internationales de circulation", "Reconnues localement", "Reflétant la courtoisie du conducteur"], correct: 0},
+{text: "« Céder le passage » aux autres conducteurs doit se faire :", options: ["Après qu'ils ont utilisé le signal d'avertissement (feux de détresse)", "Après qu'ils ont utilisé le clignotant", "Tout ce qui précède"], correct: 1},
+{text: "Parler et converser avec les passagers pendant la conduite affecte :", options: ["La concentration mentale", "La capacité de multitâche", "Tout ce qui précède"], correct: 2},
+{text: "La règle de la double attention lors de l'arrêt et de l'approche des intersections exige :", options: ["De regarder au moins deux fois dans tous les rétroviseurs", "De regarder une fois dans tous les rétroviseurs en utilisant les clignotants", "De demander l'aide des passagers"], correct: 0},
+{text: "Lorsqu'il existe des risques de conduite supplémentaires dus à l'état de la route, à l'éclairage ou à la météo, le conducteur doit :", options: ["Ralentir", "Doubler son attention", "Tout ce qui précède"], correct: 2},
+{text: "Le conducteur de service public doit entretenir le véhicule :", options: ["De manière proactive (préventive)", "En cas de panne", "Périodiquement"], correct: 0},
+{text: "La propreté intérieure et extérieure des véhicules publics est :", options: ["Facultative, non imposée par la loi", "Obligatoire, imposée par la loi", "Conforme aux règles générales des véhicules de taxi"], correct: 2},
+{text: "Il fait partie des obligations du conducteur de véhicule public de posséder :", options: ["Une trousse de premiers secours", "Un kit de nettoyage du moteur", "Tout ce qui précède"], correct: 0},
+{text: "Le conducteur public peut travailler contre rémunération :", options: ["Sur des voitures portant une plaque publique", "Sur des voitures portant une plaque privée", "Sur toutes les voitures"], correct: 0},
+{text: "La sécurité des pneus est liée :", options: ["À l'âge du pneu", "À la qualité du pneu", "Tout ce qui précède"], correct: 2},
+{text: "Lorsqu'il y a une charge dans le véhicule en plus des passagers, son poids ne doit pas dépasser :", options: ["Le poids du nombre de passagers", "Le poids total spécifié dans les spécifications du fabricant, à condition que la charge ne pèse pas sur la circulation du véhicule", "Tout ce qui précède"], correct: 1},
+{text: "Lors du chargement de marchandises de poids différents dans le coffre du véhicule, elles sont placées dans l'ordre suivant :", options: ["La charge la plus lourde en bas", "La charge la plus légère en bas", "De toute façon adaptée à la fixation des marchandises dans le coffre"], correct: 0},
+{text: "Le conducteur de taxi d'une voiture touristique portant une plaque publique doit obtenir une licence du « ministère des Travaux publics et des Transports » pour déterminer :", options: ["Les zones où il travaille (gouvernorat, caza, etc.)", "La catégorie de passagers (touriste, enfant, etc.)", "Tout ce qui précède"], correct: 0},
+{text: "La loi oblige le conducteur de taxi à avoir un taximètre dans :", options: ["Les taxis appartenant à des bureaux", "Les taxis appartenant à des particuliers", "Tous les taxis"], correct: 2},
+{text: "Le taximètre est actionné pour régler :", options: ["La distance et le temps pris pour le trajet, y compris les temps d'arrêt", "La distance et le temps pris pour le trajet sans les temps d'arrêt", "La distance et le temps et la zone dans laquelle le trajet a lieu"], correct: 0},
+{text: "Le propriétaire ou le conducteur du véhicule portant une plaque publique doit :", options: ["Payer régulièrement les cotisations de la CNSS", "Assumer la responsabilité civile résultant des accidents du conducteur", "Tout ce qui précède"], correct: 2},
+{text: "Le conducteur de véhicule public doit s'engager à travailler :", options: ["Uniquement dans les zones où il est autorisé à travailler", "Uniquement dans les zones où il est autorisé à travailler, sauf les jours de congé hebdomadaires et officiels", "Dans toutes les zones car la licence de travail n'est pas limitée à un lieu ou à des zones"], correct: 0},
+{text: "L'affiliation du conducteur public aux syndicats de transport est :", options: ["Facultative", "Obligatoire dans toutes les zones", "Obligatoire uniquement selon la zone"], correct: 0},
+{text: "Le travail syndical vise à :", options: ["Protéger les droits et les acquis de la profession", "Soutenir le travail politique et partisan", "Tout ce qui précède"], correct: 0},
+{text: "Les tarifs de transport sont fixés par :", options: ["Le ministère des Transports", "Les syndicats concernés", "Le propriétaire du véhicule"], correct: 0},
+{text: "Placer une charge élevée sur le toit du véhicule entraîne :", options: ["Une augmentation du risque de renversement et de mouvement imprudent", "Une augmentation de la consommation de carburant en raison de la résistance supplémentaire du véhicule à l'air", "Tout ce qui précède"], correct: 2},
+{text: "Le dossier de circulation des conducteurs publics est soumis à surveillance, et si les infractions atteignent le stade du retrait de tous les points, cela entraîne :", options: ["Le retrait temporaire du permis de conduire", "L'annulation définitive du permis de conduire", "Tout ce qui précède"], correct: 2},
+{text: "Le « système de points » sur le permis de conduire libanais signifie que le permis comporte des points qui sont retirés pour certaines infractions, et le nombre de points est :", options: ["10", "12", "20"], correct: 1},
+{text: "Si un conducteur public est insulté par un passager ou des passagers, il doit :", options: ["Riposter de la même manière", "Rester calme et agir avec prudence", "Signaler aux forces de sécurité"], correct: 1},
+{text: "La charge supplémentaire n'est pas autorisée à :", options: ["Dépasser la longueur du véhicule", "Dépasser la largeur du véhicule", "Tout ce qui précède"], correct: 2},
+{text: "La vitesse maximale à l'intérieur des zones résidentielles en l'absence de panneaux est :", options: ["50 km/h", "80 km/h", "100 km/h"], correct: 0},
+{text: "Lorsque vous approchez d'une intersection sans feux de circulation, vous devez :", options: ["Continuer à vitesse normale", "Ralentir et céder le passage au trafic venant de la droite", "Garder les feux de route allumés en permanence"], correct: 1},
+{text: "Lorsqu'un passager demande à s'arrêter pour descendre, en tant que chauffeur de taxi, vous devez vous arrêter :", options: ["Uniquement dans les endroits où l'arrêt est autorisé", "N'importe où les passagers le souhaitent en dehors des villes", "Dans les endroits désignés à l'intérieur des villes"], correct: 0},
+{text: "Quel est le but de la ceinture de sécurité ?", options: ["Décorer la voiture uniquement", "Protéger le conducteur et les passagers en cas d'accident", "Elle est inutile à basse vitesse"], correct: 1},
+{text: "Si le feu de circulation passe au rouge, que faites-vous ?", options: ["Continuer à rouler rapidement", "S'arrêter avant la ligne d'arrêt et le passage piéton et attendre le feu vert", "S'arrêter juste avant le passage piéton"], correct: 1},
+{text: "Quand faut-il allumer les feux de détresse (clignotants à quatre voies) ?", options: ["Lors d'un arrêt d'urgence ou d'une panne sur la route", "Lors de la conduite en ville pendant la journée", "Lors d'un dépassement sur l'autoroute"], correct: 0},
+{text: "Les bagages des passagers sont chargés :", options: ["Sur les genoux des passagers", "Dans le coffre du véhicule", "N'importe où dans l'habitacle des passagers ou le coffre"], correct: 1},
+{text: "Lorsque vous vous arrêtez pour charger des passagers, l'arrêt doit être :", options: ["Dans les parkings et les endroits désignés", "N'importe où les passagers le demandent, même au milieu de la route", "Dans les virages et les intersections"], correct: 0},
+{text: "Si les passagers transportent des bagages volumineux, vous devez :", options: ["Les charger de manière à ne pas gêner le mouvement des portes et la visibilité", "Les placer sur les sièges désignés pour les passagers", "Les charger même si cela empêche la fermeture des portes"], correct: 0},
+{text: "Quel est le comportement correct lors de la réception du tarif des passagers pendant la conduite ?", options: ["Se concentrer sur le comptage de l'argent en roulant", "Recevoir le tarif après un arrêt en toute sécurité", "Rendre la monnaie en conduisant vite"], correct: 1},
+{text: "Quel est le comportement correct du chauffeur de taxi envers les passagers lorsqu'un différend survient avec eux ?", options: ["Respecter la politesse et le bon traitement pour réduire la tension", "Les traiter durement et avec une voix forte pour affirmer sa position", "Ignorer les plaintes des passagers pour permettre le dialogue"], correct: 0},
+{text: "Il est permis d'occuper la voiture avec plus de passagers que le nombre de sièges :", options: ["Uniquement selon le nombre de sièges autorisé", "Debout s'il n'y a pas assez de sièges", "En considérant que deux sièges sont désignés pour trois passagers"], correct: 0},
+{text: "L'arrêt pour faire monter des passagers se fait :", options: ["Dans les endroits désignés à cet effet", "À l'endroit demandé par les passagers", "À l'endroit qui convient au véhicule"], correct: 0},
+{text: "Les bagages volumineux transportés par les passagers sont chargés :", options: ["De manière à ne pas gêner le mouvement des portes et la visibilité", "À moins de 15 cm à l'extérieur des portes", "À moins de 30 cm à l'extérieur des portes"], correct: 0},
+{text: "Le tarif est perçu auprès du client :", options: ["Pendant la conduite avec comptage", "Après l'arrêt ou en toute sécurité", "Perçu pendant que vous conduisez vite"], correct: 1},
+{text: "Lorsqu'un passager monte en portant une petite bouteille de gaz :", options: ["Elle est autorisée si elle est hermétiquement fermée", "Son transport est strictement interdit", "Elle est autorisée si les autres passagers sont d'accord"], correct: 1},
+{text: "Les routes au Liban sont classées en :", options: ["Trois catégories : internationale, principale et locale", "Quatre catégories : internationale, autoroutes, principale et locale", "Cinq catégories : internationale, autoroutes, principale, locale et secondaire"], correct: 0},
+{text: "L'enregistrement des conducteurs de véhicules publics à la Caisse nationale de sécurité sociale est divisé en :", options: ["Deux catégories : conducteur propriétaire et conducteur non propriétaire", "Deux catégories : conducteur libanais et conducteur étranger", "Deux catégories : conducteur privé et conducteur public"], correct: 0},
+{text: "L'État contribue aux cotisations de la Caisse nationale de sécurité sociale :", options: ["Pour le conducteur handicapé", "Pour le conducteur propriétaire", "Pour le conducteur non propriétaire"], correct: 1},
+{text: "L'inscription à la Caisse nationale de sécurité sociale se fait :", options: ["Après avoir soumis une demande d'adhésion et son acceptation", "Immédiatement à l'achat d'une plaque et sans demande", "Uniquement pour ceux qui ne sont pas enregistrés à la Caisse"], correct: 0},
+{text: "Pour un conducteur employé par une institution ou une société, la déclaration de l'impôt sur le revenu et le paiement des cotisations de la CNSS se font :", options: ["Directement", "Par l'intermédiaire de son employeur", "Par l'intermédiaire d'un bureau de comptabilité"], correct: 1},
+{text: "Pour un conducteur indépendant, la déclaration de l'impôt sur le revenu et le paiement des cotisations de la CNSS se font :", options: ["Directement", "Par l'intermédiaire de son employeur", "Par l'intermédiaire d'un bureau de comptabilité"], correct: 0},
+{text: "Le retard de paiement des cotisations de la Caisse nationale de sécurité sociale entraîne :", options: ["La suspension du bénéfice des prestations de la Caisse", "Le paiement d'une amende de retard", "Tout ce qui précède"], correct: 0},
+{text: "Le retard dans le renouvellement de la validité du permis de conduire pour les conducteurs publics bénéficiant de la Caisse nationale de sécurité sociale entraîne :", options: ["La suspension du bénéfice des prestations de la Caisse", "Le paiement d'une amende de retard", "Tout ce qui précède"], correct: 0},
+{text: "La cotisation de la Caisse nationale de sécurité sociale pour les conducteurs publics après l'âge de 64 ans est divisée en branches :", options: ["Maladie, maternité et fin de service", "Maladie, maternité et allocations familiales", "Fin de service et allocations familiales"], correct: 1},
+{text: "Un permis de conduire public est accordé après vérification que le casier judiciaire du demandeur est exempt de :", options: ["Condamnations pour drogue", "Condamnations prohibitives non liées à la drogue", "Tout ce qui précède"], correct: 2},
+{text: "Le conducteur public doit porter une « licence de transport » :", options: ["Pour tous les types de voitures", "Pour les véhicules de fret privés transportant des marchandises", "Pour les véhicules publics transportant des marchandises"], correct: 1},
+{text: "Les véhicules publics sont autorisés à transporter des passagers depuis l'aéroport international Rafik Hariri :", options: ["Si le véhicule est autorisé à cet effet", "Si le conducteur détient un permis de conduire de catégorie « Bus 1 »", "Tout ce qui précède"], correct: 0},
+{text: "Les licences de transport des véhicules de transport de marchandises sont renouvelées :", options: ["Tous les cinq ans", "Annuellement", "Tous les six mois"], correct: 1},
+{text: "Le conducteur de véhicule public touristique doit connaître les routes :", options: ["Sur tout le territoire libanais", "Dans les zones où il est autorisé à travailler", "Dans sa zone de résidence"], correct: 1},
+{text: "Le code du travail permet une durée hebdomadaire de travail ne dépassant pas :", options: ["35 heures", "48 heures", "60 heures"], correct: 1},
+{text: "Travailler dans la conduite de véhicules au-delà du temps légalement spécifié est considéré comme :", options: ["Interdit", "Des heures supplémentaires avec rémunération majorée", "Des heures supplémentaires avec rémunération normale"], correct: 1},
+{text: "Vous devez vous arrêter et céder le passage aux piétons qui traversent la route :", options: ["Lorsque les piétons s'approchent du bord du trottoir", "Lorsque les piétons descendent du bord du trottoir sur la route", "Après que les piétons sont descendus du bord du trottoir sur la route"], correct: 0},
+{text: "Le conducteur de véhicule public doit s'assurer de la présence de la plaque d'identification du taxi :", options: ["Devant le passager avant", "Devant le siège arrière", "Tout ce qui précède"], correct: 2},
+{text: "Le permis de conduire public est renouvelé entre l'âge de 50 et 65 ans tous les :", options: ["Deux ans", "Trois ans", "Quatre ans"], correct: 1},
+{text: "Le permis de conduire public est renouvelé après l'âge de 65 ans tous les :", options: ["Deux ans", "Trois ans", "Quatre ans"], correct: 0},
+{text: "Si un conducteur ou un passager subit une brûlure chimique comme l'acide de batterie sur la main ou toute autre partie de la peau, vous devez :", options: ["Laver soigneusement la peau à l'eau courante pour éliminer les substances", "Appliquer directement une pommade pour brûlures", "Protéger la peau avec une gaze sèche jusqu'à ce qu'il reçoive les premiers secours"], correct: 0},
+{text: "Si un passager tente de descendre brusquement de la voiture au milieu de la route, le conducteur doit :", options: ["Continuer vers la destination demandée par le passager", "Le calmer et s'arrêter immédiatement et prudemment sur le bord de la route", "Réprimander le passager et utiliser le klaxon pour avertir"], correct: 1},
+{text: "L'utilisation du téléphone pendant la conduite n'est autorisée que :", options: ["Lors de l'envoi de messages texte", "En utilisant un casque haut-parleur", "Lors d'un arrêt au feu de circulation"], correct: 1},
+{text: "Lors du transport de passagers âgés ou de personnes à besoins spéciaux, vous devez :", options: ["Leur permettre de se déplacer librement", "S'assurer que les ceintures de sécurité sont attachées", "Attacher uniquement les enfants"], correct: 1},
+{text: "Pendant le transport de passagers, le nombre maximum de passagers dans un taxi est déterminé par le « nombre de sièges » spécifié dans la licence d'immatriculation du véhicule :", options: ["Hors le conducteur", "Y compris le conducteur", "En plus des sièges rabattables ou pouvant être ajoutés"], correct: 1},
+{text: "Le conducteur public est autorisé à remorquer une autre voiture avec son véhicule à condition qu'elle soit :", options: ["D'une catégorie plus petite", "Du même poids", "Non autorisé"], correct: 2},
+{text: "Le conducteur public est autorisé à remorquer une bicyclette avec son véhicule :", options: ["Sur les routes intérieures", "Dans les zones non résidentielles", "Non autorisé"], correct: 2},
+{text: "Les décisions de classement des routes publiques sont émises par :", options: ["Le ministre de l'Intérieur et des Municipalités", "Le ministre des Travaux publics et des Transports", "Le Premier ministre"], correct: 1},
+{text: "Lorsqu'il y a un feu de circulation et un agent de police, l'usager de la route doit se conformer à :", options: ["Le feu de circulation", "Les signaux manuels de l'agent de police", "Les règles de cession de passage"], correct: 1},
+{text: "Dans les ronds-points, la priorité est accordée au conducteur du véhicule qui :", options: ["Entre dans le rond-point", "Est à l'intérieur du rond-point", "A une vitesse supérieure aux autres véhicules approchant du rond-point"], correct: 1},
+{text: "Le code de la route sanctionne le « stationnement prolongé » des véhicules qui ne bougent pas de leur place de stationnement pendant plus de :", options: ["15 jours", "20 jours", "30 jours ou plus"], correct: 2},
+{text: "Lorsqu'un passager mineur ne respecte pas le port de la ceinture de sécurité, l'infraction est considérée comme la responsabilité de :", options: ["La personne concernée", "Les parents du passager", "Le conducteur du véhicule"], correct: 2},
+{text: "L'autocollant d'identification promotionnel du véhicule public est placé sur :", options: ["Le capot et le couvercle du coffre", "Près des plaques d'immatriculation du véhicule", "Sur les deux côtés du véhicule"], correct: 2},
+{text: "Le panneau « Tarif » ou « TAXI » placé sur le toit d'un taxi est allumé :", options: ["Lorsque la voiture circule", "Uniquement la nuit", "Lorsqu'elle est vide de passagers"], correct: 2},
+{text: "Le chauffeur de taxi doit fixer une plaque d'identification de la voiture et du conducteur :", options: ["Face aux sièges avant et arrière", "Sur les vitres avant et arrière orientées vers l'extérieur", "Tout ce qui précède"], correct: 0},
+{text: "Le conducteur public est autorisé à rouler parallèlement à côté d'une autre voiture :", options: ["Sur les routes intérieures", "Dans les zones non résidentielles", "Non autorisé"], correct: 2},
+{text: "Le conducteur public est autorisé à transporter des passagers au moyen d'une voiture privée contre rémunération :", options: ["Dans les localités reculées", "En dehors des centres des cazas et des gouvernorats", "Non autorisé"], correct: 2},
+{text: "Le conducteur public, lors du transport de passagers, est autorisé à activer les verrouillages enfant des portes arrière :", options: ["En présence d'enfants avec l'autorisation des parents", "En présence d'enfants sans l'autorisation des parents", "En tout temps"], correct: 0},
+{text: "Le transport d'armes de guerre ou d'armes de chasse est soumis à :", options: ["Une licence des municipalités", "Une licence si leur nombre dépasse deux pièces", "Une licence des autorités de sécurité compétentes"], correct: 2},
+{text: "Le fait de tenir une conversation personnelle entre les conducteurs publics et les passagers est lié à :", options: ["La volonté des passagers", "La volonté du conducteur", "Tout ce qui précède"], correct: 2},
+{text: "Le conducteur public doit clarifier le tarif au passager :", options: ["Avant qu'il ne monte dans le véhicule", "Après qu'il est monté dans le véhicule", "Uniquement lorsqu'on le lui demande"], correct: 0},
   ];
 
     const params = new URLSearchParams(window.location.search);
